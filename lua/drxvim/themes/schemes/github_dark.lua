@@ -1,0 +1,55 @@
+local M = {}
+
+function M.get_colors()
+	return {
+		white = "#d1d5da",
+		green = "#86c166",
+		black = "#1f2428",
+		grey = "#7f8c8d",
+		red = "#d35400",
+		pink = "#d980b3",
+		blue = "#3498db",
+		yellow = "#f1c40f",
+		purple = "#9b59b6",
+		teal = "#16a085",
+		orange = "#e67e22",
+		cyan = "#1abc9c",
+		statusline_bg = "#1b1f23",
+		lightbg = "#24292e",
+		pmenu_bg = "#9b59b6",
+		folder_bg = "#cccccc",
+		darker_black = "#24292e",
+		black2 = "#2f363d",
+		one_bg = "#1f2428",
+		one_bg2 = "#24292e",
+		one_bg3 = "#2f363d",
+		grey_fg = "#c7c9cb",
+		grey_fg2 = "#cccccc",
+		light_grey = "#d1d5da",
+		line = "#1b1f23",
+		vibrant_green = "#28a745",
+		nord_blue = "#0366d6",
+		sun = "#f9c513",
+		dark_purple = "#5a32a3",
+
+		-- base16
+		base00 = "#ffffff",
+		base01 = "#21262d",
+		base02 = "#e1e3e5",
+		base03 = "#d7d9db",
+		base04 = "#c7c9cb",
+		base05 = "#f9826c",
+		base06 = "#2e3338",
+		base07 = "#0366d6",
+		base08 = "#f9826c",
+		base09 = "#ffffff",
+		base0A = "#f9826c",
+		base0B = "#79b8ff",
+		base0C = "#8263EB",
+		base0D = "#b392f0",
+		base0E = "#f9826c",
+		base0F = "#cccccc",
+	}
+end
+
+return M
