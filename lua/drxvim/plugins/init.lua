@@ -316,6 +316,9 @@ local plugins = {
 			require("lualine").setup(opts)
 		end,
 	},
+	{
+		"lambdalisue/suda.vim",
+	},
 }
 
 local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
