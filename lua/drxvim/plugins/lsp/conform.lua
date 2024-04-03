@@ -11,7 +11,7 @@ local configs = {
 		html = { "prettier" },
 		sh = { "shfmt" },
 		cpp = { "clangd" },
-		python = { "isort", "black" },
+		python = { "autopep8" },
 	},
 	format = {
 		timeout_ms = 3000,
