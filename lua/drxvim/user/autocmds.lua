@@ -17,6 +17,17 @@ autocmd({ "BufNewFile", "BufReadPost" }, {
 	desc = "Load TabBufline",
 })
 
+-- detecting the header files
+
+autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.h",
+	callback = function()
+		vim.cmd("setfiletype c")
+	end,
+	desc = "Set Filetype c for Header Files",
+})
+
+
 autocmd("CursorHold", {
 	pattern = "*",
 	callback = function()
@@ -33,6 +44,8 @@ autocmd("TextYankPost", {
 	end,
 	desc = "Highlight yanked text",
 })
+
+
 
 autocmd("TermOpen", {
 	pattern = "*",
