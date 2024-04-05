@@ -162,7 +162,7 @@ local plugins = {
 			{
 				[[<C-\>]],
 				"<cmd>ToggleTerm size=13 direction=horizontal<cr>",
-				{ noremap = true, silent = true },
+				{ noremap = true,          silent = true },
 				{ desc = "Toggle Terminal" },
 			},
 		},
@@ -194,9 +194,9 @@ local plugins = {
 						ft_ignore = { "neo-tree", "Outline" },
 						segments = {
 							{ sign = { namespace = { "diagnostic*" } } },
-							{ sign = { namespace = { "gitsign" } }, click = "v:lua.ScSa" },
-							{ text = { builtin.lnumfunc, "  " }, click = "v:lua.ScLa" },
-							{ text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
+							{ sign = { namespace = { "gitsign" } },    click = "v:lua.ScSa" },
+							{ text = { builtin.lnumfunc, "  " },       click = "v:lua.ScLa" },
+							{ text = { builtin.foldfunc, "  " },       click = "v:lua.ScFa" },
 						},
 					})
 				end,
