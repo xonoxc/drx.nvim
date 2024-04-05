@@ -13,7 +13,7 @@ local bubbles_theme = {
 	normal = {
 		a = { fg = colors.black, bg = colors.violet },
 		b = { fg = colors.white, bg = colors.grey },
-		c = { fg = colors.white, },
+		c = { fg = colors.white },
 	},
 
 	insert = { a = { fg = colors.black, bg = colors.blue } },
@@ -26,7 +26,6 @@ local bubbles_theme = {
 		c = { fg = colors.white },
 	},
 }
-
 
 local M = {
 	options = {
@@ -55,6 +54,5 @@ local M = {
 	tabline = {},
 	extensions = {},
 }
-
 
 return M

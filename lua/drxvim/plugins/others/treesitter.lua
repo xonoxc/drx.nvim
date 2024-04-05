@@ -19,6 +19,8 @@ local configs = {
 		"json",
 		"tsx",
 		"graphql",
+		"xml",
+		"http",
 	},
 }
 

@@ -1,6 +1,12 @@
 local configs = {
 	formatters_by_ft = {
 		lua = { "stylua" },
+		typescript = {
+			{
+				"prettierd",
+				"prettier",
+			},
+		},
 		javascript = {
 			{
 				"prettierd",

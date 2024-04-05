@@ -27,6 +27,13 @@ autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "Set Filetype c for Header Files",
 })
 
+autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "tsconfig.json",
+	callback = function()
+		vim.cmd("setfiletype json")
+	end,
+	desc = "setting tsconfig.json as a json file",
+})
 
 autocmd("CursorHold", {
 	pattern = "*",
@@ -44,8 +51,6 @@ autocmd("TextYankPost", {
 	end,
 	desc = "Highlight yanked text",
 })
-
-
 
 autocmd("TermOpen", {
 	pattern = "*",
