@@ -7,6 +7,18 @@ local configs = {
 				"prettier",
 			},
 		},
+		typescriptreact = {
+			{
+				"prettierd",
+				"prettier",
+			},
+		},
+		javascriptreact = {
+			{
+				"prettierd",
+				"prettier",
+			},
+		},
 		javascript = {
 			{
 				"prettierd",
