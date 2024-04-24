@@ -13,6 +13,7 @@ local configs = {
 		"css-lsp",
 		"clangd",
 		"json-lsp",
+		"htmx-lsp",
 		"docker-compose-language-service",
 		"dockerfile-language-server",
 		"emmet-language-server",

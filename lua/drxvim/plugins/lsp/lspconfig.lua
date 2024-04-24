@@ -104,7 +104,7 @@ lspconfig.html.setup({
 	capabilities = M.capabilities,
 	filetypes = { "html" },
 	init_options = {
-		configurationSection = { "html", "css", "javascript" },
+		configurationSection = { "html", "css", "javascript", "templ" },
 		embeddedLanguages = {
 			css = true,
 			javascript = true,
@@ -131,6 +131,7 @@ lspconfig.tailwindcss.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "tailwindcss-language-server", "--stdio" },
+	init_options = { userLanguages = { templ = "html" } },
 	filetypes = {
 		"aspnetcorerazor",
 		"astro",
@@ -284,6 +285,7 @@ lspconfig.emmet_language_server.setup({
 		"javascriptreact",
 		"less",
 		"pug",
+		"templ",
 		"sass",
 		"scss",
 		"typescriptreact",

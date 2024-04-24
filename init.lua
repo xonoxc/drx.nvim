@@ -17,5 +17,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+vim.filetype.add({ extension = { templ = "templ" } })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
 require("drxvim.plugins")
