@@ -319,10 +319,6 @@ local plugins = {
 	{
 		"lambdalisue/suda.vim",
 	},
-	{
-		"Exafunction/codeium.vim",
-		-- event = "BufEnter",
-	},
 }
 
 local custom_path = vim.fn.stdpath("config") .. "/lua/custom"

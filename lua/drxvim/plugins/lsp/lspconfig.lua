@@ -292,6 +292,14 @@ lspconfig.emmet_language_server.setup({
 	single_file_support = true,
 })
 
+lspconfig.prismals.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "prisma-language-server", "--stdio" },
+	filetypes = { "prisma" },
+	root_dir = util.root_pattern(".git", "package.json"),
+})
+
 lspconfig.jdtls.setup({
 	cmd = { "jdtls" },
 	filetypes = { "java" },
