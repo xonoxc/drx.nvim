@@ -146,8 +146,7 @@ lspconfig.tailwindcss.setup({
 		"ejs",
 		"erb",
 		"eruby",
-		"gohtml",
-		"gohtmltmpl",
+		"templ",
 		"haml",
 		"handlebars",
 		"hbs",
@@ -305,6 +304,17 @@ lspconfig.prismals.setup({
 lspconfig.jdtls.setup({
 	cmd = { "jdtls" },
 	filetypes = { "java" },
+})
+
+lspconfig.htmx.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "htmx-lsp" },
+	filetypes = {
+		"html",
+		"templ",
+	},
+	single_file_support = true,
 })
 
 return M
