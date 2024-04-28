@@ -29,7 +29,12 @@ local configs = {
 		html = { "prettier" },
 		sh = { "shfmt" },
 		cpp = { "clangd" },
-		python = { "autopep8" },
+		python = {
+			{
+				"prettierd",
+				"prettier",
+			},
+		},
 	},
 	format = {
 		timeout_ms = 3000,

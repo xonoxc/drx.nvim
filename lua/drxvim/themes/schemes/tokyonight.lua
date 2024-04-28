@@ -1,13 +1,16 @@
+-- Credits to original https://github.com/tiagovla/tokyonight.nvim
+-- This is modified version of it
+
 local M = {}
 
 function M.get_colors()
 	return {
-		-- base 30
+
 		white = "#c0caf5",
-		darker_black = "#1f2335",
-		black = "#24283b",
-		black2 = "#292e42",
-		one_bg = "#3b4261",
+		darker_black = "#16161e",
+		black = "#1a1b26", --  nvim bg
+		black2 = "#1f2336",
+		one_bg = "#24283b",
 		one_bg2 = "#414868",
 		one_bg3 = "#353b45",
 		grey = "#40486a",
@@ -17,7 +20,7 @@ function M.get_colors()
 		red = "#f7768e",
 		baby_pink = "#DE8C92",
 		pink = "#ff75a0",
-		line = "#32333e",
+		line = "#32333e", -- for lines like vertsplit
 		green = "#9ece6a",
 		vibrant_green = "#73daca",
 		nord_blue = "#80a8fd",
@@ -29,15 +32,13 @@ function M.get_colors()
 		teal = "#1abc9c",
 		orange = "#ff9e64",
 		cyan = "#7dcfff",
-		statusline_bg = "#292e42",
+		statusline_bg = "#1d1e29",
 		lightbg = "#32333e",
-		pmenu_bg = "#1f2335",
+		pmenu_bg = "#7aa2f7",
 		folder_bg = "#7aa2f7",
-		none = "NONE",
 
-		-- base16
-		base00 = "#24283b",
-		base01 = "#1f2335",
+		base00 = "#1a1b26",
+		base01 = "#16161e",
 		base02 = "#2f3549",
 		base03 = "#444b6a",
 		base04 = "#787c99",
