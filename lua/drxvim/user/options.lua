@@ -4,14 +4,14 @@ vim.cmd([[
 	filetype plugin indent off
 ]])
 
-vim.g.currentTheme = "tokyonight"
+vim.g.currentTheme = "yoru"
 vim.g.theme_cache = vim.fn.stdpath("data") .. "/colors_data/"
 vim.g.transparency = false
 
 local options = {
 	-- NUMBER
 	number = true,
-	relativenumber = false,
+	relativenumber = true,
 	numberwidth = 5,
 	-- INDENT
 	expandtab = false,

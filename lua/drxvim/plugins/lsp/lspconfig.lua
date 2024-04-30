@@ -102,9 +102,9 @@ lspconfig.html.setup({
 	cmd = { "vscode-html-language-server", "--stdio" },
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	filetypes = { "html" },
+	filetypes = { "html", "templ" },
 	init_options = {
-		configurationSection = { "html", "css", "javascript", "templ" },
+		configurationSection = { "html", "css", "javascript" },
 		embeddedLanguages = {
 			css = true,
 			javascript = true,
@@ -315,6 +315,17 @@ lspconfig.htmx.setup({
 		"templ",
 	},
 	single_file_support = true,
+})
+
+lspconfig.astro.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "astro-ls", "--stdio" },
+	filetypes = { "astro" },
+	init_options = {
+		typescript = {},
+	},
+	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
 })
 
 return M

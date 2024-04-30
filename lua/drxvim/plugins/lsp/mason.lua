@@ -14,6 +14,7 @@ local configs = {
 		"clangd",
 		"json-lsp",
 		"htmx-lsp",
+		"astro-language-server",
 		"docker-compose-language-service",
 		"dockerfile-language-server",
 		"emmet-language-server",
