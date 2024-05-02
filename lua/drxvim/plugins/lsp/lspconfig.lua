@@ -61,7 +61,7 @@ lspconfig.gopls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "gopls" },
-	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+	filetypes = { "go", "gomod", "gowork", "gotmpl", "templ" },
 	root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 	settings = {
 		gopls = {
@@ -236,6 +236,13 @@ lspconfig.rust_analyzer.setup({
 		["rust-analyzer"] = {
 			cargo = {
 				allFeatures = true,
+			},
+			completions = {
+				commitCharactersSupport = true,
+				deprecatedSupport = true,
+				documentationFormat = { "markdown", "plaintext" },
+				preselectSupport = true,
+				snippetSupport = true,
 			},
 		},
 	},
