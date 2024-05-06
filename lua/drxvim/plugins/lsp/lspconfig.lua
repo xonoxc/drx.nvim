@@ -335,4 +335,12 @@ lspconfig.astro.setup({
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
 })
 
+lspconfig.phpactor.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "phpactor", "language-server" },
+	filetypes = { "php" },
+	root_dir = util.root_pattern("composer.json", ".git"),
+})
+
 return M

@@ -15,6 +15,7 @@ local configs = {
 		"c",
 		"cpp",
 		"css",
+		"php",
 		"diff",
 		"markdown",
 		"regex",

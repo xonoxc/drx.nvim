@@ -14,6 +14,7 @@ local configs = {
 		"clangd",
 		"json-lsp",
 		"htmx-lsp",
+		"phpactor",
 		"astro-language-server",
 		"docker-compose-language-service",
 		"dockerfile-language-server",
