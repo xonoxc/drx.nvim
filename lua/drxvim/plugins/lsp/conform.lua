@@ -1,6 +1,9 @@
 local configs = {
 	formatters_by_ft = {
 		lua = { "stylua" },
+		php = {
+			"pretty-php",
+		},
 		typescript = {
 			{
 				"prettierd",

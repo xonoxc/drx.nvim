@@ -294,6 +294,7 @@ lspconfig.emmet_language_server.setup({
 		"templ",
 		"sass",
 		"scss",
+		"php",
 		"typescriptreact",
 	},
 	root_dir = util.root_pattern("git root"),
