@@ -102,7 +102,7 @@ lspconfig.html.setup({
 	cmd = { "vscode-html-language-server", "--stdio" },
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	filetypes = { "html", "templ" },
+	filetypes = { "html", "templ", "php" },
 	init_options = {
 		configurationSection = { "html", "css", "javascript" },
 		embeddedLanguages = {
@@ -341,7 +341,6 @@ lspconfig.phpactor.setup({
 	capabilities = M.capabilities,
 	cmd = { "phpactor", "language-server" },
 	filetypes = { "php" },
-	root_dir = util.root_pattern("composer.json", ".git"),
 })
 
 return M
