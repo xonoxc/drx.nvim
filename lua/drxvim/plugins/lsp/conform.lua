@@ -34,8 +34,7 @@ local configs = {
 		cpp = { "clangd" },
 		python = {
 			{
-				"prettierd",
-				"prettier",
+				"black",
 			},
 		},
 	},

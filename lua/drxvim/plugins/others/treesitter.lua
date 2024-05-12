@@ -7,7 +7,9 @@ local configs = {
 		enable = true,
 		filetypes = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "xml" },
 	},
-	indent = { "!", "python" },
+	indent = {
+		enable = true,
+	},
 	ensure_installed = {
 		"bash",
 		"c",
