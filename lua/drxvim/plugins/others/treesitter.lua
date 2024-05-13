@@ -10,6 +10,7 @@ local configs = {
 	indent = {
 		enable = true,
 	},
+	addition_vim_regex_syntax_highlighting = { "python" },
 	ensure_installed = {
 		"bash",
 		"c",
@@ -35,8 +36,10 @@ local configs = {
 		"tsx",
 		"graphql",
 		"xml",
+		"hyprlang",
 		"http",
 	},
+	auto_install = true,
 }
 
 return configs

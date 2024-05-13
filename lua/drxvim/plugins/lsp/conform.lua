@@ -34,7 +34,7 @@ local configs = {
 		cpp = { "clangd" },
 		python = {
 			{
-				"black",
+				"autopep8",
 			},
 		},
 	},
