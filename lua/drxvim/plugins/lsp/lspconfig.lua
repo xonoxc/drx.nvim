@@ -4,18 +4,11 @@ local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local util = require("lspconfig/util")
 
-M.on_attach = function(client, bufnr)
-	if client.supports_method("textDocument/inlayHint") then
-		local value
-		local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-		if type(ih) == "function" then
-			ih(bufnr, value)
-		elseif type(ih) == "table" and ih.enable then
-			if value == nil then
-				value = not ih.is_enabled(bufnr)
-			end
-			ih.enable(bufnr, value)
-		end
+M.inlay_hints = true
+
+M.on_attach = function(_, bufnr)
+	if M.inlay_hints then
+		vim.lsp.inlay_hint.enable(true)
 	end
 	require("lsp_signature").on_attach({
 		bind = true,
