@@ -18,6 +18,9 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.filetype.add({ extension = { templ = "templ" } })
+vim.filetype.add({
+	pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+})
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
 require("drxvim.plugins")

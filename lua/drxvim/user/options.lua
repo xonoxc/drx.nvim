@@ -49,7 +49,7 @@ local options = {
 	termguicolors = true,
 	timeoutlen = 100,
 	updatetime = 300,
-	wrap = true,
+	wrap = false,
 	list = true,
 	splitkeep = "screen",
 	-- FOLD
