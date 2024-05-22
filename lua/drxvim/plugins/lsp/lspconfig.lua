@@ -108,7 +108,7 @@ lspconfig.tsserver.setup({
 			includeInlayFunctionParameterTypeHints = true,
 			includeInlayVariableTypeHints = false,
 			includeInlayPropertyDeclarationTypeHints = true,
-			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayFunctionLikeReturnTypeHints = false,
 			includeInlayEnumMemberValueHints = true,
 			importModuleSpecifierPreference = "non-relative",
 		},
