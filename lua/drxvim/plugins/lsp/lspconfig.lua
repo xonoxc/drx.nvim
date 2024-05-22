@@ -6,6 +6,15 @@ local util = require("lspconfig/util")
 
 M.inlay_hints = true
 
+M.toggle_inlay_hints = function()
+	M.inlay_hints = not M.inlay_hints
+	if vim.lsp.buf.inlay_hint then
+		vim.lsp.buf.inlay_hint(0, M.inlay_hints)
+	else
+		vim.notify("Inlay hints not supported by this LSP server", vim.log.levels.WARN)
+	end
+end
+
 M.on_attach = function(_, bufnr)
 	if M.inlay_hints then
 		vim.lsp.inlay_hint.enable(true)
@@ -65,6 +74,15 @@ lspconfig.gopls.setup({
 			},
 			staticcheck = true,
 			buildFlags = { "-tags=integration" },
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
 		},
 	},
 })
@@ -83,6 +101,18 @@ lspconfig.tsserver.setup({
 		"typescript",
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+	init_options = {
+		preferences = {
+			includeInlayParameterNameHints = "all",
+			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			includeInlayFunctionParameterTypeHints = true,
+			includeInlayVariableTypeHints = false,
+			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayEnumMemberValueHints = true,
+			importModuleSpecifierPreference = "non-relative",
+		},
+	},
 })
 
 lspconfig.cssls.setup({
