@@ -366,4 +366,13 @@ lspconfig.phpactor.setup({
 	filetypes = { "php" },
 })
 
+lspconfig.jinja_lsp.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "jinja-lsp" },
+	filetypes = { "jinja", "htmldjango", "html" },
+	name = "jinja_lsp",
+	single_file_support = true,
+})
+
 return M

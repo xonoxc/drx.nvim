@@ -37,6 +37,10 @@ local configs = {
 				"autopep8",
 			},
 		},
+		json = {
+			"prettierd",
+			"prettier",
+		},
 	},
 	format = {
 		timeout_ms = 3000,

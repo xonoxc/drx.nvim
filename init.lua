@@ -20,6 +20,13 @@ end
 vim.opt.mouse = "nvi"
 vim.filetype.add({ extension = { templ = "templ" } })
 vim.filetype.add({
+	extension = {
+		jinja = "jinja",
+		jinja2 = "jinja",
+		j2 = "jinja",
+	},
+})
+vim.filetype.add({
 	pattern = { [".*/hyprland%.conf"] = "hyprlang" },
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
