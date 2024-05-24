@@ -74,6 +74,14 @@ local configs = {
 			cterm_color = "59",
 			name = "Diff",
 		},
+		[".prettierignore"] = {
+			icon = "",
+			name = ".prettierignore",
+		},
+		[".prettierrc"] = {
+			icon = "",
+			name = ".pretierrc",
+		},
 	},
 }
 
