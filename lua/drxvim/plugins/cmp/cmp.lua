@@ -69,7 +69,14 @@ local configs = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			local kind = lspkind.cmp_format({
-				symbol_map = { Copilot = "", Codeium = "", Snippet = "", Keyword = "" },
+				symbol_map = {
+					Copilot = "",
+					Codeium = "",
+					Snippet = " ",
+					Keyword = "󰌋 ",
+					Function = "󰆧 ",
+					Variable = "󰀫",
+				},
 				preset = "codicons",
 				maxwidth = 40,
 			})(entry, vim_item)
