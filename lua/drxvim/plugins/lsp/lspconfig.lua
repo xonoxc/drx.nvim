@@ -104,10 +104,10 @@ lspconfig.tsserver.setup({
 	init_options = {
 		preferences = {
 			includeInlayParameterNameHints = "all",
-			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-			includeInlayFunctionParameterTypeHints = true,
+			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+			includeInlayFunctionParameterTypeHints = false,
 			includeInlayVariableTypeHints = false,
-			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayPropertyDeclarationTypeHints = false,
 			includeInlayFunctionLikeReturnTypeHints = false,
 			includeInlayEnumMemberValueHints = true,
 			importModuleSpecifierPreference = "non-relative",
