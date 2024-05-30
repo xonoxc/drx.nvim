@@ -141,6 +141,7 @@ local plugins = {
 			return require("drxvim.plugins.others.gitsigns")
 		end,
 		config = function(_, opts)
+			---@diagnostic disable-next-line
 			require("gitsigns").setup(opts)
 		end,
 	},

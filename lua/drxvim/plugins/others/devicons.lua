@@ -80,7 +80,7 @@ local configs = {
 		},
 		[".prettierrc"] = {
 			icon = "",
-			name = ".pretierrc",
+			name = ".prettierrc",
 		},
 	},
 }
