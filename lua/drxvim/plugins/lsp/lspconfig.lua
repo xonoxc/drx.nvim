@@ -119,6 +119,11 @@ lspconfig.cssls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "vscode-css-language-server", "--stdio" },
+	settings = {
+		css = {
+			lint = { unknownAtRules = "ignore" },
+		},
+	},
 })
 
 lspconfig.html.setup({
