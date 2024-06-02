@@ -123,3 +123,17 @@ autocmd("BufWritePost", {
 vim.api.nvim_create_user_command("DrxvimCreateCustom", function()
 	vim.cmd("lua require('drxvim.user.functions').CreateCustom()")
 end, {})
+
+-- settting html django filetype when encountering any html file in python venv
+
+local function set_html_django_filetype()
+	local venv = os.getenv("VIRTUAL_ENV")
+	if venv and vim.fn.filereadable(venv .. "/bin/activate") == 1 then
+		vim.bo.filetype = "htmldjango"
+	end
+end
+
+autocmd({ "BufReadPost" }, {
+	pattern = "*.html",
+	callback = set_html_django_filetype,
+})
