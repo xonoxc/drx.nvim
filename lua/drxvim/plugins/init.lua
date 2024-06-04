@@ -112,6 +112,7 @@ local plugins = {
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",
+		lazy = true,
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
@@ -119,6 +120,7 @@ local plugins = {
 	{
 		"lewis6991/gitsigns.nvim",
 		ft = { "gitcommit", "diff" },
+		lazy = true,
 		init = function()
 			vim.api.nvim_create_autocmd({ "BufRead" }, {
 				group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
@@ -159,6 +161,7 @@ local plugins = {
 	{
 		"akinsho/toggleterm.nvim",
 		cmd = "ToggleTerm",
+		lazy = true,
 		keys = {
 			{
 				[[<C-\>]],
@@ -175,6 +178,7 @@ local plugins = {
 	{
 		"RRethy/vim-illuminate",
 		event = { "BufReadPost", "BufNewFile" },
+		lazy = true,
 		config = function()
 			require("illuminate").configure({
 				filetypes_denylist = { "neo-tree", "Trouble", "DressingSelect", "TelescopePrompt" },
@@ -270,6 +274,7 @@ local plugins = {
 					return require("drxvim.plugins.lsp.mason")
 				end,
 				config = function(_, opts)
+					---@diagnostic disable-next-line
 					require("mason").setup(opts)
 					vim.api.nvim_create_user_command("MasonInstallAll", function()
 						if opts.ensure_installed and #opts.ensure_installed > 0 then
@@ -299,6 +304,7 @@ local plugins = {
 			return require("drxvim.plugins.lsp.conform")
 		end,
 		config = function(_, opts)
+			---@diagnostic disable-next-line
 			require("conform").setup(opts)
 		end,
 	},
@@ -314,6 +320,7 @@ local plugins = {
 			return require("drxvim.ui.lualine.init")
 		end,
 		config = function(_, opts)
+			---@diagnostic disable-next-line
 			require("lualine").setup(opts)
 		end,
 	},
