@@ -4,7 +4,7 @@ local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local util = require("lspconfig/util")
 
-M.inlay_hints = true
+M.inlay_hints = false
 
 M.toggle_inlay_hints = function()
 	M.inlay_hints = not M.inlay_hints
