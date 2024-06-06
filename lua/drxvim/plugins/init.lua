@@ -10,7 +10,7 @@ local plugins = {
 			return require("drxvim.plugins.others.devicons")
 		end,
 		config = function(_, opts)
-			require("nvim-web-devicons").set_default_icon("󰈚")
+			require("nvim-web-devicons").set_default_icon("")
 			require("nvim-web-devicons").setup(opts)
 		end,
 	},
@@ -327,12 +327,12 @@ local plugins = {
 	{
 		"lambdalisue/suda.vim",
 	},
-	{
-		"supermaven-inc/supermaven-nvim",
-		config = function()
-			require("supermaven-nvim").setup({})
-		end,
-	},
+	-- {
+	-- 	"supermaven-inc/supermaven-nvim",
+	-- 	config = function()
+	-- 		require("supermaven-nvim").setup({})
+	-- 	end,
+	-- },
 }
 
 local custom_path = vim.fn.stdpath("config") .. "/lua/custom"

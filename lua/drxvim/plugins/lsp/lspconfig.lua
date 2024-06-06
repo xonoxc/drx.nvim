@@ -35,7 +35,7 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	signs = { text = { [1] = " ", [2] = " ", [3] = " ", [4] = "󰛨 " } },
+	signs = { text = { [1] = "->", [2] = " ", [3] = " ", [4] = "󰛨 " } },
 	float = {
 		focusable = false,
 		suffix = "",
@@ -52,7 +52,7 @@ lspconfig.lua_ls.setup({
 	capabilities = M.capabilities,
 	settings = {
 		Lua = {
-			hint = { enable = true },
+			hint = { enable = false },
 			diagnostics = { globals = { "vim", "awesome", "client", "screen", "mouse", "tag" } },
 			workspace = { checkThirdParty = false },
 		},
@@ -94,7 +94,6 @@ lspconfig.tsserver.setup({
 	filetypes = {
 		"javascript",
 		"javascriptreact",
-		"javascript.jsx",
 		"typescript.tsx",
 		"typescriptreact",
 		"typescript.tsx",

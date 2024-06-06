@@ -19,7 +19,7 @@ local logo = {
 
 local buttonss = {
 	{ "  Find File", "Spc f f", "Telescope find_files" },
-	{ "󰈚  Recent Files", "Spc f o", "Telescope oldfiles" },
+	{ "󰈚  Recent Files", "Spc f r", "Telescope find_recent_files" },
 	{ "󰈭  Find Word", "Spc f w", "Telescope live_grep" },
 	{ "  Bookmarks", "Spc m a", "Telescope marks" },
 	{ "  Themes", "Spc f c", "Telescope themes" },

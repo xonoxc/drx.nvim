@@ -1,4 +1,4 @@
-local configs = {
+return {
 	formatters_by_ft = {
 
 		lua = { "stylua" },
@@ -8,29 +8,25 @@ local configs = {
 		typescript = {
 			{
 				"prettierd",
-				"prettier",
 			},
 		},
 		typescriptreact = {
 			{
 				"prettierd",
-				"prettier",
 			},
 		},
 		javascriptreact = {
 			{
 				"prettierd",
-				"prettier",
 			},
 		},
 		javascript = {
 			{
 				"prettierd",
-				"prettier",
 			},
 		},
-		css = { "prettier" },
-		html = { "prettier" },
+		css = { "prettierd" },
+		html = { "prettierd" },
 		sh = { "shfmt" },
 		cpp = { "clangd" },
 		python = {
@@ -40,7 +36,6 @@ local configs = {
 		},
 		json = {
 			"prettierd",
-			"prettier",
 		},
 	},
 	format = {
@@ -53,5 +48,3 @@ local configs = {
 		lsp_fallback = true,
 	},
 }
-
-return configs

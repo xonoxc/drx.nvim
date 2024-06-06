@@ -52,7 +52,7 @@ local diff = {
 
 local vim_icons = {
 	function()
-		return " "
+		return ""
 	end,
 	separator = { left = "", right = "" },
 	color = { bg = "#fab387", fg = "#000000" },
@@ -75,7 +75,7 @@ local encoding = {
 
 local lsp = {
 	function()
-		local msg = "no active lsp"
+		local msg = "none"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 		local clients = vim.lsp.get_active_clients()
 		if next(clients) == nil then
@@ -89,7 +89,7 @@ local lsp = {
 		end
 		return msg
 	end,
-	icon = " ",
+	icon = "󰒋",
 	color = { fg = colors.light_gray, gui = "bold" },
 }
 
