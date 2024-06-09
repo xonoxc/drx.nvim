@@ -40,6 +40,7 @@ local modes = {
 
 local diff = {
 	"diff",
+	icon = " ",
 	colored = true,
 	symbols = { added = " ", modified = " ", removed = " " },
 	diff_color = {
@@ -60,7 +61,7 @@ local vim_icons = {
 
 local branch = {
 	"branch",
-	icon = "",
+	icon = " ",
 	separator = { left = "", right = "" },
 	color = { bg = colors.blue, fg = "#000000" },
 }
@@ -75,7 +76,7 @@ local encoding = {
 
 local lsp = {
 	function()
-		local msg = "none"
+		local msg = "inactive"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 		local clients = vim.lsp.get_active_clients()
 		if next(clients) == nil then
@@ -96,10 +97,16 @@ local lsp = {
 local file_format = {
 	"fileformat",
 	separator = { left = "", right = "" },
-	color = { bg = "#cccccc", fg = "#000000" },
+	color = { bg = "#dddddd", fg = "#000000" },
 }
 
-local location = { "location", icon = "", separator = { left = "", right = "" }, left_padding = 1 }
+local location =
+	{ "location", icon = "", separator = { left = "", right = "" }, left_padding = 1, right_padding = 2 }
+
+local filename = {
+	"filename",
+	icon = "",
+}
 
 local config = {
 	options = {
@@ -108,8 +115,8 @@ local config = {
 		section_separators = { left = "", right = "" },
 	},
 	sections = {
-		lualine_a = { modes, vim_icons },
-		lualine_b = { "filename", branch, diff },
+		lualine_a = { vim_icons, modes },
+		lualine_b = { filename, branch, diff },
 		lualine_c = {},
 		lualine_x = { file_format, lsp },
 		lualine_y = { encoding, "filetype", "progress" },
@@ -117,7 +124,7 @@ local config = {
 	},
 	inactive_sections = {
 		lualine_a = { "filename" },
-		lualine_b = { "", " " },
+		lualine_b = { "", "" },
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},
