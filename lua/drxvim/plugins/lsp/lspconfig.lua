@@ -35,7 +35,7 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	signs = { text = { [1] = "->", [2] = " ", [3] = " ", [4] = "󰛨 " } },
+	signs = { text = { [1] = " ", [2] = " ", [3] = " ", [4] = "󰛨 " } },
 	float = {
 		focusable = false,
 		suffix = "",
