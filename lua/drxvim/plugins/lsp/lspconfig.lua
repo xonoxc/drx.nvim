@@ -6,15 +6,6 @@ local util = require("lspconfig/util")
 
 M.inlay_hints = false
 
-M.toggle_inlay_hints = function()
-	M.inlay_hints = not M.inlay_hints
-	if vim.lsp.buf.inlay_hint then
-		vim.lsp.buf.inlay_hint(0, M.inlay_hints)
-	else
-		vim.notify("Inlay hints not supported by this LSP server", vim.log.levels.WARN)
-	end
-end
-
 M.on_attach = function(_, bufnr)
 	if M.inlay_hints then
 		vim.lsp.inlay_hint.enable(true)
@@ -52,7 +43,7 @@ lspconfig.lua_ls.setup({
 	capabilities = M.capabilities,
 	settings = {
 		Lua = {
-			hint = { enable = false },
+			hint = { enable = true },
 			diagnostics = { globals = { "vim", "awesome", "client", "screen", "mouse", "tag" } },
 			workspace = { checkThirdParty = false },
 		},
@@ -75,9 +66,9 @@ lspconfig.gopls.setup({
 			staticcheck = true,
 			buildFlags = { "-tags=integration" },
 			hints = {
-				assignVariableTypes = false,
-				compositeLiteralFields = false,
-				compositeLiteralTypes = false,
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
 				constantValues = false,
 				functionTypeParameters = false,
 				parameterNames = false,
@@ -103,12 +94,12 @@ lspconfig.tsserver.setup({
 	init_options = {
 		preferences = {
 			includeInlayParameterNameHints = "all",
-			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-			includeInlayFunctionParameterTypeHints = false,
-			includeInlayVariableTypeHints = false,
-			includeInlayPropertyDeclarationTypeHints = false,
-			includeInlayFunctionLikeReturnTypeHints = false,
-			includeInlayEnumMemberValueHints = false,
+			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			includeInlayFunctionParameterTypeHints = true,
+			includeInlayVariableTypeHints = true,
+			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayEnumMemberValueHints = true,
 			importModuleSpecifierPreference = "non-relative",
 		},
 	},
