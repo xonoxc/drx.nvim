@@ -210,7 +210,8 @@ lspconfig.tailwindcss.setup({
 		"postcss.config.ts",
 		"package.json",
 		"node_modules",
-		".git"
+		".git",
+		"requirements.txt"
 	),
 })
 
@@ -264,6 +265,14 @@ lspconfig.rust_analyzer.setup({
 			},
 		},
 	},
+})
+
+lspconfig.templ.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "templ", "lsp" },
+	filetypes = { "templ" },
+	root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 })
 
 lspconfig.jsonls.setup({
@@ -339,6 +348,7 @@ lspconfig.htmx.setup({
 	filetypes = {
 		"html",
 		"templ",
+		"htmldjango",
 	},
 	single_file_support = true,
 })
