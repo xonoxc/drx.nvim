@@ -333,6 +333,225 @@ local plugins = {
 	-- 		require("supermaven-nvim").setup({})
 	-- 	end,
 	-- },
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"mxsdev/nvim-dap-vscode-js",
+		},
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+
+			-- DAP-UI setup
+			dapui.setup()
+
+			-- Keymaps
+			vim.keymap.set("n", "<F5>", function()
+				dap.continue()
+			end)
+			vim.keymap.set("n", "<F10>", function()
+				dap.step_over()
+			end)
+			vim.keymap.set("n", "<F11>", function()
+				dap.step_into()
+			end)
+			vim.keymap.set("n", "<F12>", function()
+				dap.step_out()
+			end)
+			vim.keymap.set("n", "<Leader>tb", function()
+				dap.toggle_breakpoint()
+			end)
+			vim.keymap.set("n", "<Leader>tB", function()
+				dap.set_breakpoint()
+			end)
+			vim.keymap.set("n", "<Leader>sp", function()
+				dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+			end)
+			vim.keymap.set("n", "<Leader>rd", function()
+				dap.repl.open()
+			end)
+			vim.keymap.set("n", "<Leader>dl", function()
+				dap.run_last()
+			end)
+
+			-- Automatically open/close DAP UI when starting/stopping debugging
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
+
+			-- python setup
+			dap.adapters.python = function(cb, config)
+				if config.request == "attach" then
+					---@diagnostic disable-next-line: undefined-field
+					local port = (config.connect or config).port
+					---@diagnostic disable-next-line: undefined-field
+					local host = (config.connect or config).host or "127.0.0.1"
+					cb({
+						type = "server",
+						port = assert(port, "`connect.port` is required for a python `attach` configuration"),
+						host = host,
+						options = {
+							source_filetype = "python",
+						},
+					})
+				else
+					cb({
+						type = "executable",
+						command = "path/to/virtualenvs/debugpy/bin/python",
+						args = { "-m", "debugpy.adapter" },
+						options = {
+							source_filetype = "python",
+						},
+					})
+				end
+			end
+
+			dap.configurations.python = {
+				{
+					type = "python",
+					request = "launch",
+					name = "Launch file",
+
+					program = "${file}",
+					pythonPath = function()
+						local cwd = vim.fn.getcwd()
+						if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+							return cwd .. "/venv/bin/python"
+						elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+							return cwd .. "/.venv/bin/python"
+						else
+							return "/usr/bin/python"
+						end
+					end,
+				},
+			}
+
+			-- javascript
+			local dap_js = require("dap-vscode-js")
+
+			dap_js.setup({
+				debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
+				debugger_cmd = { "js-debug-adapter" },
+				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+			})
+
+			-- custom adapter for running tasks before starting debug
+			local custom_adapter = "pwa-node-custom"
+			---@diagnostic disable-next-line
+			dap.adapters[custom_adapter] = function(cb, config)
+				if config.preLaunchTask then
+					local async = require("plenary.async")
+					local notify = require("notify").async
+
+					async.run(function()
+						---@diagnostic disable-next-line: missing-parameter
+						notify("Running [" .. config.preLaunchTask .. "]").events.close()
+					end, function()
+						vim.fn.system(config.preLaunchTask)
+						config.type = "pwa-node"
+						dap.run(config)
+					end)
+				end
+			end
+
+			for _, language in ipairs({ "typescript", "javascript" }) do
+				dap.configurations[language] = {
+					{
+						name = "Launch",
+						type = "pwa-node",
+						request = "launch",
+						program = "${file}",
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
+						sourceMaps = true,
+						skipFiles = { "<node_internals>/**" },
+						protocol = "inspector",
+						console = "integratedTerminal",
+					},
+					{
+						name = "Attach to node process",
+						type = "pwa-node",
+						request = "attach",
+						rootPath = "${workspaceFolder}",
+						processId = require("dap.utils").pick_process,
+					},
+					{
+						name = "Debug Main Process (Electron)",
+						type = "pwa-node",
+						request = "launch",
+						program = "${workspaceFolder}/node_modules/.bin/electron",
+						args = {
+							"${workspaceFolder}/dist/index.js",
+						},
+						outFiles = {
+							"${workspaceFolder}/dist/*.js",
+						},
+						resolveSourceMapLocations = {
+							"${workspaceFolder}/dist/**/*.js",
+							"${workspaceFolder}/dist/*.js",
+						},
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
+						sourceMaps = true,
+						skipFiles = { "<node_internals>/**" },
+						protocol = "inspector",
+						console = "integratedTerminal",
+					},
+					{
+						name = "Compile & Debug Main Process (Electron)",
+						type = custom_adapter,
+						request = "launch",
+						preLaunchTask = "npm run build-ts",
+						program = "${workspaceFolder}/node_modules/.bin/electron",
+						args = {
+							"${workspaceFolder}/dist/index.js",
+						},
+						outFiles = {
+							"${workspaceFolder}/dist/*.js",
+						},
+						resolveSourceMapLocations = {
+							"${workspaceFolder}/dist/**/*.js",
+							"${workspaceFolder}/dist/*.js",
+						},
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
+						sourceMaps = true,
+						skipFiles = { "<node_internals>/**" },
+						protocol = "inspector",
+						console = "integratedTerminal",
+					},
+				}
+			end
+		end,
+	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/neotest" },
+		config = function()
+			require("dapui").setup()
+		end,
+	},
+	{
+		"leoluz/nvim-dap-go",
+		dependencies = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("dap-go").setup()
+		end,
+	},
 }
 
 local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
