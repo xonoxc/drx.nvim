@@ -1,0 +1,52 @@
+
+snippet var "variable declaration"
+	var ${1} ${2:type} = ${3}
+	${0}
+snippet const "constant declaration"
+	const ${1} = ${2}
+	${0}
+snippet func "function declaration"
+	func ${1}(${2}) ${3:return type} {
+		${0}
+	}
+snippet iferr "if error check"
+	if err != nil {
+		${1}
+	}
+	${0}
+snippet struct "struct declaration"
+	type ${1} struct {
+		${2}
+	}
+	${0}
+snippet interface "interface declaration"
+	type ${1} interface {
+		${2}
+	}
+	${0}
+snippet method "method declaration"
+	func (${1:receiver}) ${2:methodName}(${3}) ${4:return type} {
+		${0}
+	}
+snippet for "for loop"
+	for ${1:condition} {
+		${0}
+	}
+snippet range "range loop"
+	for ${1:index}, ${2:value} := range ${3:collection} {
+		${0}
+	}
+snippet type "type alias"
+	type ${1} ${2:type}
+	${0}
+snippet import "import package"
+	import (
+		"${1:package}"
+	)
+	${0}
+snippet defer "defer statement"
+	defer ${1:call}
+	${0}
+snippet go "go routine"
+	go ${1:call}
+	${0}

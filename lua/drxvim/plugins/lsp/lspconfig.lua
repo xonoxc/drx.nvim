@@ -150,6 +150,13 @@ lspconfig.tailwindcss.setup({
 	capabilities = M.capabilities,
 	cmd = { "tailwindcss-language-server", "--stdio" },
 	init_options = { userLanguages = { templ = "html" } },
+	settings = {
+		tailwindCss = {
+			includeLanguages = {
+				templ = "html",
+			},
+		},
+	},
 	filetypes = {
 		"aspnetcorerazor",
 		"astro",

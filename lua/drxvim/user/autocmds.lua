@@ -137,3 +137,6 @@ autocmd({ "BufReadPost" }, {
 	pattern = "*.html",
 	callback = set_html_django_filetype,
 })
+
+--  formatting for templ files
+vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
