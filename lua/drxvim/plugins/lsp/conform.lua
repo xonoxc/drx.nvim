@@ -28,7 +28,7 @@ return {
 		css = { "prettierd" },
 		html = { "prettierd" },
 		sh = { "shfmt" },
-		cpp = { "clangd" },
+		cpp = { "clang-format" },
 		python = {
 			{
 				"autopep8",
