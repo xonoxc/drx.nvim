@@ -17,6 +17,12 @@ autocmd({ "BufNewFile", "BufReadPost" }, {
 	desc = "Load TabBufline",
 })
 
+-- setting .env.* filetype for all types of env files
+autocmd({ "BufEnter", "BufNewFile" }, {
+	pattern = ".env*",
+	command = "set filetype=sh",
+})
+
 -- detecting the header files
 
 autocmd({ "BufRead", "BufNewFile" }, {
