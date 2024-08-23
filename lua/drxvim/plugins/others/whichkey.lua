@@ -67,7 +67,7 @@ local configs = {
 		},
 		f = {
 			name = "  TELESCOPE",
-			c = { "<cmd>lua require('drxvim.themes.switch').setup()<cr>", "TeVim Themes" },
+			c = { "<cmd>lua require('drxvim.themes.switch').setup()<cr>", "DrxVim Themes" },
 			f = { "<cmd>Telescope find_files<cr>", "Find File" },
 			r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
 			w = { "<cmd>Telescope live_grep<cr>", "Find Text" },
