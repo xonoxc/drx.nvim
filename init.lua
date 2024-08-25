@@ -38,3 +38,4 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
 require("drxvim.plugins")
+require("drxvim.cmd.cmd")
