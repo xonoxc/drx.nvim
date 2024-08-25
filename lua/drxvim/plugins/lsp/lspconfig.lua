@@ -120,7 +120,7 @@ lspconfig.html.setup({
 	cmd = { "vscode-html-language-server", "--stdio" },
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	filetypes = { "html", "templ", "php", "htmldjango" },
+	filetypes = { "html", "templ", "php", "htmldjango", "svelte" },
 	init_options = {
 		configurationSection = { "html", "css", "javascript" },
 		embeddedLanguages = {
@@ -321,6 +321,7 @@ lspconfig.emmet_language_server.setup({
 		"css",
 		"eruby",
 		"html",
+		"svelte",
 		"htmldjango",
 		"javascriptreact",
 		"less",
