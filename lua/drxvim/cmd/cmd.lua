@@ -14,7 +14,7 @@ local concat = function(chunks)
 end
 
 cmd.conf = {
-	width = math.floor(0.6 * vim.o.columns),
+	width = math.floor(0.3 * vim.o.columns),
 	cmp_height = 7,
 
 	default = {
