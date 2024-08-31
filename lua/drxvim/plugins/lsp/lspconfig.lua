@@ -397,4 +397,11 @@ lspconfig.zls.setup({
 	single_file_support = true,
 })
 
+lspconfig.elixirls.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "elixir-ls" },
+	filetypes = { "elixir", "eelixir", "heex", "surface" },
+})
+
 return M
