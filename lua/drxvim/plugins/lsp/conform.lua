@@ -10,6 +10,11 @@ return {
 				"prettierd",
 			},
 		},
+		svelte = {
+			{
+				"prettierd",
+			},
+		},
 		typescriptreact = {
 			{
 				"prettierd",

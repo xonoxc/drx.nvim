@@ -120,7 +120,7 @@ lspconfig.html.setup({
 	cmd = { "vscode-html-language-server", "--stdio" },
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	filetypes = { "html", "templ", "php", "htmldjango", "svelte" },
+	filetypes = { "html", "templ", "php", "htmldjango" },
 	init_options = {
 		configurationSection = { "html", "css", "javascript" },
 		embeddedLanguages = {
@@ -402,6 +402,16 @@ lspconfig.elixirls.setup({
 	capabilities = M.capabilities,
 	cmd = { "elixir-ls" },
 	filetypes = { "elixir", "eelixir", "heex", "surface" },
+})
+
+-- svelte language server setup ---
+
+lspconfig.svelte.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "svelteserver", "--stdio" },
+	filetypes = { "svelte" },
+	root_dir = util.root_pattern("package.json", ".git"),
 })
 
 return M
