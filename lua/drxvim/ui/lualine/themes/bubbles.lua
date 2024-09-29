@@ -1,6 +1,6 @@
 local colors = {
 	blue = "#80a0ff",
-	cyan = "#79dac8",
+	cyan = "#79d340",
 	skin = "#f96e74",
 	black = "#080808",
 	white = "#c6c6c6",
@@ -66,14 +66,6 @@ local branch = {
 	color = { bg = colors.blue, fg = "#000000" },
 }
 
-local encoding = {
-	"o:encoding",
-	fmt = string.upper,
-	icon = " ",
-	separator = { left = "", right = "" },
-	color = { bg = colors.cyan, fg = "#000000" },
-}
-
 local lsp = {
 	function()
 		local msg = "inactive"
@@ -100,12 +92,40 @@ local file_format = {
 	color = { bg = "#dddddd", fg = "#000000" },
 }
 
-local location =
-	{ "location", icon = "", separator = { left = "", right = "" }, left_padding = 1, right_padding = 2 }
+local location = {
+	"location",
+	icon = "",
+	left_padding = 1,
+	right_padding = 1,
+	color = { bg = colors.violet, fg = "#000000" },
+	separator = { left = "", right = "" },
+}
 
 local filename = {
 	"filename",
-	icon = "",
+	file_status = true,
+	newfile_status = false,
+	path = 0,
+
+	shorting_target = 40,
+	symbols = {
+		modified = " ",
+		readonly = " ",
+		unnamed = " ",
+		newfile = "󰝒 ",
+	},
+}
+
+local progress = {
+	"progress",
+	icon = "󰔵 ",
+}
+
+local filetype = {
+	"filetype",
+	color = { bg = "#fab387", fg = "#000000" },
+	padding = { left = 1, right = 1 },
+	separator = { left = "", right = "" },
 }
 
 local config = {
@@ -119,8 +139,8 @@ local config = {
 		lualine_b = { filename, branch, diff },
 		lualine_c = {},
 		lualine_x = { file_format, lsp },
-		lualine_y = { encoding, "filetype", "progress" },
-		lualine_z = { location },
+		lualine_y = { filetype, progress, location },
+		lualine_z = {},
 	},
 	inactive_sections = {
 		lualine_a = { "filename" },
