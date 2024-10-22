@@ -52,15 +52,26 @@ local plugins = {
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	event = "BufReadPost",
+	-- 	main = "ibl",
+	-- 	config = function()
+	-- 		require("ibl").setup({
+	-- 			indent = { tab_char = "│" },
+	-- 			scope = { enabled = false },
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"lukas-reineke/indent-blankline.nvim",
+		"echasnovski/mini.nvim",
+		version = "*",
 		event = "BufReadPost",
-		main = "ibl",
-		config = function()
-			require("ibl").setup({
-				indent = { tab_char = "│" },
-				scope = { enabled = false },
-			})
+		opts = function()
+			return require("drxvim.plugins.others.indentScope")
+		end,
+		config = function(_, opts)
+			require("mini.indentscope").setup(opts)
 		end,
 	},
 	{
