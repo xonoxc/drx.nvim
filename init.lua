@@ -33,7 +33,7 @@ vim.filetype.add({
 	},
 })
 vim.filetype.add({
-	pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+	pattern = { [".*/hypr%.conf"] = "hyprlang" },
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
