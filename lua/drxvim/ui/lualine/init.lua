@@ -1,1 +1,1 @@
-return require("drxvim.ui.lualine.themes.bubbles")
+return require("drxvim.ui.lualine.themes.minimal")

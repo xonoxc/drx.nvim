@@ -102,28 +102,28 @@ autocmd("FileType", {
 	desc = "Don't list quickfix buffer",
 })
 
-autocmd("BufWritePost", {
-	pattern = "*/lua/*",
-	callback = function(opts)
-		local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r")
-		local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
-		local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
-		vim.cmd("silent source %")
-
-		require("plenary.reload").reload_module("drxvim.themes")
-		require("plenary.reload").reload_module(module)
-		require("plenary.reload").reload_module("custom")
-
-		require("plenary.reload").reload_module("drxvim.ui.tebufline")
-		vim.opt.tabline = "%!v:lua.require('drxvim.ui.tebufline').getTabline()"
-
-		require("plenary.reload").reload_module("drxvim.ui.testtline")
-		vim.opt.statusline = "%!v:lua.require('drxvim.ui.testtline').setup()"
-
-		require("drxvim.themes").load()
-	end,
-	desc = "Reload neovim config on save",
-})
+-- autocmd("BufWritePost", {
+-- 	pattern = "*/lua/*",
+-- 	callback = function(opts)
+-- 		local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r")
+-- 		local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
+-- 		local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
+-- 		vim.cmd("silent source %")
+--
+-- 		require("plenary.reload").reload_module("drxvim.themes")
+-- 		require("plenary.reload").reload_module(module)
+-- 		require("plenary.reload").reload_module("custom")
+--
+-- 		require("plenary.reload").reload_module("drxvim.ui.tebufline")
+-- 		vim.opt.tabline = "%!v:lua.require('drxvim.ui.tebufline').getTabline()"
+--
+-- 		require("plenary.reload").reload_module("drxvim.ui.testtline")
+-- 		vim.opt.statusline = "%!v:lua.require('drxvim.ui.testtline').setup()"
+--
+-- 		require("drxvim.themes").load()
+-- 	end,
+-- 	desc = "Reload neovim config on save",
+-- })
 
 -- Create custom command to Create Custom Config
 vim.api.nvim_create_user_command("DrxvimCreateCustom", function()

@@ -147,6 +147,16 @@ cmd.conf = {
 			icon = { { " 󰺮 ", "CmdGreen" } },
 		},
 	},
+	paste_support = {
+		-- Add paste support with a specific keybinding or handling paste actions
+		keybinding = "ctrl-v", -- Default keybinding for pasting (can be changed)
+		action = function()
+			-- Handle paste action (for example, copy from clipboard and insert it into the cmdline)
+			local paste_content = vim.fn.getreg("+") -- Get content from system clipboard
+			cmd.state.content = { { "paste", paste_content } } -- Update cmdline with pasted content
+			cmd.draw() -- Redraw the cmdline with updated content
+		end,
+	},
 }
 
 -- Cached config for the current iteration
@@ -206,24 +216,6 @@ cmd.update_comp_state = function(state)
 end
 
 --- Opens the cmdline
---- Done many times per second via the `cmdline_show` event
----
---- Process:
---- 1. Is the menu open?
----   Yes: Update the window.
----   No : Create new window.
----       Go to step 4.
---- 2. Is completion menu open?
----   Yes: Use combined height of the cmdline & the completion menu
----        for calculating the row.
----   No : Use the height of the cmdline for calculating the row.
---- 3. Return
---- ---------------------------------------------------------------
---- 4. Set various window options
---- 5. Store the value of the `guicursor`
---- 5. Hide the cursor
---- 6. Set buffer related options
---- 7. Return
 cmd.open = function()
 	local w = cmd.conf.width < 1 and math.floor(vim.o.columns * cmd.conf.width) or cmd.conf.width
 	local h = 3
@@ -289,18 +281,7 @@ cmd.open = function()
 	vim.wo[cmd.win].statuscolumn = ""
 
 	vim.wo[cmd.win].wrap = false
-	vim.wo[cmd.win].spell = false
-	vim.wo[cmd.win].cursorline = false
-
-	vim.wo[cmd.win].sidescrolloff = 10
-
-	if vim.opt.guicursor ~= "" then
-		cmd.cursor = vim.opt.guicursor
-	else
-		cmd.cursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
-	end
-
-	vim.opt.guicursor = "a:CursorHidden"
+	vim.wo[cmd.win].list = false
 
 	if cmd.current_conf.winhl then
 		vim.wo[cmd.win].winhighlight = cmd.current_conf.winhl
@@ -311,330 +292,22 @@ cmd.open = function()
 	end
 end
 
---- Opens the completion menu
----
---- Process:
---- 1. Is completion menu open?
----    Yes: Update cmdline window.
----         Update completion menu window.
----    No : Create completion menu window.
----         Update cmdline window.
----         Go to Step 3.
---- 2. Return.
---- ---------------------------------------------------------------
---- 3. Set necessary options
---- 4. Return.
-cmd.open_completion = function()
-	if vim.tbl_isempty(cmd.comp_state) then
-		return
-	end
-
-	local w = cmd.conf.width < 1 and math.floor(vim.o.columns * cmd.conf.width) or cmd.conf.width
-	local h = 3
-	local cmp_h = cmd.conf.cmp_height or 7
-
-	if cmd.comp_win and vim.api.nvim_win_is_valid(cmd.comp_win) then
-		vim.api.nvim_win_set_config(
-			cmd.win,
-			vim.tbl_extend("force", {
-				relative = "editor",
-
-				row = math.floor((vim.o.lines - (h + cmp_h)) / 2),
-				col = math.floor((vim.o.columns - w) / 2),
-
-				width = w,
-				height = math.max(1, h - 2),
-			}, cmd.current_conf.winopts or {})
-		)
-
-		vim.api.nvim_win_set_config(cmd.comp_win, {
-			relative = "editor",
-
-			row = math.floor((vim.o.lines - cmp_h) / 2),
-			col = math.floor((vim.o.columns - w) / 2),
-
-			width = w,
-			height = math.max(1, h - 2),
-		})
-
-		if cmd.current_conf.winhl then
-			vim.wo[cmd.win].winhighlight = cmd.current_conf.winhl
-		end
-
-		if cmd.current_conf.ft then
-			vim.bo[cmd.buf].filetype = cmd.current_conf.ft
-		end
-
-		return
-	end
-
-	vim.api.nvim_win_set_config(
-		cmd.win,
-		vim.tbl_extend("force", {
-			relative = "editor",
-
-			row = math.floor((vim.o.lines - (h + cmp_h)) / 2),
-			col = math.floor((vim.o.columns - w) / 2),
-
-			width = w,
-			height = math.max(1, h - 2),
-		}, cmd.current_conf.winopts or {})
-	)
-
-	cmd.comp_win = vim.api.nvim_open_win(cmd.comp_buf, false, {
-		relative = "editor",
-
-		row = math.floor((vim.o.lines - (h + cmp_h)) / 2) + h,
-		col = math.floor((vim.o.columns - w) / 2),
-
-		width = w,
-		height = math.max(1, cmp_h - 0),
-		zindex = 500,
-
-		border = "rounded",
-	})
-
-	vim.wo[cmd.comp_win].number = false
-	vim.wo[cmd.comp_win].relativenumber = false
-	vim.wo[cmd.comp_win].statuscolumn = ""
-
-	vim.wo[cmd.comp_win].wrap = false
-	vim.wo[cmd.comp_win].spell = false
-	vim.wo[cmd.comp_win].scrolloff = 30
-
-	vim.wo[cmd.comp_win].cursorline = true
+cmd.paste = function()
+	local paste_content = vim.fn.getreg("+")
+	cmd.state.content = { { "paste", paste_content } }
+	cmd.draw()
 end
 
---- Closes the cmdline and completion menu
---- pcall() is used to avoid possible errors
----
---- Process:
---- 1. Close the cmdline window
---- 2. Close the completion menu window
---- 3. Show the cursor(by setting the `guicursor` again)
---- 4. Return.
-cmd.close = function()
-	if cmd.state.level > 1 then
-		return
-	end
+vim.api.nvim_set_keymap("i", "<C-v>", [[:lua require'cmd'.paste()<CR>]], { noremap = true, silent = true })
 
-	pcall(vim.api.nvim_win_close, cmd.win, true)
-	pcall(vim.api.nvim_win_close, cmd.comp_win, true)
-
-	cmd.win = nil
-	cmd.comp_win = nil
-
-	vim.opt.guicursor = cmd.cursor
-end
-
---- Closes the completion menu window
-cmd.close_completion = function()
-	pcall(vim.api.nvim_win_close, cmd.comp_win, true)
-	cmd.comp_win = nil
-end
-
---- Draws the cmdline
----
---- Process:
---- 1. Loop over the cached chunks of the cmdline and create
----    the string to show.
---- 2. If the config table has a text process function and it
----    can be run, run it over the string.
---- 3. Is the cursor within the removed part?
----    Yes: Do nothing. Difference is 0
----    No : Store the difference in bytes between the original
----         And the output string.
---- 4. Clear the extmarks in the cmdline buffer.
---- 5. Clear the line of the cmdline buffer.
---- 6. If an icon is provided use it as an `inline virtual text`
----    before the text.
---- 7. Is the cursor's  byte-position larger or equal than
----    the byte length of the text to be shown?
----    Yes: Add a " " with the cursor's hl after the text.
----    No : Add a highlight from the byte-position of the cursor
----         and the ending byte position of the next character
 cmd.draw = function()
-	if not cmd.state or not cmd.state.content then
-		return
-	end
+	local line = concat(cmd.state.content)
 
-	local txt = ""
-	local diff = 0
+	vim.api.nvim_buf_set_lines(cmd.buf, 0, -1, false, { line })
 
-	for _, part in ipairs(cmd.state.content) do
-		txt = txt .. part[2]
-	end
-
-	if cmd.current_conf.text and pcall(cmd.current_conf.text, txt) then
-		local tmp = cmd.current_conf.text(txt)
-
-		if (#txt - #tmp) < cmd.state.position then
-			diff = #txt - #tmp
-			txt = tmp
-		end
-	end
-
-	vim.api.nvim_buf_set_lines(cmd.buf, 0, -1, false, { txt })
-	vim.api.nvim_win_set_cursor(cmd.win, { 1, cmd.state.position })
-
-	vim.api.nvim_buf_clear_namespace(cmd.buf, cmd.ns, 0, -1)
-
-	if cmd.current_conf.icon then
-		vim.api.nvim_buf_set_extmark(cmd.buf, cmd.ns, 0, 0, {
-			virt_text_pos = "inline",
-			virt_text = cmd.current_conf.icon,
-		})
-	end
-
-	if cmd.state.position >= #txt + diff then
-		vim.api.nvim_buf_set_extmark(cmd.buf, cmd.ns, 0, #txt, {
-			virt_text_pos = "inline",
-			virt_text = { { " ", "Cursor" } },
-		})
-	else
-		local before = string.sub(txt, 0, cmd.state.position - diff)
-
-		vim.api.nvim_buf_add_highlight(
-			cmd.buf,
-			cmd.ns,
-			"Cursor",
-			0,
-			cmd.state.position - diff,
-			#vim.fn.strcharpart(txt, 0, vim.fn.strchars(before) + 1)
-			--- Doing "(cmd.state.position - diff) + 1" doesn't
-			--- work on multi-byte characters(e.g. emojis, nerd font
-			--- characters)
-		)
+	if cmd.cursor then
+		vim.api.nvim_win_set_cursor(cmd.win, { 1, #line + 1 })
 	end
 end
-
---- Draws the completion menu items
----
---- Process:
---- 1. Remove extmarks from the completion buffer.
---- 2. Remove all the lines from the completion buffer.
---- 3. Loop over all the completions and,
----    1. Does it have an icon?
----       Yes: Draw the icon using extmarks.
----       No : Do nothing.
----    2. Does any part of the text match the cmdline text's
----       last part?
----       Yes: Highlight it with `nvim_buf_add_highlight()`.
----       No : Do nothing.
---- 4. Set the cursor position on the currently selected item.
-cmd.draw_completion = function()
-	vim.api.nvim_buf_clear_namespace(cmd.comp_buf, cmd.ns, 0, -1)
-	vim.api.nvim_buf_set_lines(cmd.comp_buf, 0, -1, false, {})
-
-	if not cmd.comp_txt then
-		cmd.comp_txt = ""
-
-		for _, part in ipairs(cmd.state.content) do
-			cmd.comp_txt = cmd.comp_txt .. part[2]
-		end
-	end
-
-	local last_str = cmd.comp_txt:match("(%S+)$")
-
-	for c, completion in ipairs(cmd.comp_state.items) do
-		vim.fn.setbufline(cmd.comp_buf, c, { completion[1] })
-
-		local _c = cmd.conf.completion_default
-
-		for _, conf in ipairs(cmd.conf.completion_custom) do
-			if conf.match and completion[1]:match(conf.match) then
-				_c = conf
-			elseif conf.cmd and cmd.comp_txt:match(conf.cmd) then
-				_c = conf
-			end
-		end
-
-		if _c.icon then
-			vim.api.nvim_buf_set_extmark(cmd.comp_buf, cmd.ns, c - 1, 0, {
-				virt_text_pos = "inline",
-				virt_text = _c.icon,
-
-				hl_mode = "combine",
-			})
-		end
-
-		if last_str then
-			local hl_from, hl_to = completion[1]:find(last_str)
-
-			if hl_from and hl_to then
-				vim.api.nvim_buf_add_highlight(cmd.comp_buf, cmd.ns, _c.hl or "Special", c - 1, hl_from - 1, hl_to)
-			end
-		end
-	end
-
-	if cmd.comp_state.selected and cmd.comp_state.selected ~= -1 then
-		vim.api.nvim_win_set_cursor(cmd.comp_win, { cmd.comp_state.selected + 1, 0 })
-	end
-end
-
-vim.ui_attach(cmd.ns, { ext_cmdline = true, ext_popupmenu = true }, function(event, ...)
-	if event == "cmdline_show" then
-		local content, pos, firstc, prompt, indent, level = ...
-
-		cmd.update_state({
-			content = content,
-			position = pos,
-			firstc = firstc,
-			prompt = prompt,
-			indent = indent,
-			level = level,
-		})
-
-		cmd.open()
-		cmd.draw()
-
-		vim.api.nvim__redraw({ win = cmd.win, flush = true })
-	elseif event == "cmdline_hide" then
-		cmd.close()
-
-		vim.api.nvim__redraw({ win = cmd.win, flush = true })
-	elseif event == "cmdline_pos" then
-		local pos, level = ...
-
-		cmd.update_state({
-			position = pos,
-			level = level,
-		})
-
-		cmd.draw()
-
-		vim.api.nvim__redraw({ win = cmd.win, flush = true })
-	elseif event == "popupmenu_show" then
-		local items, selected, row, col, grid = ...
-
-		cmd.update_comp_state({
-			items = items,
-			selected = selected,
-			row = row,
-			col = col,
-			grid = grid,
-		})
-
-		cmd.comp_enable = true
-
-		cmd.open_completion()
-		cmd.draw_completion()
-	elseif event == "popupmenu_select" then
-		local selected = ...
-
-		cmd.update_comp_state({
-			selected = selected,
-		})
-
-		cmd.draw_completion()
-
-		vim.api.nvim__redraw({ win = cmd.comp_win, flush = true })
-	elseif event == "popupmenu_hide" then
-		cmd.comp_enable = false
-		cmd.comp_txt = nil
-
-		cmd.close_completion()
-	end
-end)
 
 return cmd

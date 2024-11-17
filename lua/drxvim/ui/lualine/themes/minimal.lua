@@ -1,12 +1,12 @@
 local colors = {
-	blue = "#569CD6", -- VS Code blue
-	green = "#6A9955", -- VS Code green
-	red = "#D16969", -- VS Code red
-	yellow = "#DCDCAA", -- VS Code yellow
-	orange = "#CE9178", -- VS Code orange
-	violet = "#C586C0", -- VS Code purple
-	white = "#D4D4D4", -- VS Code white
-	light_gray = "#858585", -- Inactive text
+	blue = "#569CD6",
+	green = "#6A9955",
+	red = "#D16969",
+	yellow = "#DCDCAA",
+	orange = "#CE9178",
+	violet = "#C586C0",
+	white = "#D4D4D4",
+	light_gray = "#858585",
 }
 
 local vscode_theme = {
@@ -78,9 +78,17 @@ local diagnostics = {
 
 local filename = {
 	"filename",
-	path = 1,
-	symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-	color = { fg = colors.white, bg = "none" },
+	file_status = true,
+	newfile_status = false,
+	path = 0,
+
+	shorting_target = 40,
+	symbols = {
+		modified = " ",
+		readonly = " ",
+		unnamed = " ",
+		newfile = "󰝒 ",
+	},
 }
 
 local filetype = {
@@ -97,9 +105,9 @@ local encoding = {
 local fileformat = {
 	"fileformat",
 	symbols = {
-		unix = "",
-		dos = "",
-		mac = "",
+		unix = " linux",
+		dos = " windows",
+		mac = " osx",
 	},
 	color = { fg = colors.white, bg = "none" },
 }
@@ -111,7 +119,7 @@ local location = {
 
 local progress = {
 	"progress",
-	color = { fg = colors.white, bg = "none" },
+	icon = "󰔵 ",
 }
 
 local search_count = {
@@ -141,7 +149,7 @@ local macro = {
 
 local lsp = {
 	function()
-		local msg = "󰒏 "
+		local msg = "No Active Lsp"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 		local clients = vim.lsp.get_active_clients()
 		if not next(clients) then
