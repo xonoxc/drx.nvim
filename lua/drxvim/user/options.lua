@@ -4,7 +4,7 @@ vim.cmd([[
 	filetype plugin indent off
 ]])
 
-vim.g.currentTheme = "material"
+vim.g.currentTheme = "mountain"
 vim.g.theme_cache = vim.fn.stdpath("data") .. "/colors_data/"
 vim.g.transparency = false
 

@@ -1,0 +1,188 @@
+local colors = {
+	blue = "#569CD6", -- VS Code blue
+	green = "#6A9955", -- VS Code green
+	red = "#D16969", -- VS Code red
+	yellow = "#DCDCAA", -- VS Code yellow
+	orange = "#CE9178", -- VS Code orange
+	violet = "#C586C0", -- VS Code purple
+	white = "#D4D4D4", -- VS Code white
+	light_gray = "#858585", -- Inactive text
+}
+
+local vscode_theme = {
+	normal = {
+		a = { fg = colors.white, bg = "none", gui = "bold" },
+		b = { fg = colors.light_gray, bg = "none" },
+		c = { fg = colors.light_gray, bg = "none" },
+	},
+	insert = { a = { fg = colors.white, bg = "none", gui = "bold" } },
+	visual = { a = { fg = colors.white, bg = "none", gui = "bold" } },
+	replace = { a = { fg = colors.white, bg = "none", gui = "bold" } },
+	inactive = {
+		a = { fg = colors.light_gray, bg = "none" },
+		b = { fg = colors.light_gray, bg = "none" },
+		c = { fg = colors.light_gray, bg = "none" },
+	},
+}
+
+local mode = {
+	"mode",
+	fmt = function(str)
+		return str:sub(1, 1):upper()
+	end,
+	color = function()
+		local mode_color = {
+			n = colors.blue,
+			i = colors.green,
+			v = colors.violet,
+			[""] = colors.violet,
+			V = colors.violet,
+			c = colors.orange,
+			r = colors.red,
+			R = colors.red,
+			t = colors.orange,
+		}
+		return { fg = colors.white, bg = mode_color[vim.fn.mode()] }
+	end,
+}
+
+local branch = {
+	"branch",
+	icon = "", -- Git branch icon
+	color = { fg = colors.white, bg = "none" },
+}
+
+local diff = {
+	"diff",
+	colored = true,
+	symbols = { added = "+", modified = "~", removed = "-" },
+	diff_color = {
+		added = { fg = colors.white },
+		modified = { fg = colors.white },
+		removed = { fg = colors.white },
+	},
+}
+
+local diagnostics = {
+	"diagnostics",
+	sources = { "nvim_diagnostic" },
+	sections = { "error", "warn", "info", "hint" },
+	symbols = { error = " ", warn = " ", info = " ", hint = " " },
+	diagnostics_color = {
+		error = { fg = colors.red },
+		warn = { fg = colors.yellow },
+		info = { fg = colors.blue },
+		hint = { fg = colors.green },
+	},
+}
+
+local filename = {
+	"filename",
+	path = 1,
+	symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
+	color = { fg = colors.white, bg = "none" },
+}
+
+local filetype = {
+	"filetype",
+	icon_only = true,
+	color = { fg = colors.white, bg = "none" },
+}
+
+local encoding = {
+	"encoding",
+	color = { fg = colors.white, bg = "none" },
+}
+
+local fileformat = {
+	"fileformat",
+	symbols = {
+		unix = "",
+		dos = "",
+		mac = "",
+	},
+	color = { fg = colors.white, bg = "none" },
+}
+
+local location = {
+	"location",
+	color = { fg = colors.white, bg = "none" },
+}
+
+local progress = {
+	"progress",
+	color = { fg = colors.white, bg = "none" },
+}
+
+local search_count = {
+	function()
+		local result = vim.fn.searchcount({ maxcount = 999, timeout = 500 })
+		local current = result.current
+		local total = result.total
+		if total > 0 then
+			return current .. "/" .. total
+		else
+			return ""
+		end
+	end,
+	color = { fg = colors.white, bg = "none" },
+}
+
+local macro = {
+	function()
+		local recording_register = vim.fn.reg_recording()
+		if recording_register ~= "" then
+			return "Recording @" .. recording_register
+		end
+		return ""
+	end,
+	color = { fg = colors.white, bg = "none" },
+}
+
+local lsp = {
+	function()
+		local msg = "󰒏 "
+		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+		local clients = vim.lsp.get_active_clients()
+		if not next(clients) then
+			return msg
+		end
+		for _, client in ipairs(clients) do
+			if client.config.filetypes and vim.tbl_contains(client.config.filetypes, buf_ft) then
+				return client.name
+			end
+		end
+		return msg
+	end,
+	icon = "  ",
+	color = { fg = colors.white, bg = "none" },
+}
+
+local config = {
+	options = {
+		theme = vscode_theme,
+		component_separators = "", -- No separators
+		section_separators = "", -- No separators
+		disabled_filetypes = {}, -- Specify filetypes to exclude if needed
+	},
+	sections = {
+		lualine_a = { mode },
+		lualine_b = { branch, diff },
+		lualine_c = { diagnostics, filename },
+		lualine_x = { lsp, encoding, fileformat, progress },
+		lualine_y = { search_count, location },
+		lualine_z = { macro },
+	},
+	inactive_sections = {
+		lualine_a = { filename },
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { location },
+	},
+	tabline = {},
+	extensions = {},
+}
+
+return config

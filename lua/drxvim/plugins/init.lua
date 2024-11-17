@@ -345,6 +345,9 @@ local plugins = {
 	-- 	end,
 	-- },
 	{
+		"terminalnode/sway-vim-syntax",
+	},
+	{
 		"Exafunction/codeium.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
