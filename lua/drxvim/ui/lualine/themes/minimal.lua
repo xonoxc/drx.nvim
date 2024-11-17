@@ -9,7 +9,7 @@ local colors = {
 	light_gray = "#858585",
 }
 
-local vscode_theme = {
+local minimal_theme = {
 	normal = {
 		a = { fg = colors.white, bg = "none", gui = "bold" },
 		b = { fg = colors.light_gray, bg = "none" },
@@ -25,10 +25,18 @@ local vscode_theme = {
 	},
 }
 
+local vim_icons = {
+	function()
+		return ""
+	end,
+	separator = { left = " ", right = " " },
+	color = { bg = "none", fg = "#ccccccc" },
+}
+
 local mode = {
 	"mode",
 	fmt = function(str)
-		return str:sub(1, 1):upper()
+		return str:upper()
 	end,
 	color = function()
 		local mode_color = {
@@ -48,7 +56,7 @@ local mode = {
 
 local branch = {
 	"branch",
-	icon = "", -- Git branch icon
+	icon = " ", -- Git branch icon
 	color = { fg = colors.white, bg = "none" },
 }
 
@@ -93,19 +101,18 @@ local filename = {
 
 local filetype = {
 	"filetype",
-	icon_only = true,
 	color = { fg = colors.white, bg = "none" },
 }
 
-local encoding = {
-	"encoding",
-	color = { fg = colors.white, bg = "none" },
-}
+-- local encoding = {
+-- 	"encoding",
+-- 	color = { fg = colors.white, bg = "none" },
+-- }
 
 local fileformat = {
 	"fileformat",
 	symbols = {
-		unix = " linux",
+		unix = " ",
 		dos = " windows",
 		mac = " osx",
 	},
@@ -114,7 +121,8 @@ local fileformat = {
 
 local location = {
 	"location",
-	color = { fg = colors.white, bg = "none" },
+	separator = { left = " ", right = " " },
+	color = { fg = "#cccccc", bg = colors.light_gray },
 }
 
 local progress = {
@@ -136,20 +144,9 @@ local search_count = {
 	color = { fg = colors.white, bg = "none" },
 }
 
-local macro = {
-	function()
-		local recording_register = vim.fn.reg_recording()
-		if recording_register ~= "" then
-			return "Recording @" .. recording_register
-		end
-		return ""
-	end,
-	color = { fg = colors.white, bg = "none" },
-}
-
 local lsp = {
 	function()
-		local msg = "No Active Lsp"
+		local msg = "no_active_client"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 		local clients = vim.lsp.get_active_clients()
 		if not next(clients) then
@@ -162,24 +159,24 @@ local lsp = {
 		end
 		return msg
 	end,
-	icon = "  ",
-	color = { fg = colors.white, bg = "none" },
+	icon = "",
+	color = { fg = colors.light_gray, bg = "none" },
 }
 
 local config = {
 	options = {
-		theme = vscode_theme,
+		theme = minimal_theme,
 		component_separators = "", -- No separators
 		section_separators = "", -- No separators
 		disabled_filetypes = {}, -- Specify filetypes to exclude if needed
 	},
 	sections = {
-		lualine_a = { mode },
+		lualine_a = { vim_icons, mode },
 		lualine_b = { branch, diff },
 		lualine_c = { diagnostics, filename },
-		lualine_x = { lsp, encoding, fileformat, progress },
+		lualine_x = { lsp, filetype, fileformat, progress },
 		lualine_y = { search_count, location },
-		lualine_z = { macro },
+		lualine_z = {},
 	},
 	inactive_sections = {
 		lualine_a = { filename },
