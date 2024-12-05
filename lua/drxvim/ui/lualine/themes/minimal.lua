@@ -189,7 +189,7 @@ local formatter = function()
 	local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
 
 	if not vim.tbl_isempty(lsp_clients) then
-		return "󰷈 LSP Formatter"
+		return ""
 	end
 
 	return ""
