@@ -34,6 +34,7 @@ return {
 		html = { "prettierd" },
 		sh = { "shfmt" },
 		cpp = { "clang-format" },
+		java = { "clang-format" },
 		python = {
 			{
 				"autopep8",

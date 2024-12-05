@@ -230,26 +230,45 @@ lspconfig.graphql.setup({
 	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
 })
 
-lspconfig.pyright.setup({
+-- lspconfig.pyright.setup({
+-- 	on_attach = M.on_attach,
+-- 	capabilities = M.capabilities,
+-- 	cmd = { "pyright-langserver", "--stdio" },
+-- 	filetypes = { "python" },
+-- 	settings = {
+-- 		pyright = {
+-- 			disableLanguageServices = false,
+-- 			disableOrgainzeImports = false,
+-- 		},
+-- 		python = {
+-- 			analysis = {
+-- 				autoSearchPaths = true,
+-- 				useLibraryCodeForTypes = true,
+-- 				typeCheckingMode = "basic",
+-- 				autoImportCompletions = true,
+-- 				diagnosticMode = "workspace",
+-- 			},
+-- 		},
+-- 	},
+-- 	single_file_support = true,
+-- })
+
+lspconfig.pylsp.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	cmd = { "pyright-langserver", "--stdio" },
+	cmd = { "pylsp" },
 	filetypes = { "python" },
 	settings = {
-		pyright = {
-			disableLanguageServices = false,
-			disableOrgainzeImports = false,
-		},
-		python = {
-			analysis = {
-				autoSearchPaths = true,
-				useLibraryCodeForTypes = true,
-				typeCheckingMode = "basic",
-				autoImportCompletions = true,
-				diagnosticMode = "workspace",
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					ignore = { "W391" },
+					maxLineLength = 100,
+				},
 			},
 		},
 	},
+	root_dir = util.root_pattern("requirements.txt"),
 	single_file_support = true,
 })
 

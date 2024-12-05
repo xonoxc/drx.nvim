@@ -44,6 +44,7 @@ local plugins = {
 			"nvim-treesitter/nvim-treesitter-context",
 			"HiPhish/rainbow-delimiters.nvim",
 			"windwp/nvim-ts-autotag",
+			"nushell/tree-sitter-nu",
 		},
 		opts = function()
 			return require("drxvim.plugins.others.treesitter")
@@ -124,6 +125,7 @@ local plugins = {
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",
 		lazy = true,
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
