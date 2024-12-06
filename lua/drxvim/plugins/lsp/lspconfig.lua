@@ -120,7 +120,7 @@ lspconfig.html.setup({
 	cmd = { "vscode-html-language-server", "--stdio" },
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	filetypes = { "html", "templ", "php", "htmldjango" },
+	filetypes = { "html", "templ", "php", "htmldjango", "html-heex", "heex" },
 	init_options = {
 		configurationSection = { "html", "css", "javascript" },
 		embeddedLanguages = {
@@ -342,6 +342,7 @@ lspconfig.emmet_language_server.setup({
 		"html",
 		"svelte",
 		"htmldjango",
+		"heex",
 		"javascriptreact",
 		"less",
 		"pug",
@@ -375,6 +376,7 @@ lspconfig.htmx.setup({
 	filetypes = {
 		"html",
 		"templ",
+		"heex",
 		"htmldjango",
 	},
 	single_file_support = true,
