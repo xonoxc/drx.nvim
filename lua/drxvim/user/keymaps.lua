@@ -46,3 +46,5 @@ map("n", "<S-TAB>", "<cmd>TeBufPrev<CR>", opts, { desc = "Previous Buffer" })
 map("n", "<Enter>", "<cmd>nohlsearch<CR>", opts, { desc = "Clear Highlight" })
 
 map("n", "<leader>rn", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = true }, { desc = "Rename" })
+
+map("t", "<esc>", [[<C-\><C-n>]], { silent = true }, { desc = "Enter normal mode in termianl buffer" })
