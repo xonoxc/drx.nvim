@@ -11,6 +11,7 @@ local configs = {
 		enable = true,
 		disable = {
 			"python",
+			"yaml",
 		},
 	},
 	addition_vim_regex_syntax_highlighting = { "python" },

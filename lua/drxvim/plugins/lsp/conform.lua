@@ -20,6 +20,9 @@ return {
 				"prettierd",
 			},
 		},
+		yaml = {
+			"yamlfix",
+		},
 		javascriptreact = {
 			{
 				"prettierd",
