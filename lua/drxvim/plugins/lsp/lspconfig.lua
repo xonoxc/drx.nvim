@@ -429,6 +429,35 @@ lspconfig.elixirls.setup({
 	filetypes = { "elixir", "eelixir", "heex", "surface" },
 })
 
+lspconfig.yamlls.setup({
+	on_attach = function(client, bufnr)
+		M.on_attach(client, bufnr)
+		client.server_capabilities.documentFormattingProvider = true
+	end,
+	capabilities = M.capabilities,
+	cmd = { "yaml-language-server", "--stdio" },
+	filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+	settings = {
+		yaml = {
+			format = {
+				enable = true,
+			},
+			schemaStore = {
+				enable = true,
+			},
+		},
+		-- schemas = {
+		-- 	["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+		-- 	["http://json.schemastore.org/composer"] = "/*",
+		-- },
+		redhat = {
+			telemetry = {
+				enabled = false,
+			},
+		},
+	},
+})
+
 -- svelte language server setup ---
 
 lspconfig.svelte.setup({
