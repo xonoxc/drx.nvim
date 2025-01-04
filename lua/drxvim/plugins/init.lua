@@ -346,8 +346,18 @@ local plugins = {
 	-- require("supermaven-nvim").setup({})
 	-- 	end,
 	-- },
+	-- {
+	-- 	"terminalnode/sway-vim-syntax",
+	-- },
 	{
-		"terminalnode/sway-vim-syntax",
+		"chomosuke/term-edit.nvim",
+		event = "TermOpen",
+		version = "1.*",
+		config = function()
+			require("term-edit").setup({
+				prompt_end = "%$ ",
+			})
+		end,
 	},
 	-- {
 	-- 	"Exafunction/codeium.nvim",
