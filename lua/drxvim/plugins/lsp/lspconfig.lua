@@ -103,6 +103,7 @@ lspconfig.tsserver.setup({
 			importModuleSpecifierPreference = "non-relative",
 		},
 	},
+	single_file_support = false,
 })
 
 lspconfig.cssls.setup({
@@ -466,6 +467,12 @@ lspconfig.svelte.setup({
 	cmd = { "svelteserver", "--stdio" },
 	filetypes = { "svelte" },
 	root_dir = util.root_pattern("package.json", ".git"),
+})
+
+lspconfig.denols.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	root_dir = util.root_pattern("deno.json", "deno.jsonc"),
 })
 
 return M

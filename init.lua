@@ -37,5 +37,9 @@ vim.filetype.add({
 })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
+vim.g.markdown_fenced_languages = {
+	"ts=typescript",
+}
+
 require("drxvim.plugins")
 require("drxvim.cmd.cmd")
