@@ -88,7 +88,7 @@ local configs = {
 		end,
 	},
 	sources = {
-		{ name = "copilot" },
+		{ name = "copilot", max_item_count = 2 },
 		{ name = "codeium", max_item_count = 2 },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
