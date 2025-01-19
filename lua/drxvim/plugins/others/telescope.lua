@@ -2,6 +2,11 @@ local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 
 local configs = {
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+	},
 	defaults = {
 		layout_config = {
 			horizontal = {
@@ -14,7 +19,16 @@ local configs = {
 			height = 0.9,
 			preview_cutoff = 120,
 		},
-		find_command = { "rg", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" },
+		find_command = {
+			"rg",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--files",
+			"--iglob",
+		},
 		prompt_prefix = "   ",
 		selection_caret = "    ",
 		entry_prefix = "    ",
