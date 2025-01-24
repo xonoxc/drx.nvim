@@ -309,6 +309,7 @@ lspconfig.templ.setup({
 lspconfig.jsonls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
+	fileMatch = { "json", ".eslintrc", ".prettierrc", ".stylelintrc" },
 	settings = {
 		json = {
 			schemas = {

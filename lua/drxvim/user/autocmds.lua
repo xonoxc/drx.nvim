@@ -23,6 +23,15 @@ autocmd({ "BufEnter", "BufNewFile" }, {
 	command = "set filetype=sh",
 })
 
+-- detecting bun.lock file as jsonc file
+autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "bun.lock",
+	callback = function()
+		vim.cmd("setfiletype jsonc")
+	end,
+	desc = "set bun.lock file to jsonc",
+})
+
 -- detecting the header files
 
 autocmd({ "BufRead", "BufNewFile" }, {
