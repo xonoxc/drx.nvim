@@ -359,33 +359,33 @@ local plugins = {
 			})
 		end,
 	},
-	-- {
-	-- 	"Exafunction/codeium.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"hrsh7th/nvim-cmp",
-	-- 	},
-	-- 	config = function()
-	-- 		require("codeium").setup({})
-	-- 	end,
-	-- },
 	{
-		"zbirenbaum/copilot-cmp",
-		event = "InsertEnter",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
+		"Exafunction/codeium.nvim",
 		dependencies = {
-			"zbirenbaum/copilot.lua",
-			cmd = "Copilot",
-			config = function()
-				require("copilot").setup({
-					suggestion = { enabled = false },
-					panel = { enabled = false },
-				})
-			end,
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
 		},
+		config = function()
+			-- require("codeium").setup({})
+		end,
 	},
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"zbirenbaum/copilot.lua",
+	-- 		cmd = "Copilot",
+	-- 		config = function()
+	-- 			require("copilot").setup({
+	-- 				suggestion = { enabled = false },
+	-- 				panel = { enabled = false },
+	-- 			})
+	-- 		end,
+	-- 	},
+	-- },
 }
 
 local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
