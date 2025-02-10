@@ -490,29 +490,29 @@ lspconfig.vuels.setup({
 			css = {},
 			emmet = {},
 			html = {
-				suggest = {},
+				suggest = true,
 			},
 			javascript = {
-				format = {},
+				format = true,
 			},
 			stylusSupremacy = {},
 			typescript = {
-				format = {},
+				format = true,
 			},
 			vetur = {
 				completion = {
-					autoImport = false,
+					autoImport = true,
 					tagCasing = "kebab",
-					useScaffoldSnippets = false,
+					useScaffoldSnippets = true,
 				},
 				format = {
 					defaultFormatter = {
-						js = "none",
-						ts = "none",
+						js = "prettierd",
+						ts = "prettierd",
 					},
 					defaultFormatterOptions = {},
-					scriptInitialIndent = false,
-					styleInitialIndent = false,
+					scriptInitialIndent = true,
+					styleInitialIndent = true,
 				},
 				useWorkspaceDependencies = false,
 				validation = {
