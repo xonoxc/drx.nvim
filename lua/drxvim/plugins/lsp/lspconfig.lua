@@ -262,14 +262,7 @@ lspconfig.pylsp.setup({
 	settings = {
 		pylsp = {
 			plugins = {
-				pycodestyle = { enabled = false },
-				pyflakes = { enabled = false },
-				autopep8 = { enabled = false },
-				yapf = { enabled = false },
-				mccabe = { enabled = false },
-				pylsp_mypy = { enabled = false },
-				pylsp_black = { enabled = false },
-				pylsp_isort = { enabled = false },
+				jedi = { environment = vim.fn.getcwd() .. "/.venv" },
 			},
 		},
 	},

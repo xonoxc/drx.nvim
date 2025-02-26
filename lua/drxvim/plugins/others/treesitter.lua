@@ -9,9 +9,9 @@ local configs = {
 	},
 	indent = {
 		enable = true,
-		disable = {
-			"python",
-		},
+		-- disable = {
+		-- 	"python",
+		-- },
 	},
 	addition_vim_regex_syntax_highlighting = { "python" },
 	ensure_installed = {

@@ -195,6 +195,35 @@ local formatter = function()
 	return ""
 end
 
+local virtual_env = function()
+	-- only show virtual env for Python
+	if vim.bo.filetype ~= "python" then
+		return ""
+	end
+
+	local conda_env = os.getenv("CONDA_DEFAULT_ENV")
+	local venv_path = os.getenv("VIRTUAL_ENV")
+
+	if venv_path == nil then
+		if conda_env == nil then
+			return ""
+		else
+			return string.format(" %s(conda)", conda_env)
+		end
+	else
+		local venv_name = vim.fn.fnamemodify(venv_path, ":t")
+		return string.format(" %s(venv)", venv_name)
+	end
+end
+
+local py_virtual_env = {
+	function()
+		return virtual_env()
+	end,
+	separator = { left = " ", right = " " },
+	color = { bg = "none", fg = "#ccccccc" },
+}
+
 local config = {
 	options = {
 		theme = minimal_theme,
@@ -205,7 +234,7 @@ local config = {
 	sections = {
 		lualine_a = { vim_icons, mode },
 		lualine_b = { branch, diff },
-		lualine_c = { diagnostics, filename },
+		lualine_c = { diagnostics, filename, py_virtual_env },
 		lualine_x = { formatter, lsp, filetype, fileformat, progress },
 		lualine_y = { search_count, location },
 		lualine_z = {},
