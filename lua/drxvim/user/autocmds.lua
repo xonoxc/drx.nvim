@@ -134,6 +134,19 @@ autocmd("FileType", {
 -- 	desc = "Reload neovim config on save",
 -- })
 
+-- Function to center cursor
+local function center_cursor()
+	local current_pos = vim.fn.getpos(".")
+	vim.cmd("normal! zz")
+	vim.fn.setpos(".", current_pos)
+end
+
+-- Set up the autocommand
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+	pattern = "*",
+	callback = center_cursor,
+})
+
 -- Create custom command to Create Custom Config
 vim.api.nvim_create_user_command("DrxvimCreateCustom", function()
 	vim.cmd("lua require('drxvim.user.functions').CreateCustom()")

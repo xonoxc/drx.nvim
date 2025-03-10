@@ -4,6 +4,11 @@ local plugins = {
 		lazy = true,
 	},
 	{
+		"Vimjas/vim-python-pep8-indent",
+		lazy = true,
+		ft = "python",
+	},
+	{
 		"nvim-tree/nvim-web-devicons",
 		lazy = true,
 		opts = function()
@@ -369,34 +374,34 @@ local plugins = {
 			-- require("codeium").setup({})
 		end,
 	},
-	-- {
-	-- 	"zbirenbaum/copilot-cmp",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot_cmp").setup()
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"zbirenbaum/copilot.lua",
-	-- 		cmd = "Copilot",
-	-- 		config = function()
-	-- 			require("copilot").setup({
-	-- 				suggestion = { enabled = false },
-	-- 				panel = { enabled = false },
-	-- 			})
-	-- 		end,
-	-- 	},
-	-- },
+	{
+		"zbirenbaum/copilot-cmp",
+		event = "InsertEnter",
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			config = function()
+				require("copilot").setup({
+					suggestion = { enabled = false },
+					panel = { enabled = false },
+				})
+			end,
+		},
+	},
 }
 
-local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
-if vim.loop.fs_stat(custom_path) then
-	require("custom")
-	local custom_plugins = require("custom.plugins")
-	if #custom_plugins > 0 then
-		for _, plugin in ipairs(custom_plugins) do
-			table.insert(plugins, plugin)
-		end
-	end
-end
-
+-- local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
+-- if vim.loop.fs_stat(custom_path) then
+-- 	require("custom")
+-- 	local custom_plugins = require("custom.plugins")
+-- 	if #custom_plugins > 0 then
+-- 		for _, plugin in ipairs(custom_plugins) do
+-- 			table.insert(plugins, plugin)
+-- 		end
+-- 	end
+-- end
+--
 require("lazy").setup(plugins)

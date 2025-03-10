@@ -231,44 +231,45 @@ lspconfig.graphql.setup({
 	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
 })
 
--- lspconfig.pyright.setup({
--- 	on_attach = M.on_attach,
--- 	capabilities = M.capabilities,
--- 	cmd = { "pyright-langserver", "--stdio" },
--- 	filetypes = { "python" },
--- 	settings = {
--- 		pyright = {
--- 			disableLanguageServices = false,
--- 			disableOrgainzeImports = false,
--- 		},
--- 		python = {
--- 			analysis = {
--- 				autoSearchPaths = true,
--- 				useLibraryCodeForTypes = true,
--- 				typeCheckingMode = "basic",
--- 				autoImportCompletions = true,
--- 				diagnosticMode = "workspace",
--- 			},
--- 		},
--- 	},
--- 	single_file_support = true,
--- })
-
-lspconfig.pylsp.setup({
+lspconfig.pyright.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	cmd = { "pylsp" },
+	cmd = { "pyright-langserver", "--stdio" },
 	filetypes = { "python" },
 	settings = {
-		pylsp = {
-			plugins = {
-				jedi = { environment = vim.fn.getcwd() .. "/.venv" },
+		pyright = {
+			disableLanguageServices = false,
+			disableOrgainzeImports = false,
+		},
+		python = {
+			analysis = {
+				reportGeneralTypeIssues = false,
+				autoSearchPaths = true,
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "off",
+				autoImportCompletions = true,
+				diagnosticMode = "workspace",
 			},
 		},
 	},
-	root_dir = util.root_pattern("requirements.txt"),
 	single_file_support = true,
 })
+
+-- lspconfig.pylsp.setup({
+-- 	on_attach = M.on_attach,
+-- 	capabilities = M.capabilities,
+-- 	cmd = { "pylsp" },
+-- 	filetypes = { "python" },
+-- 	settings = {
+-- 		pylsp = {
+-- 			plugins = {
+-- 				jedi = { environment = vim.fn.getcwd() .. "/.venv" },
+-- 			},
+-- 		},
+-- 	},
+-- 	root_dir = util.root_pattern("requirements.txt"),
+-- 	single_file_support = true,
+-- })
 
 lspconfig.rust_analyzer.setup({
 	on_attach = M.on_attach,

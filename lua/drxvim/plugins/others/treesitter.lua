@@ -8,7 +8,7 @@ local configs = {
 		filetypes = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "xml" },
 	},
 	indent = {
-		enable = true,
+		-- enable = true,
 		-- disable = {
 		-- 	"python",
 		-- },
