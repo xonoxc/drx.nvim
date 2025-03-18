@@ -4,11 +4,6 @@ local plugins = {
 		lazy = true,
 	},
 	{
-		"Vimjas/vim-python-pep8-indent",
-		lazy = true,
-		ft = "python",
-	},
-	{
 		"nvim-tree/nvim-web-devicons",
 		lazy = true,
 		opts = function()
@@ -80,6 +75,7 @@ local plugins = {
 	-- 		require("mini.indentscope").setup(opts)
 	-- 	end,
 	-- },
+
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",

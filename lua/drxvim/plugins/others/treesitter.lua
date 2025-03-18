@@ -8,10 +8,10 @@ local configs = {
 		filetypes = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "xml" },
 	},
 	indent = {
-		-- enable = true,
-		-- disable = {
-		-- 	"python",
-		-- },
+		enable = true,
+		disable = {
+			"python",
+		},
 	},
 	addition_vim_regex_syntax_highlighting = { "python" },
 	ensure_installed = {
