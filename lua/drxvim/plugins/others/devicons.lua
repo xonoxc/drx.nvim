@@ -31,6 +31,18 @@ local configs = {
 		zip = { icon = "", name = "Zip" },
 	},
 	default = true,
+	override_by_extension = {
+		["odin"] = {
+			icon = "󰪣 ",
+			color = "#4b50ab",
+			name = "Odin",
+		},
+		["snippets"] = {
+			icon = " ",
+			color = "#573a48",
+			name = "Odin",
+		},
+	},
 	override_by_filename = {
 		sh = {
 			icon = "",

@@ -59,7 +59,7 @@ local plugins = {
 		main = "ibl",
 		config = function()
 			require("ibl").setup({
-				indent = { tab_char = "│" },
+				indent = { tab_char = "╎" },
 				scope = { enabled = false },
 			})
 		end,
