@@ -29,12 +29,13 @@ vim.filetype.add({
 vim.filetype.add({
 	filename = {
 		[".prettierignore"] = "prettier",
-		[".prettierrc"] = "prettier",
+		[".prettierrc"] = "json",
 	},
 })
 vim.filetype.add({
 	pattern = { [".*/hyprland%.conf"] = "hyprlang", ["hypridle.conf"] = "hyprlang" },
 })
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
 vim.g.markdown_fenced_languages = {
