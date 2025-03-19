@@ -523,9 +523,6 @@ lspconfig.vuels.setup({
 lspconfig.ols.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	cmd = { "ols" },
-	filetypes = { "odin" },
-	root_dir = util.root_pattern("ols.json", ".git", "*.odin"),
 })
 
 return M
