@@ -211,3 +211,38 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
 		vim.api.nvim_input("<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<esc>`'la")
 	end,
 })
+
+-- converthing the string to template string in js and ts files
+vim.api.nvim_create_autocmd("TextChangedI", {
+	pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
+	group = vim.api.nvim_create_augroup("js-ts-template-string", { clear = true }),
+	callback = function(params)
+		local cursor_pos = vim.api.nvim_win_get_cursor(0)
+		local row, col = cursor_pos[1] - 1, cursor_pos[2]
+
+		local node = vim.treesitter.get_node({})
+
+		if not node then
+			return
+		end
+
+		if node:type() ~= "string" then
+			node = node:parent()
+		end
+
+		if not node or node:type() ~= "string" then
+			return
+		end
+
+		local start_row, start_col, end_row, end_col = vim.treesitter.get_node_range(node)
+
+		local text = vim.api.nvim_buf_get_text(params.buf, start_row, start_col, end_row, end_col, {})[1]
+
+		if text:find("%${") and not text:match("^`") then
+			vim.api.nvim_buf_set_text(params.buf, start_row, start_col, start_row, start_col + 1, { "`" })
+			vim.api.nvim_buf_set_text(params.buf, end_row, end_col - 1, end_row, end_col, { "`" })
+
+			vim.api.nvim_win_set_cursor(0, { row + 1, col + 1 })
+		end
+	end,
+})
