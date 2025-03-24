@@ -64,18 +64,17 @@ local plugins = {
 			})
 		end,
 	},
-	-- {
-	-- 	"echasnovski/mini.nvim",
-	-- 	version = "*",
-	-- 	event = "BufReadPost",
-	-- 	opts = function()
-	-- 		return require("drxvim.plugins.others.indentScope")
-	-- 	end,
-	-- 	config = function(_, opts)
-	-- 		require("mini.indentscope").setup(opts)
-	-- 	end,
-	-- },
-
+	{
+		"echasnovski/mini.nvim",
+		version = "*",
+		event = "BufReadPost",
+		opts = function()
+			return require("drxvim.plugins.others.indentScope")
+		end,
+		config = function(_, opts)
+			require("mini.indentscope").setup(opts)
+		end,
+	},
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -389,15 +388,4 @@ local plugins = {
 	},
 }
 
--- local custom_path = vim.fn.stdpath("config") .. "/lua/custom"
--- if vim.loop.fs_stat(custom_path) then
--- 	require("custom")
--- 	local custom_plugins = require("custom.plugins")
--- 	if #custom_plugins > 0 then
--- 		for _, plugin in ipairs(custom_plugins) do
--- 			table.insert(plugins, plugin)
--- 		end
--- 	end
--- end
---
 require("lazy").setup(plugins)
