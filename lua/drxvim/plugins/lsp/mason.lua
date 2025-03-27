@@ -2,6 +2,7 @@ local configs = {
 	ensure_installed = {
 		"typescript-language-server",
 		"gopls",
+		"vscode-solidity-server",
 		"pyright",
 		"html-lsp",
 		"prisma-language-server",
