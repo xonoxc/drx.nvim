@@ -108,7 +108,7 @@ map(
 	{ desc = "Workspace Symbols" }
 )
 
-map({ "n", "v" }, "<Leader>ld", "<cmd>TroubleToggle<cr>", opts, { desc = "toggle diagnostic" })
+map({ "n", "v" }, "<Leader>ld", "<cmd>:Trouble diagnostics toggle<CR>", opts, { desc = "toggle diagnostic" })
 
 -- windows
 map({ "n", "v" }, "<Leader>wv", "<C-w>v", opts, { desc = "Vertical Split" })
