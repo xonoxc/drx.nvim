@@ -20,5 +20,5 @@ local config = {
 		try_as_border = false,
 	},
 
-	symbol = "╎",
+	ymbol = "╎",
 }

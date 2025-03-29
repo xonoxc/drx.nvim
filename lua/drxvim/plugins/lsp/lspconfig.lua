@@ -78,32 +78,23 @@ lspconfig.gopls.setup({
 	},
 })
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "typescript-language-server", "--stdio" },
 	filetypes = {
-		"javascript",
-		"javascriptreact",
-		"typescript.tsx",
+		"typescript",
 		"typescriptreact",
 		"typescript.tsx",
-		"typescript",
+		"javascript.jsx",
+		"javascript",
+		"javascriptreact",
+	},
+	init_options = {
+		hostInfo = "neovim",
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-	init_options = {
-		preferences = {
-			includeInlayParameterNameHints = "all",
-			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-			includeInlayVariableTypeHints = true,
-			includeInlayFunctionParameterTypeHints = true,
-			includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-			includeInlayPropertyDeclarationTypeHints = true,
-			includeInlayFunctionLikeReturnTypeHints = true,
-			includeInlayEnumMemberValueHints = true,
-		},
-	},
-	single_file_support = false,
+	single_file_support = true,
 })
 
 lspconfig.cssls.setup({

@@ -1,153 +1,94 @@
-local configs = {
-	setup = {
-		operators = { gc = "Comments" },
-		key_labels = {
-			["<space>"] = "SPACE",
-			["<leader>"] = "SPACE",
-			["<cr>"] = "RETURN",
-			["<tab>"] = "TAB",
+return {
+	preset = "classic",
+	delay = function(ctx)
+		return ctx.plugin and 0 or 200
+	end,
+	filter = function(_)
+		return true
+	end,
+	spec = {},
+	notify = false,
+	triggers = { { "<auto>", mode = "nixsotc" } },
+	defer = function(ctx)
+		return ctx.mode == "V" or ctx.mode == "<C-V>"
+	end,
+	plugins = {
+		marks = true,
+		registers = true,
+		spelling = {
+			enabled = true,
+			suggestions = 20,
 		},
-		icons = {
-			breadcrumb = "",
-			separator = "",
-			group = " ",
-		},
-		window = {
-			border = "none",
-			position = "bottom",
-			margin = { 1, 0, 1, 0 },
-			padding = { 0, 0, 0, 0 },
-			winblend = 0,
-		},
-		layout = {
-			height = { min = 3, max = 20 },
-			width = { min = 20, max = 50 },
-			spacing = 15,
-			align = "center",
-		},
-		ignore_missing = true,
-		-- hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
-		show_help = true,
-		triggers = { "<leader>" },
-		triggers_blacklist = {
-			i = { "j", "k" },
-			v = { "j", "k" },
+		presets = {
+			operators = false, -- adds help for operators like d, y, ...
+			motions = false, -- adds help for motions
+			text_objects = true, -- help for text objects triggered after entering an operator
+			windows = true, -- default bindings on <c-w>
+			nav = false, -- misc bindings to work with windows
+			z = false, -- bindings for folds, spelling and others prefixed with z
+			g = false, -- bindings for prefixed with g
 		},
 	},
-
-	mappings = {
-		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
-		["q"] = { "<cmd>qa!<CR>", "Quit" },
-		p = {
-			name = "󰏖  LAZY",
-			C = { "<cmd>Lazy clean<cr>", "Clean" },
-			c = { "<cmd>Lazy log<cr>", "Log" },
-			i = { "<cmd>Lazy install<cr>", "Install" },
-			s = { "<cmd>Lazy sync<cr>", "Sync" },
-			S = { "<cmd>Lazy show<cr>", "Status" },
-			u = { "<cmd>Lazy update<cr>", "Update" },
-		},
-		o = {
-			name = "  OPTIONS",
-			a = { "<cmd>lua require('drxvim.user.functions').Ranger()<cr>", "Ranger" },
-			w = { "<cmd>lua require('drxvim.user.functions').toggle_option('wrap')<cr>", "Wrap" },
-			s = { "<cmd>lua require('drxvim.user.functions').toggle_option('spell')<cr>", "Spell" },
-			n = { "<cmd>lua require('drxvim.user.functions').toggle_option('number')<cr>", "Number" },
-			r = { "<cmd>lua require('drxvim.user.functions').toggle_option('relativenumber')<cr>", "Relative Number" },
-			t = { "<cmd>lua require('drxvim.user.functions').toggle_tabline()<cr>", "Tabline" },
-			l = { "<cmd>lua require('drxvim.user.functions').toggle_statusline()<cr>", "Statusline" },
-		},
-		w = {
-			name = "  WINDOWS",
-			v = { "<C-w>v", "Vertical Split" },
-			h = { "<C-w>s", "Horizontal Split" },
-			e = { "<C-w>=", "Make Splits Equal" },
-			q = { "<cmd>close<CR>", "Close Split" },
-			c = { "<cmd>TeBufCloseOtherBuf<CR>", "Close Other Buffers" },
-		},
-		f = {
-			name = "  TELESCOPE",
-			c = { "<cmd>lua require('drxvim.themes.switch').setup()<cr>", "DrxVim Themes" },
-			f = { "<cmd>Telescope find_files<cr>", "Find File" },
-			r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
-			w = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-			m = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-			M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-			R = { "<cmd>Telescope registers<cr>", "Registers" },
-			j = { "<cmd>Telescope commands<cr>", "Commands" },
-			h = { "<cmd>Telescope highlights<cr>", "Highlights" },
-			p = { "<cmd>Telescope projects<cr>", "Projects" },
-			t = { "<cmd>TodoTelescope<cr>", "Todo" },
-		},
-		g = {
-			name = "󰊢  GIT",
-			l = { "<cmd>lua require('drxvim.user.functions').LazyGit()<cr>", "Lazygit" },
-			j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-			k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-			p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-			r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-			R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-			s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-			u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
-			o = { "<cmd>Telescope git_status<cr>", "Open Changed File" },
-			b = { "<cmd>Telescope git_branches<cr>", "Checkout Branch" },
-			c = { "<cmd>Telescope git_commits<cr>", "Checkout Commit" },
-			d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-		},
-		l = {
-			name = "  LSP",
-			a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-			d = { "<cmd>TroubleToggle<cr>", "Diagnostics" },
-			i = { "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", "Toggle InlayHints" },
-			f = { "<cmd>lua require('conform').format()<cr>", "Format" },
-			I = { "<cmd>LspInfo<cr>", "Info" },
-			j = { "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", "Next Diagnostic" },
-			k = { "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", "Prev Diagnostic" },
-			l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-			o = { "<cmd>Lspsaga outline<cr>", "Outline" },
-			r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-			R = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
-			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-			S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
-		},
-		s = {
-			name = "  TREESITTER",
-			c = { "<cmd>TSContextToggle<cr>", "Toggle Context" },
-			i = { "<cmd>TSInstallInfo<cr>", "Info" },
-			s = { "<cmd>TSUpdate<cr>", "Update" },
-		},
-		t = {
-			name = "  TERMINAL",
-			["1"] = { "<cmd>1ToggleTerm<cr>", "1" },
-			["2"] = { "<cmd>2ToggleTerm<cr>", "2" },
-			["3"] = { "<cmd>3ToggleTerm<cr>", "3" },
-			["4"] = { "<cmd>4ToggleTerm<cr>", "4" },
-			f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-			h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-			v = { "<cmd>ToggleTerm size=50 direction=vertical<cr>", "Vertical" },
-			q = { "<cmd>ToggleTerm<cr>", "Toggle Terminal" },
+	win = {
+		no_overlap = true,
+		height = { min = 3, max = 20 },
+		border = "none",
+		padding = { 1, 1 },
+	},
+	layout = {
+		width = { min = 20, max = 50 },
+		spacing = 15,
+	},
+	keys = {
+		scroll_down = "<c-d>",
+		scroll_up = "<c-u>",
+	},
+	sort = { "local", "order", "group", "alphanum", "mod" },
+	expand = 0,
+	icons = {
+		breadcrumb = "",
+		separator = "",
+		group = " ",
+		ellipsis = "…",
+		mappings = true,
+		rules = {},
+		colors = true,
+		keys = {
+			Up = " ",
+			Down = " ",
+			Left = " ",
+			Right = " ",
+			C = "󰘴 ",
+			M = "󰘵 ",
+			D = "󰘳 ",
+			S = "󰘶 ",
+			CR = "󰌑 ",
+			Esc = "󱊷 ",
+			ScrollWheelDown = "󱕐 ",
+			ScrollWheelUp = "󱕑 ",
+			NL = "󰌑 ",
+			BS = "󰁮",
+			Space = "󱁐 ",
+			Tab = "󰌒 ",
+			F1 = "󱊫",
+			F2 = "󱊬",
+			F3 = "󱊭",
+			F4 = "󱊮",
+			F5 = "󱊯",
+			F6 = "󱊰",
+			F7 = "󱊱",
+			F8 = "󱊲",
+			F9 = "󱊳",
+			F10 = "󱊴",
+			F11 = "󱊵",
+			F12 = "󱊶",
 		},
 	},
-	vmappings = {
-		["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
+	show_help = false,
+	show_keys = false,
+	disable = {
+		ft = {},
+		bt = {},
 	},
-
-	opts = {
-		mode = "n", -- NORMAL mode
-		prefix = "<leader>",
-		buffer = nil,
-		silent = true,
-		noremap = true,
-		nowait = true,
-	},
-	vopts = {
-		mode = "v", -- VISUAL mode
-		prefix = "<leader>",
-		buffer = nil,
-		silent = true,
-		noremap = true,
-		nowait = true,
-	},
+	debug = false,
 }
-
-return configs

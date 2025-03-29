@@ -81,11 +81,6 @@ local plugins = {
 		opts = function()
 			return require("drxvim.plugins.others.whichkey")
 		end,
-		config = function(_, opts)
-			require("which-key").setup(opts.setup)
-			require("which-key").register(opts.mappings, opts.opts)
-			require("which-key").register(opts.vmappings, opts.vopts)
-		end,
 	},
 	{
 		"numToStr/Comment.nvim",
