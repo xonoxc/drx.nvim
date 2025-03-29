@@ -161,3 +161,9 @@ map(
 	opts,
 	{ desc = "Statusline" }
 )
+
+-- mapping to comment the selection
+map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, { desc = "Comment current line" })
+
+-- mapping to quit the neovim
+map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })

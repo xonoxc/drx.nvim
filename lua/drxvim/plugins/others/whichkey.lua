@@ -1,5 +1,5 @@
 return {
-	preset = "classic",
+	preset = "modern",
 	delay = function(ctx)
 		return ctx.plugin and 0 or 200
 	end,

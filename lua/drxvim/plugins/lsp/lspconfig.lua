@@ -94,7 +94,6 @@ lspconfig.ts_ls.setup({
 		hostInfo = "neovim",
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-	single_file_support = true,
 })
 
 lspconfig.cssls.setup({
@@ -141,12 +140,25 @@ lspconfig.tailwindcss.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "tailwindcss-language-server", "--stdio" },
-	init_options = { userLanguages = { templ = "html" } },
 	settings = {
-		tailwindCss = {
+		tailwindCSS = {
+			classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
 			includeLanguages = {
+				eelixir = "html-eex",
+				eruby = "erb",
+				htmlangular = "html",
 				templ = "html",
 			},
+			lint = {
+				cssConflict = "warning",
+				invalidApply = "error",
+				invalidConfigPath = "error",
+				invalidScreen = "error",
+				invalidTailwindDirective = "error",
+				invalidVariant = "error",
+				recommendedVariantOrder = "warning",
+			},
+			validate = true,
 		},
 	},
 	filetypes = {
