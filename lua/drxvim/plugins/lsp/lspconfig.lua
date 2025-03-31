@@ -78,7 +78,7 @@ lspconfig.gopls.setup({
 	},
 })
 
-lspconfig.ts_ls.setup({
+lspconfig["ts_ls"].setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "typescript-language-server", "--stdio" },
@@ -472,6 +472,10 @@ lspconfig.svelte.setup({
 lspconfig.denols.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
+	init_options = {
+		lint = true,
+		unstable = true,
+	},
 	root_dir = util.root_pattern("deno.json", "deno.jsonc"),
 })
 
@@ -533,6 +537,14 @@ lspconfig.ols.setup({
 lspconfig.solidity_ls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
+})
+
+-- lsp for assembly language --
+lspconfig.asm_lsp.setup({
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "asm-lsp" },
+	filetypes = { "asm", "vasm" },
 })
 
 return M

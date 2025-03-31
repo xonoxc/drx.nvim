@@ -319,7 +319,16 @@ local plugins = {
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
-		lazy = true,
+		event = "VeryLazy",
+		keys = {
+			{ "<Leader>ld", ":Trouble diagnostics toggle<CR>", desc = "Toggle trouble diagnostics" },
+			{
+				"<Leader>lt",
+				":Trouble diagnostics toggle filter.buf=0<CR>",
+				desc = "Togle trouble document diagnostics",
+				{ "<Leader>lq", ":Trouble quickfix toggle<CR>", desc = "Toggle trouble quickfix list" },
+			},
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -355,33 +364,33 @@ local plugins = {
 		end,
 	},
 	--  {
-		-- "Exafunction/codeium.nvim",
-		-- dependencies = {
-		-- 	"nvim-lua/plenary.nvim",
-		-- 	"hrsh7th/nvim-cmp",
-		-- },
-		-- config = function()
-		-- 	require("codeium").setup({})
-		-- end,
-	 --},
-	--[[ {
-		"zbirenbaum/copilot-cmp",
-		event = "InsertEnter",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-		dependencies = {
-			"zbirenbaum/copilot.lua",
-			cmd = "Copilot",
-			config = function()
-				require("copilot").setup({
-					suggestion = { enabled = false },
-					panel = { enabled = false },
-					logger = {},
-				})
-			end,
-		},
-	}, ]]
+	-- "Exafunction/codeium.nvim",
+	-- dependencies = {
+	-- 	"nvim-lua/plenary.nvim",
+	-- 	"hrsh7th/nvim-cmp",
+	-- },
+	-- config = function()
+	-- 	require("codeium").setup({})
+	-- end,
+	--},
+	-- --[[ {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- 	dependencies = {
+	-- 		"zbirenbaum/copilot.lua",
+	-- 		cmd = "Copilot",
+	-- 		config = function()
+	-- 			require("copilot").setup({
+	-- 				suggestion = { enabled = false },
+	-- 				panel = { enabled = false },
+	-- 				logger = {},
+	-- 			})
+	-- 		end,
+	-- 	},
+	-- } ]],
 }
 
 require("lazy").setup(plugins)

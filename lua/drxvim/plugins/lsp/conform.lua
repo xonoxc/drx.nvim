@@ -25,7 +25,9 @@ return {
 		sh = { "shfmt" },
 		cpp = { "clang-format" },
 		java = { "clang-format" },
-
+		asm = {
+			"asmfmt",
+		},
 		-- additional config for python
 
 		python = function(bufnr)
