@@ -78,10 +78,23 @@ lspconfig.gopls.setup({
 	},
 })
 
+-- this function ignores all the errors that contain (Debug failure for typescript)--
+local function filter_ts_diagnostics(err, result, ctx, config)
+	if result and result.diagnostics then
+		result.diagnostics = vim.tbl_filter(function(diagnostic)
+			return not string.match(diagnostic.message, "Debug Failure")
+		end, result.diagnostics)
+	end
+	vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+end
+
 lspconfig["ts_ls"].setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "typescript-language-server", "--stdio" },
+	handlers = {
+		["textDocument/publishDiagnostics"] = filter_ts_diagnostics,
+	},
 	filetypes = {
 		"typescript",
 		"typescriptreact",
