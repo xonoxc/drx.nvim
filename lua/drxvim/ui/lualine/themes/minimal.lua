@@ -89,7 +89,6 @@ local filename = {
 	file_status = true,
 	newfile_status = false,
 	path = 0,
-
 	shorting_target = 40,
 	symbols = {
 		modified = " ",
@@ -103,11 +102,6 @@ local filetype = {
 	"filetype",
 	color = { fg = colors.white, bg = "none" },
 }
-
--- local encoding = {
--- 	"encoding",
--- 	color = { fg = colors.white, bg = "none" },
--- }
 
 local fileformat = {
 	"fileformat",
@@ -164,39 +158,28 @@ local lsp = {
 }
 
 local formatter = function()
-	-- Check if 'conform' is available
 	local status, conform = pcall(require, "conform")
 	if not status then
 		return "Conform not installed"
 	end
 
-	local lsp_format = require("conform.lsp_format")
-
-	-- Get formatters for the current buffer
 	local formatters = conform.list_formatters_for_buffer()
 	if formatters and #formatters > 0 then
-		local formatterNames = {}
-
-		for _, formatter in ipairs(formatters) do
-			table.insert(formatterNames, formatter)
-		end
-
-		return "󰷈 " .. table.concat(formatterNames, " ")
+		return "󰷈 " .. formatters[1]
 	end
 
-	-- Check if there's an LSP formatter
+	local lsp_format = require("conform.lsp_format")
 	local bufnr = vim.api.nvim_get_current_buf()
 	local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
 
-	if not vim.tbl_isempty(lsp_clients) then
-		return ""
+	if lsp_clients and #lsp_clients > 0 then
+		return " " .. lsp_clients[1].name --  is a gear icon
 	end
 
 	return ""
 end
 
 local virtual_env = function()
-	-- only show virtual env for Python
 	if vim.bo.filetype ~= "python" then
 		return ""
 	end
@@ -224,18 +207,64 @@ local py_virtual_env = {
 	color = { bg = "none", fg = "#ccccccc" },
 }
 
+local encoding = {
+	"encoding",
+	color = { fg = colors.white, bg = "none" },
+}
+
+local indent = {
+	function()
+		local shiftwidth = vim.api.nvim_buf_get_option(0, "shiftwidth")
+		return "⇥ " .. shiftwidth
+	end,
+	color = { fg = colors.white, bg = "none" },
+}
+
+local progress_bar = {
+	function()
+		local current_line = vim.fn.line(".")
+		local total_lines = vim.fn.line("$")
+		local chars = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
+		local line_ratio = current_line / total_lines
+		local index = math.ceil(line_ratio * #chars)
+		if index == 0 then
+			index = 1
+		end
+		return chars[index]
+	end,
+	color = { fg = colors.green, bg = "none" },
+}
+
+local clock = {
+	function()
+		return os.date(" %H:%M")
+	end,
+	color = { fg = colors.light_gray, bg = "none" },
+}
+
+local spell = {
+	function()
+		if vim.wo.spell then
+			return "󰓆"
+		else
+			return ""
+		end
+	end,
+	color = { fg = colors.orange, bg = "none" },
+}
+
 local config = {
 	options = {
 		theme = minimal_theme,
 		component_separators = "", -- No separators
 		section_separators = "", -- No separators
-		disabled_filetypes = {}, -- Specify filetypes to exclude if needed
+		disabled_filetypes = {},
 	},
 	sections = {
 		lualine_a = { vim_icons, mode },
-		lualine_b = { branch, diff },
-		lualine_c = { diagnostics, filename, py_virtual_env },
-		lualine_x = { formatter, lsp, filetype, fileformat, progress },
+		lualine_b = { branch, diff, spell },
+		lualine_c = { diagnostics, filename, py_virtual_env, encoding, clock },
+		lualine_x = { formatter, lsp, filetype, fileformat, indent, progress_bar, progress },
 		lualine_y = { search_count, location },
 		lualine_z = {},
 	},
