@@ -318,15 +318,44 @@ local plugins = {
 	},
 	{
 		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble" },
-		event = "VeryLazy",
+		opts = {
+			icons = {
+				folder_closed = " ",
+				folder_open = " ",
+				last = "╰╴", -- rounded
+			},
+		},
+		cmd = "Trouble",
 		keys = {
-			{ "<Leader>ld", ":Trouble diagnostics toggle<CR>", desc = "Toggle trouble diagnostics" },
 			{
-				"<Leader>lt",
-				":Trouble diagnostics toggle filter.buf=0<CR>",
-				desc = "Togle trouble document diagnostics",
-				{ "<Leader>lq", ":Trouble quickfix toggle<CR>", desc = "Toggle trouble quickfix list" },
+				"<leader>ld",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>lD",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
 			},
 		},
 	},
@@ -373,24 +402,24 @@ local plugins = {
 	-- 	require("codeium").setup({})
 	-- end,
 	--},
-	-- --[[ {
-	-- 	"zbirenbaum/copilot-cmp",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot_cmp").setup()
-	-- 	end,
-	-- 	dependencies = {
-	-- 		"zbirenbaum/copilot.lua",
-	-- 		cmd = "Copilot",
-	-- 		config = function()
-	-- 			require("copilot").setup({
-	-- 				suggestion = { enabled = false },
-	-- 				panel = { enabled = false },
-	-- 				logger = {},
-	-- 			})
-	-- 		end,
-	-- 	},
-	-- } ]],
+	{
+		"zbirenbaum/copilot-cmp",
+		event = "InsertEnter",
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			config = function()
+				require("copilot").setup({
+					suggestion = { enabled = false },
+					panel = { enabled = false },
+					logger = {},
+				})
+			end,
+		},
+	},
 }
 
 require("lazy").setup(plugins)

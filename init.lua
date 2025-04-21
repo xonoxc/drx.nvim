@@ -36,6 +36,10 @@ vim.filetype.add({
 	pattern = { [".*/hyprland%.conf"] = "hyprlang", ["hypridle.conf"] = "hyprlang" },
 })
 
+vim.filetype.add({
+	extension = { mdx = "markdown" },
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
 vim.opt.rtp:prepend(lazypath)
 vim.g.markdown_fenced_languages = {
@@ -46,6 +50,8 @@ vim.g.markdown_fenced_languages = {
 vim.diagnostic.config({ virtual_lines = {
 	current_line = true,
 } })
+
+vim.env.NODE_NO_WARNINGS = 1
 
 require("drxvim.plugins")
 require("drxvim.cmd.cmd")
