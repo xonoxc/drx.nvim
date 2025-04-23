@@ -95,6 +95,7 @@ lspconfig["ts_ls"].setup({
 	handlers = {
 		["textDocument/publishDiagnostics"] = filter_ts_diagnostics,
 	},
+	single_file_support = false,
 	filetypes = {
 		"typescript",
 		"typescriptreact",
@@ -103,7 +104,7 @@ lspconfig["ts_ls"].setup({
 		"javascript",
 		"javascriptreact",
 	},
-	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
 })
 
 lspconfig.cssls.setup({

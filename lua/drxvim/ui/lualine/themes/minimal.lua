@@ -263,8 +263,8 @@ local config = {
 	sections = {
 		lualine_a = { vim_icons, mode },
 		lualine_b = { branch, diff, spell },
-		lualine_c = { diagnostics, filename, py_virtual_env, encoding, clock },
-		lualine_x = { formatter, lsp, filetype, fileformat, indent, progress_bar, progress },
+		lualine_c = { diagnostics, filename, py_virtual_env, encoding },
+		lualine_x = { formatter, lsp, filetype, fileformat, indent },
 		lualine_y = { search_count, location },
 		lualine_z = {},
 	},
