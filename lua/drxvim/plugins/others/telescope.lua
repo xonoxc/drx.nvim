@@ -1,5 +1,5 @@
 local actions = require("telescope.actions")
-local trouble = require("trouble.providers.telescope")
+local trouble = require("trouble.sources.telescope")
 
 local configs = {
 	pickers = {
@@ -51,7 +51,7 @@ local configs = {
 				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				["<esc>"] = actions.close,
 				["<CR>"] = actions.select_default + actions.center,
-				["<c-t>"] = trouble.open_with_trouble,
+				["<c-t>"] = trouble.open(),
 			},
 		},
 	},

@@ -173,7 +173,7 @@ local formatter = function()
 	local lsp_clients = lsp_format.get_format_clients({ bufnr = bufnr })
 
 	if lsp_clients and #lsp_clients > 0 then
-		return " " .. lsp_clients[1].name --  is a gear icon
+		return "󰷈 " .. lsp_clients[1].name
 	end
 
 	return ""
@@ -254,6 +254,10 @@ local spell = {
 }
 
 local config = {
+	refresh = {
+		interval = 300,
+		statusline = false,
+	},
 	options = {
 		theme = minimal_theme,
 		component_separators = "", -- No separators
