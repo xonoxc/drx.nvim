@@ -165,3 +165,16 @@ map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, 
 
 -- mapping to quit the neovim
 map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
+
+-- toggle diagnositcs line
+vim.keymap.set("n", "<leader>k", function()
+	vim.diagnostic.config({ virtual_lines = { current_line = true } })
+
+	vim.api.nvim_create_autocmd("CursorMoved", {
+		group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
+		callback = function()
+			vim.diagnostic.config({ virtual_lines = false })
+			return true
+		end,
+	})
+end)

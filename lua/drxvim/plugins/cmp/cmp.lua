@@ -82,6 +82,7 @@ local configs = {
 				preset = "codicons",
 				maxwidth = 40,
 			})(entry, vim_item)
+
 			local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
 			kind.kind = " " .. string.format(" %s │", strings[1], strings[2]) .. " "
 			return kind

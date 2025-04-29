@@ -46,11 +46,6 @@ vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 }
 
--- enabling virtual text in neovim
-vim.diagnostic.config({ virtual_lines = {
-	current_line = true,
-} })
-
 vim.env.NODE_NO_WARNINGS = 1
 
 require("drxvim.plugins")
