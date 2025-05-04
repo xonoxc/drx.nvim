@@ -5,4 +5,4 @@
 
 # Screenshot
 
-![config image](./assets/screenshot.png)
+![config image](./assets/neovim.png)

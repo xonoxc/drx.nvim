@@ -238,13 +238,13 @@ lspconfig.tailwindcss.setup({
 	),
 })
 
-lspconfig.graphql.setup({
-	on_attach = M.on_attach,
-	capabilities = M.capabilities,
-	cmd = { "graphql-lsp", "server", "-m", "stream" },
-	filetypes = { "graphql", "typescriptreact", "javascriptreact" },
-	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
-})
+-- lspconfig.graphql.setup({
+-- 	on_attach = M.on_attach,
+-- 	capabilities = M.capabilities,
+-- 	cmd = { "graphql-lsp", "server", "-m", "stream" },
+-- 	filetypes = { "graphql", "typescriptreact", "javascriptreact" },
+-- 	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
+-- })
 
 lspconfig.pyright.setup({
 	on_attach = M.on_attach,
