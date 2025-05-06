@@ -51,7 +51,7 @@ local configs = {
 				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 				["<esc>"] = actions.close,
 				["<CR>"] = actions.select_default + actions.center,
-				["<c-t>"] = trouble.open(),
+				["<c-t>"] = trouble.open,
 			},
 		},
 	},

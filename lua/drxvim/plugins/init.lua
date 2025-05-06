@@ -363,7 +363,7 @@ local plugins = {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = function()
-			return require("drxvim.ui.lualine.init")
+			return require("drxvim.ui.statusline")
 		end,
 		config = function(_, opts)
 			---@diagnostic disable-next-line

@@ -4,6 +4,7 @@ local colors = {
 	red = "#D16969",
 	yellow = "#DCDCAA",
 	orange = "#CE9178",
+	purple = "#d2a8ff",
 	violet = "#C586C0",
 	white = "#D4D4D4",
 	light_gray = "#858585",
@@ -84,8 +85,20 @@ local diagnostics = {
 	},
 }
 
+local function custom_filename()
+	local bufname = vim.api.nvim_buf_get_name(0)
+	-- Check if the buffer name or filetype corresponds to neo-tree filesystem
+	-- You might need to adjust the condition to match your neo-tree buffer name or filetype
+	local ft = vim.bo.filetype
+	if ft == "neo-tree" or bufname:match("neo%-tree") then
+		return "  filetree"
+	else
+		return vim.fn.fnamemodify(bufname, ":t")
+	end
+end
+
 local filename = {
-	"filename",
+	custom_filename,
 	file_status = true,
 	newfile_status = false,
 	path = 0,
@@ -117,11 +130,6 @@ local location = {
 	"location",
 	separator = { left = " ", right = " " },
 	color = { fg = "#cccccc", bg = colors.light_gray },
-}
-
-local progress = {
-	"progress",
-	icon = "󰔵 ",
 }
 
 local search_count = {
@@ -178,6 +186,11 @@ local formatter = function()
 
 	return ""
 end
+
+local custom_formatter = {
+	formatter,
+	color = { fg = colors.light_gray, bg = "none" },
+}
 
 local virtual_env = function()
 	if vim.bo.filetype ~= "python" then
@@ -255,8 +268,7 @@ local spell = {
 
 local config = {
 	refresh = {
-		interval = 300,
-		statusline = false,
+		statusline = 100,
 	},
 	options = {
 		theme = minimal_theme,
@@ -268,7 +280,7 @@ local config = {
 		lualine_a = { vim_icons, mode },
 		lualine_b = { branch, diff, spell },
 		lualine_c = { diagnostics, filename, py_virtual_env, encoding },
-		lualine_x = { formatter, lsp, filetype, fileformat, indent },
+		lualine_x = { custom_formatter, lsp, filetype, fileformat, indent },
 		lualine_y = { search_count, location },
 		lualine_z = {},
 	},
