@@ -1,5 +1,6 @@
 local cmp = require("cmp")
-local luasnip = require("luasnip")
+---@diagnostic disable-next-line
+local lua_snip = require("luasnip")
 local lspkind = require("lspkind")
 
 local check_backspace = function()
@@ -19,7 +20,7 @@ end
 local configs = {
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			lua_snip.lsp_expand(args.body)
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -37,12 +38,12 @@ local configs = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() and has_words_before() then
 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-			elseif luasnip.jumpable(1) then
-				luasnip.jump(1)
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif luasnip.expandable() then
-				luasnip.expand()
+			elseif lua_snip.jumpable(1) then
+				lua_snip.jump(1)
+			elseif lua_snip.expand_or_jumpable() then
+				lua_snip.expand_or_jump()
+			elseif lua_snip.expandable() then
+				lua_snip.expand()
 			elseif check_backspace() then
 				-- cmp.complete()
 				fallback()
@@ -56,8 +57,8 @@ local configs = {
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+			elseif lua_snip.jumpable(-1) then
+				lua_snip.jump(-1)
 			else
 				fallback()
 			end
@@ -92,7 +93,7 @@ local configs = {
 		{ name = "copilot", max_item_count = 2 },
 		{ name = "codeium", max_item_count = 2 },
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{ name = "lua_snip" },
 		{ name = "nvim_lua" },
 		{ name = "supermaven" },
 		{ name = "buffer" },

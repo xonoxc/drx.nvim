@@ -12,13 +12,13 @@ local colors = {
 
 local minimal_theme = {
 	normal = {
-		a = { fg = colors.white, bg = "none", gui = "bold" },
+		a = { fg = colors.white, bg = "none" },
 		b = { fg = colors.light_gray, bg = "none" },
 		c = { fg = colors.light_gray, bg = "none" },
 	},
-	insert = { a = { fg = colors.white, bg = "none", gui = "bold" } },
-	visual = { a = { fg = colors.white, bg = "none", gui = "bold" } },
-	replace = { a = { fg = colors.white, bg = "none", gui = "bold" } },
+	insert = { a = { fg = colors.white, bg = "none" } },
+	visual = { a = { fg = colors.white, bg = "none" } },
+	replace = { a = { fg = colors.white, bg = "none" } },
 	inactive = {
 		a = { fg = colors.light_gray, bg = "none" },
 		b = { fg = colors.light_gray, bg = "none" },
@@ -92,6 +92,8 @@ local function custom_filename()
 	local ft = vim.bo.filetype
 	if ft == "neo-tree" or bufname:match("neo%-tree") then
 		return "  filetree"
+	elseif ft == "neo-tree" or bufname:match("toggleterm") then
+		return " terminal"
 	else
 		return vim.fn.fnamemodify(bufname, ":t")
 	end
@@ -267,15 +269,13 @@ local spell = {
 }
 
 local config = {
-	refresh = {
-		statusline = 100,
-	},
 	options = {
 		theme = minimal_theme,
 		component_separators = "", -- No separators
 		section_separators = "", -- No separators
 		disabled_filetypes = {},
 	},
+	globalstatus = false,
 	sections = {
 		lualine_a = { vim_icons, mode },
 		lualine_b = { branch, diff, spell },

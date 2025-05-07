@@ -241,7 +241,8 @@ local plugins = {
 				dependencies = "rafamadriz/friendly-snippets",
 				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
 				config = function(_, opts)
-					require("drxvim.plugins.cmp.luasnip").luasnip(opts)
+					---@diagnostic disable-next-line
+					require("drxvim.plugins.cmp.luasnip").snip(opts)
 				end,
 			},
 			{

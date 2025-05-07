@@ -1,6 +1,6 @@
 local M = {}
 
-M.luasnip = function(opts)
+M.snip = function(opts)
 	require("luasnip").config.set_config(opts)
 
 	-- vscode format

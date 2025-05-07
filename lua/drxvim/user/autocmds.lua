@@ -146,6 +146,7 @@ autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.templ" },
 	callback = function(args)
+		---@diagnostic disable-next-line
 		require("conform").format({ bufnr = args.buf })
 	end,
 })
