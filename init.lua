@@ -49,4 +49,3 @@ vim.g.markdown_fenced_languages = {
 vim.env.NODE_NO_WARNINGS = 1
 
 require("drxvim.plugins")
-require("drxvim.cmd.cmd")
