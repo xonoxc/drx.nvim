@@ -7,7 +7,9 @@ autocmd({ "UIEnter" }, {
 		if vim.fn.argc() == 0 then
 			require("drxvim.ui.tedash").setup()
 		end
+		require("drxvim.ui.statusline.custom").setup()
 	end,
+
 	desc = "Load Statusline, Dashboard and Themes",
 })
 autocmd({ "BufNewFile", "BufReadPost" }, {

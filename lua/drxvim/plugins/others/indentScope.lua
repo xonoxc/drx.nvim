@@ -22,3 +22,5 @@ local config = {
 
 	ymbol = "╎",
 }
+
+return config

@@ -193,6 +193,7 @@ local plugins = {
 			})
 		end,
 	},
+
 	{
 		"kevinhwang91/nvim-ufo",
 		event = { "BufReadPost", "BufNewFile" },
@@ -361,28 +362,8 @@ local plugins = {
 		},
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = function()
-			return require("drxvim.ui.statusline")
-		end,
-		config = function(_, opts)
-			---@diagnostic disable-next-line
-			require("lualine").setup(opts)
-		end,
-	},
-	{
 		"lambdalisue/suda.vim",
 	},
-	--[[ {
-		"supermaven-inc/supermaven-nvim",
-		config = function()
-	require("supermaven-nvim").setup({})
-		end,
-	}, ]]
-	-- {
-	-- 	"terminalnode/sway-vim-syntax",
-	-- },
 	{
 		"chomosuke/term-edit.nvim",
 		event = "TermOpen",

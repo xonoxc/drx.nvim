@@ -96,6 +96,30 @@ lspconfig["ts_ls"].setup({
 		["textDocument/publishDiagnostics"] = filter_ts_diagnostics,
 	},
 	single_file_support = false,
+	settings = {
+		typescript = {
+			inlayHints = {
+				includeInlayParameterNameHints = "all", -- Show parameter name hints
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false, -- Hide hints if argument name matches param name
+				includeInlayFunctionParameterTypeHints = false, -- Disable parameter type hints (usually verbose)
+				includeInlayVariableTypeHints = false, -- Disable variable type hints
+				includeInlayPropertyDeclarationTypeHints = false, -- Disable property type hints
+				includeInlayFunctionLikeReturnTypeHints = false, -- Disable return type hints
+				includeInlayEnumMemberValueHints = false, -- Disable enum member value hints
+			},
+		},
+		javascript = {
+			inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = false,
+				includeInlayVariableTypeHints = false,
+				includeInlayPropertyDeclarationTypeHints = false,
+				includeInlayFunctionLikeReturnTypeHints = false,
+				includeInlayEnumMemberValueHints = false,
+			},
+		},
+	},
 	filetypes = {
 		"typescript",
 		"typescriptreact",
