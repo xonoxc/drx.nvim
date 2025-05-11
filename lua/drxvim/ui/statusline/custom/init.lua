@@ -136,9 +136,9 @@ local diagnostics = function()
 	HINT = (hints and hints > 0) and ("%#TeSTTHintsIcon#" .. " 󰌶 " .. "%#TeSTTHints#" .. hints) or ""
 	INFO = (info and info > 0) and ("%#TeSTTInfoIcon#" .. "  " .. "%#TeSTTInfo#" .. info) or ""
 	if vim.o.columns < 120 then
-		return ERROR .. WARNING .. HINT .. INFO .. " "
+		return " " .. ERROR .. WARNING .. HINT .. INFO .. " "
 	end
-	return "%#TeSTTLspIcon#" .. "󰆧 " .. ERROR .. WARNING .. HINT .. INFO
+	return "%#TeSTTLspIcon#" .. " " .. ERROR .. WARNING .. HINT .. INFO
 end
 
 local lsp = function()
@@ -146,14 +146,14 @@ local lsp = function()
 	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 	local clients = vim.lsp.get_clients()
 	if not next(clients) then
-		return "%#TeSTTLsp#" .. msg
+		return "%#TeSTTLsp#" .. "󰆧 " .. msg
 	end
 	for _, client in ipairs(clients) do
 		if client.config.filetypes and vim.tbl_contains(client.config.filetypes, buf_ft) then
-			return client.name
+			return "󰆧 " .. client.name
 		end
 	end
-	return "%#TeSTTLsp#" .. msg
+	return "%#TeSTTLsp#" .. "󰆧 " .. msg
 end
 
 local codeium = function()
@@ -245,8 +245,8 @@ M.run = function()
 		nothing(),
 		diff(),
 		nothing(),
-		"%=",
 		diagnostics(),
+		"%=",
 		lsp(),
 		codeium(),
 		tabnine(),
