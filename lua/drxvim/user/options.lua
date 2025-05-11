@@ -1,10 +1,10 @@
-vim.cmd([[
-	syntax off
-	filetype off
-	filetype plugin indent off
-]])
+--vim.cmd([[
+--	syntax off
+--	filetype off
+--	filetype plugin indent off
+--]])
 
-vim.g.currentTheme = "ashes"
+vim.g.currentTheme = "github_dark"
 vim.g.theme_cache = vim.fn.stdpath("data") .. "/colors_data/"
 vim.g.transparency = false
 
