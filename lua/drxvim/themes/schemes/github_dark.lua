@@ -57,7 +57,6 @@ function M.get_colors()
 			["@punctuation.bracket"] = { fg = colors.orange },
 			["@string"] = { fg = colors.white },
 			["@variable.member.key"] = { fg = colors.white },
-			["@constructor"] = { fg = colors.vibrant_green },
 			["@tag.attribute"] = { link = "@function.method" },
 		},
 	}
