@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get_colors()
-	return {
+	local colors = {
 		white = "#d3dbe3",
 		darker_black = "#1F2428",
 		black = "#24292E", --  nvim bg
@@ -51,6 +51,18 @@ function M.get_colors()
 		base0E = "#ff7f8d",
 		base0F = "#85e89d",
 	}
+
+	colors.polish_hl = {
+		treesitter = {
+			["@punctuation.bracket"] = { fg = colors.orange },
+			["@string"] = { fg = colors.white },
+			["@variable.member.key"] = { fg = colors.white },
+			["@constructor"] = { fg = colors.vibrant_green },
+			["@tag.attribute"] = { link = "@function.method" },
+		},
+	}
+
+	return colors
 end
 
 return M

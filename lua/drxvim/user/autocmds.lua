@@ -231,3 +231,18 @@ vim.api.nvim_create_autocmd("TextChangedI", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+	pattern = "*",
+	callback = function()
+		local overridefunction = require("drxvim.themes.utils").apply_highlight_overrides
+		local current_theme = require("drxvim.themes").getCurrentTheme()
+
+		if current_theme and current_theme.polish_hl then
+			overridefunction(current_theme.polish_hl.treesitter)
+			if current_theme.polish_hl.syntax then
+				overridefunction(current_theme.polish_hl.syntax)
+			end
+		end
+	end,
+})

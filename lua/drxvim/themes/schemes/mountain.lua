@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get_colors()
-	return {
+	local colors = {
 		-- base30
 		white = "#F0f0f0",
 		darker_black = "#090909",
@@ -53,6 +53,14 @@ function M.get_colors()
 		base0E = "#ac8aac",
 		base0F = "#b39193",
 	}
+
+	colors.polish_hl = {
+		treesitter = {
+			["@variable"] = { fg = colors.base05 },
+		},
+	}
+
+	return colors
 end
 
 return M

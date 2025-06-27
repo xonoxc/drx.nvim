@@ -240,7 +240,7 @@ local plugins = {
 			{
 				"L3MON4D3/LuaSnip",
 				dependencies = "rafamadriz/friendly-snippets",
-				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+				opts = { history = true, updateevents = "TextChanged,TextChanged" },
 				config = function(_, opts)
 					---@diagnostic disable-next-line
 					require("drxvim.plugins.cmp.luasnip").snip(opts)

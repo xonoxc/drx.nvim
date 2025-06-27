@@ -2,7 +2,6 @@ local M = {}
 
 function M.get_colors()
 	return {
-
 		white = "#c0caf5",
 		darker_black = "#1b1e2b",
 		black = "#1e222e",
