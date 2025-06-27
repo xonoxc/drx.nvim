@@ -54,12 +54,6 @@ function M.get_colors()
 		base0F = "#b39193",
 	}
 
-	colors.polish_hl = {
-		treesitter = {
-			["@variable"] = { fg = colors.base05 },
-		},
-	}
-
 	return colors
 end
 
