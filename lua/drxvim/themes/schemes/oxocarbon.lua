@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get_colors()
-	return {
+	local colors = {
 		-- base30
 		white = "#f2f4f8",
 		darker_black = "#111111",
@@ -54,6 +54,15 @@ function M.get_colors()
 		base0E = "#be95ff",
 		base0F = "#82cfff",
 	}
+
+	colors.polish_hl = {
+		syntax = {
+			Conditional = { fg = colors.nord_blue },
+			Tag = { fg = colors.white },
+		},
+	}
+
+	return colors
 end
 
 return M

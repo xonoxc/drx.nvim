@@ -55,7 +55,6 @@ function M.get_colors()
 	colors.polish_hl = {
 		treesitter = {
 			["@punctuation.bracket"] = { fg = colors.orange },
-			["@string"] = { fg = colors.white },
 			["@variable.member.key"] = { fg = colors.white },
 			["@tag.attribute"] = { link = "@function.method" },
 		},
