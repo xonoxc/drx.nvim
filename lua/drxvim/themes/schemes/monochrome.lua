@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get_colors()
-	return {
+	local colors = {
 		white = "#D8DEE9",
 		darker_black = "#1a1a1a",
 		black = "#101010", --  nvim bg
@@ -50,6 +50,14 @@ function M.get_colors()
 		base0E = "#DAD4C3",
 		base0F = "#ced4df",
 	}
+
+	colors.polish_hl = {
+		treesitter = {
+			["@punctuation.bracket"] = { fg = colors.red },
+		},
+	}
+
+	return colors
 end
 
 return M

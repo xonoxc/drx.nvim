@@ -1,5 +1,8 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local themes_utils = require("drxvim.themes.utils")
+local themes = require("drxvim.themes")
+local override_func = themes_utils.apply_highlight_overrides
 
 autocmd({ "UIEnter" }, {
 	callback = function()
@@ -235,13 +238,23 @@ vim.api.nvim_create_autocmd("TextChangedI", {
 vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
 	pattern = "*",
 	callback = function()
-		local overridefunction = require("drxvim.themes.utils").apply_highlight_overrides
-		local current_theme = require("drxvim.themes").getCurrentTheme()
+		local current_theme = themes.getCurrentTheme()
+		if not (current_theme and current_theme.polish_hl) then
+			return
+		end
 
-		if current_theme and current_theme.polish_hl then
-			overridefunction(current_theme.polish_hl.treesitter)
-			if current_theme.polish_hl.syntax then
-				overridefunction(current_theme.polish_hl.syntax)
+		local polish = current_theme.polish_hl
+		local overrides = {
+			polish.treesitter,
+			polish.syntax,
+			polish.semantic_tokens,
+			polish.telescope,
+			polish.cmp,
+		}
+
+		for _, override in ipairs(overrides) do
+			if override then
+				override_func(override)
 			end
 		end
 	end,
