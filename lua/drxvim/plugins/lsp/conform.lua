@@ -1,35 +1,18 @@
 return {
 	formatters_by_ft = {
-		-- language formatters
 		lua = { "stylua" },
-		php = {
-			"pretty-php",
-		},
-		typescript = {
-			"prettierd",
-		},
-		svelte = {
-			"prettierd",
-		},
-		typescriptreact = {
-			"prettierd",
-		},
-		javascriptreact = {
-			"prettierd",
-		},
-		javascript = {
-			"prettierd",
-		},
+		php = { "pretty-php" },
+		typescript = { "prettierd" },
+		svelte = { "prettierd" },
+		typescriptreact = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		javascript = { "prettierd" },
 		css = { "prettierd" },
 		html = { "prettierd" },
 		sh = { "shfmt" },
 		cpp = { "clang-format" },
 		java = { "clang-format" },
-		asm = {
-			"asmfmt",
-		},
-		-- additional config for python
-
+		asm = { "asmfmt" },
 		python = function(bufnr)
 			if require("conform").get_formatter_info("ruff_format", bufnr).available then
 				return { "ruff_format" }
@@ -44,7 +27,14 @@ return {
 		},
 	},
 
-	-- some time constrains
+	formatters = {
+		prettierd = {
+			args = function(_, ctx)
+				return { "--stdin-filepath", ctx.filename }
+			end,
+		},
+	},
+
 	format = {
 		timeout_ms = 3000,
 		async = false,

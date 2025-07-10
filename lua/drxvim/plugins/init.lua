@@ -83,6 +83,14 @@ local plugins = {
 		end,
 	},
 	{
+		"akinsho/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim",
+		},
+	},
+	{
 		"numToStr/Comment.nvim",
 		event = "BufReadPost",
 		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -154,6 +162,11 @@ local plugins = {
 			---@diagnostic disable-next-line
 			require("gitsigns").setup(opts)
 		end,
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
+		opts = {},
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
