@@ -48,4 +48,12 @@ vim.g.markdown_fenced_languages = {
 
 vim.env.NODE_NO_WARNINGS = 1
 
+vim.api.nvim_create_user_command("LuaSnipList", function()
+	print(vim.inspect(require("luasnip").snippets))
+end, {})
+
+vim.api.nvim_create_user_command("GetVsCodeSnippetsPath", function()
+	print(vim.inspect(require("luasnip").snippets))
+end, {})
+
 require("drxvim.plugins")

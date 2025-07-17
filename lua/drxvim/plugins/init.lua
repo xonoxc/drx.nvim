@@ -242,7 +242,6 @@ local plugins = {
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
-		lazy = true,
 		dependencies = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -253,16 +252,16 @@ local plugins = {
 			{
 				"L3MON4D3/LuaSnip",
 				dependencies = "rafamadriz/friendly-snippets",
-				opts = { history = true, updateevents = "TextChanged,TextChanged" },
+				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
 				config = function(_, opts)
-					---@diagnostic disable-next-line
-					require("drxvim.plugins.cmp.luasnip").snip(opts)
+					require("drxvim.plugins.cmp.luasnip").luasnip(opts)
 				end,
 			},
 			{
 				"windwp/nvim-autopairs",
-				config = function(_, opts)
-					require("nvim-autopairs").setup(opts)
+				event = "InsertEnter",
+				opts = function()
+					require("nvim-autopairs").setup({ fast_wrap = {}, disable_filetype = { "TelescopePrompt", "vim" } })
 					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 				end,
@@ -270,9 +269,6 @@ local plugins = {
 		},
 		opts = function()
 			return require("drxvim.plugins.cmp.cmp")
-		end,
-		config = function(_, opts)
-			require("cmp").setup(opts)
 		end,
 	},
 	{

@@ -165,3 +165,8 @@ map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, 
 
 -- mapping to quit the neovim
 map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
+
+-- mapping to find all the refrences of the word under the cursor
+map("n", "gr", function()
+	require("telescope.builtin").lsp_references()
+end, { noremap = true, silent = true })
