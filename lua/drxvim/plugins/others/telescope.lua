@@ -36,7 +36,12 @@ local configs = {
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
 		layout_strategy = "horizontal",
-		file_ignore_patterns = { ".git/" },
+		file_ignore_patterns = {
+			"node_modules",
+			"%.git/",
+			"dist/",
+			"build/",
+		},
 		file_sorter = require("telescope.sorters").get_fuzzy_file,
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 		set_env = { ["COLORTERM"] = "truecolor" },
