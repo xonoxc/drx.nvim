@@ -1,3 +1,5 @@
+local highlights = require("neo-tree.ui.highlights")
+
 local configs = {
 	close_if_last_window = false,
 	open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
@@ -71,6 +73,39 @@ local configs = {
 					result.text = string.gsub(state.path, "(.*[/\\])(.*)", "%2")
 				end
 				return result
+			end,
+			icon = function(config, node, _)
+				local icon = config.default or " "
+				local padding = config.padding or " "
+				local highlight = config.highlight or highlights.FILE_ICON
+
+				if node.type == "directory" then
+					highlight = highlights.DIRECTORY_ICON
+
+					if node.name == "src" then
+						icon = "󰣞 "
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "node_modules" then
+						icon = " "
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node:is_expanded() then
+						icon = config.folder_open or "-"
+					else
+						icon = config.folder_closed or "+"
+					end
+				elseif node.type == "file" then
+					local success, web_devicons = pcall(require, "nvim-web-devicons")
+					if success then
+						local devicon, hl = web_devicons.get_icon(node.name, node.ext)
+						icon = devicon or icon
+						highlight = hl or highlight
+					end
+				end
+
+				return {
+					text = icon .. padding,
+					highlight = highlight,
+				}
 			end,
 		},
 	},

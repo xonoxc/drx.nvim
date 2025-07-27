@@ -54,13 +54,10 @@ local plugins = {
 		end,
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufReadPost",
-		main = "ibl",
-		config = function()
-			require("ibl").setup({
-				indent = { tab_char = "╎" },
-				scope = { enabled = false },
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = function()
+			require("nvim-treesitter.configs").setup({
+				enable = false,
 			})
 		end,
 	},
