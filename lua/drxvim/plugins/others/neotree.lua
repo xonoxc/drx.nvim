@@ -83,10 +83,37 @@ local configs = {
 					highlight = highlights.DIRECTORY_ICON
 
 					if node.name == "src" then
-						icon = "󰣞 "
+						icon = "󰣞"
 						highlight = "NeoTreeDirectoryIcon"
 					elseif node.name == "node_modules" then
-						icon = " "
+						icon = "󱋣"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "docs" then
+						icon = "󱧶"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "config" then
+						icon = "󱁿"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "utils" then
+						icon = "󱧼"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "api" then
+						icon = "󱧬"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "images" then
+						icon = "󰉏"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "components" then
+						icon = "󱁽"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "public" then
+						icon = "󱞊"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "layouts" then
+						icon = "󰛫"
+						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "auth" then
+						icon = "󰉌"
 						highlight = "NeoTreeDirectoryIcon"
 					elseif node:is_expanded() then
 						icon = config.folder_open or "-"
