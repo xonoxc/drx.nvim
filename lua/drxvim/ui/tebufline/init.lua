@@ -3,15 +3,15 @@ local M = {}
 local devicons_present, devicons = pcall(require, "nvim-web-devicons")
 
 -- Commands
-vim.cmd("function! TeBufGoToBuf(bufnr,b,c,d) \n execute 'b'..a:bufnr \n endfunction")
-vim.cmd("function! ToggleTheme(a,b,c,d) \n TeVimThemesToggle \n endfunction")
-vim.cmd("function! Split(a,b,c,d) \n vsplit \n endfunction")
-vim.cmd("function! Run(a,b,c,d) \n lua require('drxvim.user.functions').build_run() \n endfunction")
-vim.cmd("function! Quit(a,b,c,d) \n qa! \n endfunction")
-vim.cmd([[
+vim.cmd "function! TeBufGoToBuf(bufnr,b,c,d) \n execute 'b'..a:bufnr \n endfunction"
+vim.cmd "function! ToggleTheme(a,b,c,d) \n TeVimThemesToggle \n endfunction"
+vim.cmd "function! Split(a,b,c,d) \n vsplit \n endfunction"
+vim.cmd "function! Run(a,b,c,d) \n lua require('drxvim.user.functions').build_run() \n endfunction"
+vim.cmd "function! Quit(a,b,c,d) \n qa! \n endfunction"
+vim.cmd [[
    function! TeBufKillBuf(bufnr,b,c,d)
         call luaeval('require("drxvim.ui.tebufline.modules").close_buffer(_A)', a:bufnr)
-  endfunction]])
+  endfunction]]
 
 vim.api.nvim_create_user_command("TeBufPrev", function()
 	require("drxvim.ui.tebufline.modules").tebuflinePrev()
@@ -114,7 +114,7 @@ M.getTabline = function()
 	local quit = "%@Quit@" .. " 󰅜 "
 	local counter = 0
 	for _, buf in pairs(vim.api.nvim_list_bufs()) do
-		local filename = vim.api.nvim_buf_get_name(buf):match("^.+/(.+)$") or ""
+		local filename = vim.api.nvim_buf_get_name(buf):match "^.+/(.+)$" or ""
 		if
 			vim.api.nvim_buf_is_valid(buf)
 			and vim.api.nvim_buf_is_loaded(buf)
@@ -172,7 +172,7 @@ M.getTabline = function()
 end
 
 M.setup = function()
-	if #vim.fn.getbufinfo({ buflisted = 1 }) >= 1 then
+	if #vim.fn.getbufinfo { buflisted = 1 } >= 1 then
 		vim.o.showtabline = 2
 		vim.o.tabline = '%!v:lua.require("drxvim.ui.tebufline").getTabline()'
 	end

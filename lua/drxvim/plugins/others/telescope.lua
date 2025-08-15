@@ -1,5 +1,5 @@
-local actions = require("telescope.actions")
-local trouble = require("trouble.sources.telescope")
+local actions = require "telescope.actions"
+local trouble = require "trouble.sources.telescope"
 
 local configs = {
 	pickers = {

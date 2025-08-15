@@ -1,11 +1,11 @@
-local cmp = require("cmp")
+local cmp = require "cmp"
 ---@diagnostic disable-next-line
-local lua_snip = require("luasnip")
-local lspkind = require("lspkind")
+local lua_snip = require "luasnip"
+local lspkind = require "lspkind"
 
 local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+	local col = vim.fn.col "." - 1
+	return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
 local has_words_before = function()
@@ -14,7 +14,7 @@ local has_words_before = function()
 	end
 	---@diagnostic disable-next-line : deprecated
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match "^%s*$" == nil
 end
 
 local configs = {
@@ -23,21 +23,21 @@ local configs = {
 			lua_snip.lsp_expand(args.body)
 		end,
 	},
-	mapping = cmp.mapping.preset.insert({
+	mapping = cmp.mapping.preset.insert {
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-c>"] = cmp.mapping({
+		["<C-c>"] = cmp.mapping {
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
-		}),
-		["<CR>"] = cmp.mapping.confirm({
+		},
+		["<CR>"] = cmp.mapping.confirm {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
-		}),
+		},
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() and has_words_before() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
 			elseif lua_snip.jumpable(1) then
 				lua_snip.jump(1)
 			elseif lua_snip.expand_or_jumpable() then
@@ -56,7 +56,7 @@ local configs = {
 		}),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
 			elseif lua_snip.jumpable(-1) then
 				lua_snip.jump(-1)
 			else
@@ -66,11 +66,11 @@ local configs = {
 			"i",
 			"s",
 		}),
-	}),
+	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			local kind = lspkind.cmp_format({
+			local kind = lspkind.cmp_format {
 				symbol_map = {
 					Copilot = "",
 					Codeium = "",
@@ -82,7 +82,7 @@ local configs = {
 				},
 				preset = "codicons",
 				maxwidth = 40,
-			})(entry, vim_item)
+			}(entry, vim_item)
 
 			local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
 			kind.kind = " " .. string.format(" %s │", strings[1], strings[2]) .. " "

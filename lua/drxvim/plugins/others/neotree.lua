@@ -115,6 +115,9 @@ local configs = {
 					elseif node.name == "auth" then
 						icon = "󰉌"
 						highlight = "NeoTreeDirectoryIcon"
+					elseif node.name == "views" or node.name == "view" then
+						icon = "󱞊"
+						highlight = "NeoTreeDirectoryIcon"
 					elseif node:is_expanded() then
 						icon = config.folder_open or "-"
 					else

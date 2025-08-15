@@ -98,6 +98,7 @@ lspconfig["ts_ls"].setup({
 	single_file_support = false,
 	settings = {
 		typescript = {
+			complete_function_calls = true,
 			inlayHints = {
 				includeInlayParameterNameHints = "all", -- Show parameter name hints
 				includeInlayParameterNameHintsWhenArgumentMatchesName = false, -- Hide hints if argument name matches param name

@@ -1,5 +1,5 @@
 local M = {}
-local hl_files = vim.fn.stdpath("config") .. "/lua/drxvim/themes/integrations"
+local hl_files = vim.fn.stdpath "config" .. "/lua/drxvim/themes/integrations"
 
 M.getCurrentTheme = function()
 	local path = "drxvim.themes.schemes." .. vim.g.currentTheme
@@ -17,7 +17,7 @@ M.merge_tb = function(...)
 end
 
 M.setTrans = function(highlights)
-	local glassy = require("drxvim.themes.trans")
+	local glassy = require "drxvim.themes.trans"
 	for key, value in pairs(glassy) do
 		if highlights[key] then
 			highlights[key] = M.merge_tb(highlights[key], value)
@@ -92,11 +92,11 @@ M.load = function()
 end
 
 vim.api.nvim_create_user_command("DrxThemes", function()
-	vim.cmd("lua require('drxvim.themes.switch').setup()")
+	vim.cmd "lua require('drxvim.themes.switch').setup()"
 end, {})
 
 vim.api.nvim_create_user_command("DrxThemesToggle", function()
-	vim.cmd("lua require('drxvim.themes.switch').toggleTheme()")
+	vim.cmd "lua require('drxvim.themes.switch').toggleTheme()"
 end, {})
 
 return M

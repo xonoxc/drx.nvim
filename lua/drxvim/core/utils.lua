@@ -34,7 +34,7 @@ function M.toggle_option(option)
 		"vim.opt." .. option,
 		tostring(not value),
 		tostring(value),
-		vim.fn.stdpath("config") .. "/lua/custom/options.lua"
+		vim.fn.stdpath "config" .. "/lua/custom/options.lua"
 	)
 	vim.notify(option .. " set to " .. tostring(value))
 end
@@ -44,99 +44,99 @@ function M.build_run()
 	if filetype == "c" then
 		vim.cmd(
 			"TermExec cmd='gcc "
-				.. vim.fn.expand("%")
+				.. vim.fn.expand "%"
 				.. " -o "
-				.. vim.fn.expand("%:r")
+				.. vim.fn.expand "%:r"
 				.. " && "
-				.. vim.fn.expand("%:r")
+				.. vim.fn.expand "%:r"
 				.. "'"
 		)
 	elseif filetype == "cpp" then
 		vim.cmd(
 			"TermExec cmd='g++ "
-				.. vim.fn.expand("%")
+				.. vim.fn.expand "%"
 				.. " -o "
-				.. vim.fn.expand("%:r")
+				.. vim.fn.expand "%:r"
 				.. " && "
-				.. vim.fn.expand("%:r")
+				.. vim.fn.expand "%:r"
 				.. "'"
 		)
 	elseif filetype == "python" then
-		vim.cmd("TermExec cmd='python3 " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='python3 " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "javascript" then
-		vim.cmd("TermExec cmd='node " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='node " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "typescript" then
-		vim.cmd("TermExec cmd='ts-node " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='ts-node " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "php" then
-		vim.cmd("TermExec cmd='php " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='php " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "java" then
-		vim.cmd("TermExec cmd='javac " .. vim.fn.expand("%") .. " && java " .. vim.fn.expand("%:r") .. "'")
+		vim.cmd("TermExec cmd='javac " .. vim.fn.expand "%" .. " && java " .. vim.fn.expand "%:r" .. "'")
 	elseif filetype == "cs" then
-		vim.cmd("TermExec cmd='mcs " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='mcs " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "rust" then
-		vim.cmd("TermExec cmd='cargo run'")
+		vim.cmd "TermExec cmd='cargo run'"
 	elseif filetype == "go" then
-		vim.cmd("TermExec cmd='go run " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='go run " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "lua" then
-		vim.cmd("TermExec cmd='lua " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='lua " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "sh" then
-		vim.cmd("TermExec cmd='bash " .. vim.fn.expand("%") .. "'")
+		vim.cmd("TermExec cmd='bash " .. vim.fn.expand "%" .. "'")
 	elseif filetype == "dart" then
-		vim.cmd("TermExec cmd='dart " .. vim.fn.expand("%") .. "'")
-	elseif not M.is_available("markdown-preview.nvim") and filetype == "markdown" then
-		vim.notify("You can install plugins support for markdown like markdown-preview.nvim ^^")
-	elseif filetype == "html" and vim.fn.executable("live-server") ~= 1 then
-		vim.notify("You can install live-server by npm ^^")
+		vim.cmd("TermExec cmd='dart " .. vim.fn.expand "%" .. "'")
+	elseif not M.is_available "markdown-preview.nvim" and filetype == "markdown" then
+		vim.notify "You can install plugins support for markdown like markdown-preview.nvim ^^"
+	elseif filetype == "html" and vim.fn.executable "live-server" ~= 1 then
+		vim.notify "You can install live-server by npm ^^"
 	elseif filetype == "html" then
-		vim.cmd("TermExec cmd='live-server " .. vim.fn.expand("%:p:h") .. "'")
+		vim.cmd("TermExec cmd='live-server " .. vim.fn.expand "%:p:h" .. "'")
 	elseif filetype == "markdown" then
-		vim.cmd("MarkdownPreview")
+		vim.cmd "MarkdownPreview"
 	end
 end
 
 function M.LazyGit()
 	local status_ok, _ = pcall(require, "toggleterm")
 	if not status_ok then
-		return vim.notify("toggleterm.nvim isn't installed!")
+		return vim.notify "toggleterm.nvim isn't installed!"
 	end
-	if vim.fn.executable("lazygit") == 0 then
-		return vim.notify("lazygit isn't installed")
+	if vim.fn.executable "lazygit" == 0 then
+		return vim.notify "lazygit isn't installed"
 	end
-	local lazygit = require("toggleterm.terminal").Terminal:new({
+	local lazygit = require("toggleterm.terminal").Terminal:new {
 		cmd = "lazygit",
 		dir = "git_dir",
 		direction = "float",
 		on_open = function(term)
 			vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 		end,
-	})
+	}
 	lazygit:toggle()
 end
 
 function M.Ranger()
 	local status_ok, _ = pcall(require, "toggleterm")
 	if not status_ok then
-		return vim.notify("toggleterm.nvim isn't installed!")
+		return vim.notify "toggleterm.nvim isn't installed!"
 	end
-	if vim.fn.executable("ranger") == 0 then
-		return vim.notify("ranger isn't installed")
+	if vim.fn.executable "ranger" == 0 then
+		return vim.notify "ranger isn't installed"
 	end
-	local ranger = require("toggleterm.terminal").Terminal:new({
+	local ranger = require("toggleterm.terminal").Terminal:new {
 		cmd = "ranger",
 		direction = "float",
 		on_open = function(term)
 			vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 		end,
-	})
+	}
 	ranger:toggle()
 end
 
 M.checkMason = function()
 	local status_ok, _ = pcall(require, "mason")
 	if not status_ok then
-		return vim.notify("mason.nvim isn't installed!")
+		return vim.notify "mason.nvim isn't installed!"
 	end
-	local mason_packages = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/*", 0, 1)
+	local mason_packages = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/packages/*", 0, 1)
 	local mason_installed = {}
 	for _, package in ipairs(mason_packages) do
 		table.insert(mason_installed, vim.fn.fnamemodify(package, ":t"))
@@ -166,38 +166,35 @@ M.checkMason = function()
 		vim.cmd("MasonInstall " .. table.concat(missing, " "))
 	end
 	if #missing == 0 and #remove == 0 then
-		vim.notify("Nothing to install or uninstall")
+		vim.notify "Nothing to install or uninstall"
 	end
 end
 
 M.CreateCustom = function()
-	local path = vim.fn.stdpath("config") .. "/lua/custom"
+	local path = vim.fn.stdpath "config" .. "/lua/custom"
 	if vim.fn.isdirectory(path) ~= 1 then
 		vim.fn.mkdir(path, "p")
-		io.open(path .. "/init.lua", "w"):write('require("custom.keymaps")\nrequire("custom.options")')
-		io.open(path .. "/plugins.lua", "w"):write(
-			'local overrides = require("custom.configs.overrides")\n\nreturn {\n\t-- add plugins or override my plugins in here\n}'
-		)
-		io.open(path .. "/options.lua", "w"):write("-- add options or override my options in here")
-		io.open(path .. "/keymaps.lua", "w"):write("-- add your custom keymaps in here")
+		io.open(path .. "/init.lua", "w"):write 'require("custom.keymaps")\nrequire("custom.options")'
+		io.open(path .. "/plugins.lua", "w")
+			:write 'local overrides = require("custom.configs.overrides")\n\nreturn {\n\t-- add plugins or override my plugins in here\n}'
+		io.open(path .. "/options.lua", "w"):write "-- add options or override my options in here"
+		io.open(path .. "/keymaps.lua", "w"):write "-- add your custom keymaps in here"
 		vim.fn.mkdir(path .. "/configs", "p")
-		io.open(path .. "/configs/overrides.lua", "w"):write(
-			"local M = {}\n\n-- add overrides in here(eg: mason.nvim)\nM.mason = {\n\tensure_installed = {}\n}\n\nreturn M"
-		)
+		io.open(path .. "/configs/overrides.lua", "w")
+			:write "local M = {}\n\n-- add overrides in here(eg: mason.nvim)\nM.mason = {\n\tensure_installed = {}\n}\n\nreturn M"
 		vim.fn.mkdir(path .. "/themes/schemes", "p")
-		io.open(path .. "/themes/integrations.lua", "w"):write(
-			'local colors = require("tevim.themes").getCurrentTheme()\n\nreturn {\n\t-- add your custom highlights in here\n}'
-		)
-		vim.notify("Created custom folder. Please read the docs!")
+		io.open(path .. "/themes/integrations.lua", "w")
+			:write 'local colors = require("tevim.themes").getCurrentTheme()\n\nreturn {\n\t-- add your custom highlights in here\n}'
+		vim.notify "Created custom folder. Please read the docs!"
 	end
 end
 
 M.TeVimUpdate = function()
-	local output = vim.fn.system("git -C " .. vim.fn.stdpath("config") .. " pull")
+	local output = vim.fn.system("git -C " .. vim.fn.stdpath "config" .. " pull")
 	if output == "Already up to date.\n" then
-		vim.notify("Nothing to update!")
+		vim.notify "Nothing to update!"
 	else
-		vim.notify("TeVim updated! Please restart Neovim! If you have any problem, please report to me!")
+		vim.notify "TeVim updated! Please restart Neovim! If you have any problem, please report to me!"
 	end
 end
 

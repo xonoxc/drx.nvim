@@ -1,7 +1,9 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local themes_utils = require("drxvim.themes.utils")
-local themes = require("drxvim.themes")
+
+local themes_utils = require "drxvim.themes.utils"
+local themes = require "drxvim.themes"
+
 local override_func = themes_utils.apply_highlight_overrides
 
 autocmd({ "UIEnter" }, {
@@ -32,7 +34,7 @@ autocmd({ "BufEnter", "BufNewFile" }, {
 autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "bun.lock",
 	callback = function()
-		vim.cmd("setfiletype jsonc")
+		vim.cmd "setfiletype jsonc"
 	end,
 	desc = "set bun.lock file to jsonc",
 })
@@ -42,7 +44,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.h",
 	callback = function()
-		vim.cmd("setfiletype c")
+		vim.cmd "setfiletype c"
 	end,
 	desc = "Set Filetype c for Header Files",
 })
@@ -50,7 +52,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "tsconfig.json",
 	callback = function()
-		vim.cmd("setfiletype json")
+		vim.cmd "setfiletype json"
 	end,
 	desc = "setting tsconfig.json as a json file",
 })
@@ -58,7 +60,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd("CursorHold", {
 	pattern = "*",
 	callback = function()
-		vim.diagnostic.open_float({ scope = "cursor", focusable = false })
+		vim.diagnostic.open_float { scope = "cursor", focusable = false }
 	end,
 	desc = "Open Float Window for LSP Diagnostics",
 })
@@ -77,7 +79,7 @@ autocmd("TermOpen", {
 	callback = function()
 		vim.opt.number = false
 		vim.opt_local.cursorline = false
-		vim.cmd("startinsert")
+		vim.cmd "startinsert"
 	end,
 	desc = "Disable number and cursorline in terminal",
 })
@@ -117,8 +119,8 @@ autocmd("FileType", {
 })
 
 local function center_cursor()
-	local current_pos = vim.fn.getpos(".")
-	vim.cmd("normal! zz")
+	local current_pos = vim.fn.getpos "."
+	vim.cmd "normal! zz"
 	vim.fn.setpos(".", current_pos)
 end
 
@@ -130,13 +132,13 @@ vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 
 -- Create custom command to Create Custom Config
 vim.api.nvim_create_user_command("DrxvimCreateCustom", function()
-	vim.cmd("lua require('drxvim.user.functions').CreateCustom()")
+	vim.cmd "lua require('drxvim.user.functions').CreateCustom()"
 end, {})
 
 -- settting html django filetype when encountering any html file in python venv
 
 local function set_html_django_filetype()
-	local venv = os.getenv("VIRTUAL_ENV")
+	local venv = os.getenv "VIRTUAL_ENV"
 	if venv and vim.fn.filereadable(venv .. "/bin/activate") == 1 then
 		vim.bo.filetype = "htmldjango"
 	end
@@ -152,7 +154,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.templ" },
 	callback = function(args)
 		---@diagnostic disable-next-line
-		require("conform").format({ bufnr = args.buf })
+		require("conform").format { bufnr = args.buf }
 	end,
 })
 
@@ -177,7 +179,7 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
 			return
 		end
 
-		local node = vim.treesitter.get_node({})
+		local node = vim.treesitter.get_node {}
 
 		if not node then
 			return
@@ -208,7 +210,7 @@ vim.api.nvim_create_autocmd("TextChangedI", {
 		local cursor_pos = vim.api.nvim_win_get_cursor(0)
 		local row, col = cursor_pos[1] - 1, cursor_pos[2]
 
-		local node = vim.treesitter.get_node({})
+		local node = vim.treesitter.get_node {}
 
 		if not node then
 			return
@@ -226,7 +228,7 @@ vim.api.nvim_create_autocmd("TextChangedI", {
 
 		local text = vim.api.nvim_buf_get_text(params.buf, start_row, start_col, end_row, end_col, {})[1]
 
-		if text:find("%${") and not text:match("^`") then
+		if text:find "%${" and not text:match "^`" then
 			vim.api.nvim_buf_set_text(params.buf, start_row, start_col, start_row, start_col + 1, { "`" })
 			vim.api.nvim_buf_set_text(params.buf, end_row, end_col - 1, end_row, end_col, { "`" })
 

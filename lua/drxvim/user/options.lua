@@ -5,7 +5,7 @@
 --]])
 
 vim.g.currentTheme = "tain"
-vim.g.theme_cache = vim.fn.stdpath("data") .. "/colors_data/"
+vim.g.theme_cache = vim.fn.stdpath "data" .. "/colors_data/"
 vim.g.transparency = false
 
 local options = {
@@ -66,7 +66,7 @@ local globals = {
 
 vim.opt.listchars = "tab:  "
 vim.opt.fillchars = { eob = " ", foldopen = "", foldsep = " ", foldclose = "" }
-vim.opt.shortmess:append("sI")
+vim.opt.shortmess:append "sI"
 vim.opt.formatoptions:remove("c", "r", "o")
 
 -- COPILOT
@@ -114,7 +114,7 @@ for _, plugin in ipairs(builtins) do
 end
 
 for k, v in pairs(options) do
-	if vim.fn.has("nvim-0.10") == 1 then
+	if vim.fn.has "nvim-0.10" == 1 then
 		vim.loader.enable()
 		vim.opt.smoothscroll = true
 	end

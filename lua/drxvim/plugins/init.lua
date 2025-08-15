@@ -250,9 +250,6 @@ local plugins = {
 				"L3MON4D3/LuaSnip",
 				dependencies = "rafamadriz/friendly-snippets",
 				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-				config = function(_, opts)
-					require("drxvim.plugins.cmp.luasnip").luasnip(opts)
-				end,
 			},
 			{
 				"windwp/nvim-autopairs",

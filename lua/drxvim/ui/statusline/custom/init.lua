@@ -92,9 +92,9 @@ local function custom_filename()
 	end
 
 	local ft = vim.bo.filetype
-	if ft == "neo-tree" or bufname:match("neo%-tree") then
+	if ft == "neo-tree" or bufname:match "neo%-tree" then
 		return "%#TeSTTFileName#" .. "  filetree"
-	elseif ft == "neo-tree" or bufname:match("toggleterm") then
+	elseif ft == "neo-tree" or bufname:match "toggleterm" then
 		return "%#TeSTTFileName#" .. " console"
 	else
 		return "%#TeSTTFileName#" .. "󰈙 " .. vim.fn.fnamemodify(bufname, ":t")
@@ -157,14 +157,14 @@ local lsp = function()
 end
 
 local codeium = function()
-	if is_available("codeium.nvim") then
+	if is_available "codeium.nvim" then
 		return "%#TeSTTCodeium#" .. "  "
 	end
 	return ""
 end
 
 local tabnine = function()
-	if not is_available("tabnine-nvim") then
+	if not is_available "tabnine-nvim" then
 		return ""
 	end
 	local tabnine = require("tabnine.status").status()
@@ -182,12 +182,12 @@ local location = function()
 	return "%#TeSTTLocationIcon#"
 		.. "  "
 		.. "%#TeSTTLocation#"
-		.. string.format(" %3d:%-2d ", vim.fn.line("."), vim.fn.virtcol("."))
+		.. string.format(" %3d:%-2d ", vim.fn.line ".", vim.fn.virtcol ".")
 end
 
 local progress = function()
-	local current_line = vim.fn.line(".")
-	local total_lines = vim.fn.line("$")
+	local current_line = vim.fn.line "."
+	local total_lines = vim.fn.line "$"
 	local chars = { "  ", " 󰪞 ", " 󰪟 ", " 󰪠 ", " 󰪢 ", " 󰪣 ", " 󰪤 ", " 󰪥 " }
 	local progress_percent = current_line / total_lines
 	local index = math.ceil(progress_percent * #chars)
@@ -206,7 +206,7 @@ end
 local countBuffer = function()
 	local counter = 0
 	for _, buf in pairs(vim.api.nvim_list_bufs()) do
-		local filenames = vim.api.nvim_buf_get_name(buf):match("^.+/(.+)$") or ""
+		local filenames = vim.api.nvim_buf_get_name(buf):match "^.+/(.+)$" or ""
 		if
 			vim.api.nvim_buf_is_valid(buf)
 			and vim.api.nvim_buf_is_loaded(buf)
@@ -228,15 +228,15 @@ end
 
 M.run = function()
 	if vim.o.columns < 120 then
-		return table.concat({
+		return table.concat {
 			nothing(),
 			"%=",
 			mode(),
 			nothing(),
 			diagnostics(),
-		})
+		}
 	end
-	return table.concat({
+	return table.concat {
 		mode(),
 		nothing(),
 		custom_filename(),
@@ -256,7 +256,7 @@ M.run = function()
 		progress(),
 		nothing(),
 		location(),
-	})
+	}
 end
 
 M.setup = function()
