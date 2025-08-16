@@ -1,8 +1,8 @@
 local M = {}
 
-local lspconfig = require("lspconfig")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-local util = require("lspconfig/util")
+local lspconfig = require "lspconfig"
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+local util = require "lspconfig/util"
 
 M.inlay_hints = false
 
@@ -16,30 +16,47 @@ M.on_attach = function(_, bufnr)
 	}, bufnr)
 end
 
+M.on_init = function(client, _)
+	if client.server_capabilities then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.semanticTokensProvider = false -- turn off semantic tokens
+	end
+end
+
 M.capabilities =
 	vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), cmp_nvim_lsp.default_capabilities())
 
+-- encoding type
 M.capabilities.offsetEncoding = { "utf-16", "utf-8" }
 
-vim.diagnostic.config({
+-- Diagnostic configuration for Neovim LSP diagnostics
+vim.diagnostic.config {
 	virtual_text = false,
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	signs = { text = { [1] = " ", [2] = " ", [3] = " ", [4] = "󰛨 " } },
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.HINT] = "󰛨 ",
+		},
+	},
 	float = {
-		focusable = false,
+		focusable = true,
 		suffix = "",
 		header = { "  Diagnostics", "String" },
 		prefix = function(_, _, _)
 			return "  ", "String"
 		end,
 	},
-})
+}
 
 -- CONFIGS ---
-lspconfig.lua_ls.setup({
+lspconfig.lua_ls.setup {
 	on_attach = M.on_attach,
+	on_init = M.on_init,
 	capabilities = M.capabilities,
 	settings = {
 		Lua = {
@@ -48,10 +65,11 @@ lspconfig.lua_ls.setup({
 			workspace = { checkThirdParty = false },
 		},
 	},
-})
+}
 
-lspconfig.gopls.setup({
+lspconfig.gopls.setup {
 	on_attach = M.on_attach,
+	on_init = M.on_init,
 	capabilities = M.capabilities,
 	cmd = { "gopls" },
 	filetypes = { "go", "gomod", "gowork", "gotmpl", "templ" },
@@ -76,7 +94,7 @@ lspconfig.gopls.setup({
 			},
 		},
 	},
-})
+}
 
 -- this function ignores all the errors that contain (Debug failure for typescript)--
 local function filter_ts_diagnostics(err, result, ctx, config)
@@ -88,7 +106,8 @@ local function filter_ts_diagnostics(err, result, ctx, config)
 	vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 end
 
-lspconfig["ts_ls"].setup({
+lspconfig["ts_ls"].setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "typescript-language-server", "--stdio" },
@@ -130,9 +149,10 @@ lspconfig["ts_ls"].setup({
 		"javascriptreact",
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
-})
+}
 
-lspconfig.cssls.setup({
+lspconfig.cssls.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "vscode-css-language-server", "--stdio" },
@@ -141,12 +161,13 @@ lspconfig.cssls.setup({
 			lint = { unknownAtRules = "ignore" },
 		},
 	},
-})
+}
 
-lspconfig.html.setup({
-	cmd = { "vscode-html-language-server", "--stdio" },
+lspconfig.html.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
+	cmd = { "vscode-html-language-server", "--stdio" },
 	filetypes = { "html", "templ", "php", "htmldjango", "html-heex", "heex" },
 	init_options = {
 		configurationSection = { "html", "css", "javascript" },
@@ -156,9 +177,10 @@ lspconfig.html.setup({
 		},
 		provideFormatter = true,
 	},
-})
+}
 
-lspconfig.clangd.setup({
+lspconfig.clangd.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "clangd", "--background-index" },
@@ -170,9 +192,10 @@ lspconfig.clangd.setup({
 		completeUnimported = true,
 		semanticHighlighting = true,
 	},
-})
+}
 
-lspconfig.tailwindcss.setup({
+lspconfig.tailwindcss.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "tailwindcss-language-server", "--stdio" },
@@ -261,7 +284,7 @@ lspconfig.tailwindcss.setup({
 		".git",
 		"requirements.txt"
 	),
-})
+}
 
 -- lspconfig.graphql.setup({
 -- 	on_attach = M.on_attach,
@@ -271,7 +294,8 @@ lspconfig.tailwindcss.setup({
 -- 	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
 -- })
 
-lspconfig.pyright.setup({
+lspconfig.pyright.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "pyright-langserver", "--stdio" },
@@ -293,7 +317,7 @@ lspconfig.pyright.setup({
 		},
 	},
 	single_file_support = true,
-})
+}
 
 -- lspconfig.pylsp.setup({
 -- 	on_attach = M.on_attach,
@@ -311,11 +335,12 @@ lspconfig.pyright.setup({
 -- 	single_file_support = true,
 -- })
 
-lspconfig.rust_analyzer.setup({
+lspconfig.rust_analyzer.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	filetypes = { "rust" },
-	root_dir = util.root_pattern("Cargo.toml"),
+	root_dir = util.root_pattern "Cargo.toml",
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
@@ -330,17 +355,19 @@ lspconfig.rust_analyzer.setup({
 			},
 		},
 	},
-})
+}
 
-lspconfig.templ.setup({
+lspconfig.templ.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "templ", "lsp" },
 	filetypes = { "templ" },
 	root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-})
+}
 
-lspconfig.jsonls.setup({
+lspconfig.jsonls.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	fileMatch = { "json", ".eslintrc", ".prettierrc", ".stylelintrc" },
@@ -354,25 +381,30 @@ lspconfig.jsonls.setup({
 			},
 		},
 	},
-})
+}
 
-lspconfig.docker_compose_language_service.setup({
+lspconfig.docker_compose_language_service.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "docker-compose-language-server", "--stdio" },
 	filetypes = { "yaml.docker-compose" },
-	root_dir = util.root_pattern("docker-compose.yaml"),
+	root_dir = util.root_pattern "docker-compose.yaml",
 	single_file_support = true,
-})
+}
 
-lspconfig.dockerls.setup({
+lspconfig.dockerls.setup {
+	on_init = M.on_init,
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
 	cmd = { "docker-langserver", "--stdio" },
 	filetypes = { "dockerfile" },
-	root_dir = util.root_pattern("Dockerfile"),
+	root_dir = util.root_pattern "Dockerfile",
 	single_file_support = true,
-})
+}
 
-lspconfig.emmet_language_server.setup({
+lspconfig.emmet_language_server.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "emmet-language-server", "--stdio" },
@@ -392,24 +424,27 @@ lspconfig.emmet_language_server.setup({
 		"php",
 		"typescriptreact",
 	},
-	root_dir = util.root_pattern("git root"),
+	root_dir = util.root_pattern "git root",
 	single_file_support = true,
-})
+}
 
-lspconfig.prismals.setup({
+lspconfig.prismals.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "prisma-language-server", "--stdio" },
 	filetypes = { "prisma" },
 	root_dir = util.root_pattern(".git", "package.json"),
-})
+}
 
-lspconfig.jdtls.setup({
+lspconfig.jdtls.setup {
+	on_init = M.on_init,
 	cmd = { "jdtls" },
 	filetypes = { "java" },
-})
+}
 
-lspconfig.htmx.setup({
+lspconfig.htmx.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "htmx-lsp" },
@@ -420,9 +455,10 @@ lspconfig.htmx.setup({
 		"htmldjango",
 	},
 	single_file_support = true,
-})
+}
 
-lspconfig.astro.setup({
+lspconfig.astro.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "astro-ls", "--stdio" },
@@ -431,41 +467,46 @@ lspconfig.astro.setup({
 		typescript = {},
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-})
+}
 
-lspconfig.phpactor.setup({
+lspconfig.phpactor.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "phpactor", "language-server" },
 	filetypes = { "php" },
-})
+}
 
-lspconfig.jinja_lsp.setup({
+lspconfig.jinja_lsp.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "jinja-lsp" },
 	filetypes = { "jinja", "htmldjango", "html" },
 	name = "jinja_lsp",
 	single_file_support = true,
-})
+}
 
-lspconfig.zls.setup({
+lspconfig.zls.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "zls" },
 	filetypes = { "zig", "zir" },
 	root_dir = util.root_pattern("zls.json", "build.zig", ".git"),
 	single_file_support = true,
-})
+}
 
-lspconfig.elixirls.setup({
+lspconfig.elixirls.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "elixir-ls" },
 	filetypes = { "elixir", "eelixir", "heex", "surface" },
-})
+}
 
-lspconfig.yamlls.setup({
+lspconfig.yamlls.setup {
+	on_init = M.on_init,
 	on_attach = function(client, bufnr)
 		M.on_attach(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = true
@@ -492,20 +533,22 @@ lspconfig.yamlls.setup({
 			},
 		},
 	},
-})
+}
 
 -- svelte language server setup ---
 
-lspconfig.svelte.setup({
+lspconfig.svelte.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "svelteserver", "--stdio" },
 	filetypes = { "svelte" },
 	root_dir = util.root_pattern("package.json", ".git"),
-})
+}
 
 -- deno language server configuration--
-lspconfig.denols.setup({
+lspconfig.denols.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	init_options = {
@@ -513,11 +556,12 @@ lspconfig.denols.setup({
 		unstable = true,
 	},
 	root_dir = util.root_pattern("deno.json", "deno.jsonc"),
-})
+}
 
 -- vue language server configuration --
 
-lspconfig.vuels.setup({
+lspconfig.vuels.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "vls" },
@@ -561,26 +605,29 @@ lspconfig.vuels.setup({
 			},
 		},
 	},
-})
+}
 
 -- odin language server setup for odin langague --
-lspconfig.ols.setup({
+lspconfig.ols.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-})
+}
 
 -- solidity language server setup for solidity language --
-lspconfig.solidity_ls.setup({
+lspconfig.solidity_ls.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-})
+}
 
 -- lsp for assembly language --
-lspconfig.asm_lsp.setup({
+lspconfig.asm_lsp.setup {
+	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
 	cmd = { "asm-lsp" },
 	filetypes = { "asm", "vasm" },
-})
+}
 
 return M

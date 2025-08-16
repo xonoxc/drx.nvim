@@ -7,10 +7,10 @@ local plugins = {
 		"nvim-tree/nvim-web-devicons",
 		lazy = true,
 		opts = function()
-			return require("drxvim.plugins.others.devicons")
+			return require "drxvim.plugins.others.devicons"
 		end,
 		config = function(_, opts)
-			require("nvim-web-devicons").set_default_icon("")
+			require("nvim-web-devicons").set_default_icon ""
 			require("nvim-web-devicons").setup(opts)
 		end,
 	},
@@ -25,12 +25,12 @@ local plugins = {
 			if vim.fn.argc(-1) == 1 then
 				local stat = vim.loop.fs_stat(vim.fn.argv(0))
 				if stat and stat.type == "directory" then
-					require("neo-tree")
+					require "neo-tree"
 				end
 			end
 		end,
 		opts = function()
-			return require("drxvim.plugins.others.neotree")
+			return require "drxvim.plugins.others.neotree"
 		end,
 		config = function(_, opts)
 			require("neo-tree").setup(opts)
@@ -47,7 +47,7 @@ local plugins = {
 			"nushell/tree-sitter-nu",
 		},
 		opts = function()
-			return require("drxvim.plugins.others.treesitter")
+			return require "drxvim.plugins.others.treesitter"
 		end,
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
@@ -56,9 +56,9 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		opts = function()
-			require("nvim-treesitter.configs").setup({
+			require("nvim-treesitter.configs").setup {
 				enable = false,
-			})
+			}
 		end,
 	},
 	{
@@ -66,7 +66,7 @@ local plugins = {
 		version = "*",
 		event = "BufReadPost",
 		opts = function()
-			return require("drxvim.plugins.others.indentScope")
+			return require "drxvim.plugins.others.indentScope"
 		end,
 		config = function(_, opts)
 			require("mini.indentscope").setup(opts)
@@ -76,7 +76,7 @@ local plugins = {
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = function()
-			return require("drxvim.plugins.others.whichkey")
+			return require "drxvim.plugins.others.whichkey"
 		end,
 	},
 	{
@@ -92,9 +92,9 @@ local plugins = {
 		event = "BufReadPost",
 		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 		config = function()
-			require("Comment").setup({
+			require("Comment").setup {
 				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-			})
+			}
 		end,
 	},
 	{
@@ -115,7 +115,7 @@ local plugins = {
 		lazy = true,
 		branch = "0.1.x",
 		opts = function()
-			return require("drxvim.plugins.others.telescope")
+			return require "drxvim.plugins.others.telescope"
 		end,
 		config = function(_, opts)
 			require("telescope").setup(opts)
@@ -141,9 +141,9 @@ local plugins = {
 					vim.fn.jobstart({ "git", "-C", vim.loop.cwd(), "rev-parse" }, {
 						on_exit = function(_, return_code)
 							if return_code == 0 then
-								vim.api.nvim_del_augroup_by_name("GitSignsLazyLoad")
+								vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
 								vim.schedule(function()
-									require("lazy").load({ plugins = { "gitsigns.nvim" } })
+									require("lazy").load { plugins = { "gitsigns.nvim" } }
 								end)
 							end
 						end,
@@ -153,7 +153,7 @@ local plugins = {
 			})
 		end,
 		opts = function()
-			return require("drxvim.plugins.others.gitsigns")
+			return require "drxvim.plugins.others.gitsigns"
 		end,
 		config = function(_, opts)
 			---@diagnostic disable-next-line
@@ -190,7 +190,7 @@ local plugins = {
 		},
 		version = "*",
 		config = function()
-			require("toggleterm").setup({ shading_factor = 2 })
+			require("toggleterm").setup { shading_factor = 2 }
 		end,
 	},
 	{
@@ -198,9 +198,9 @@ local plugins = {
 		event = { "BufReadPost", "BufNewFile" },
 		lazy = true,
 		config = function()
-			require("illuminate").configure({
+			require("illuminate").configure {
 				filetypes_denylist = { "neo-tree", "Trouble", "DressingSelect", "TelescopePrompt" },
-			})
+			}
 		end,
 	},
 
@@ -213,8 +213,8 @@ local plugins = {
 			{
 				"luukvbaal/statuscol.nvim",
 				config = function()
-					local builtin = require("statuscol.builtin")
-					require("statuscol").setup({
+					local builtin = require "statuscol.builtin"
+					require("statuscol").setup {
 						ft_ignore = { "neo-tree", "Outline" },
 						segments = {
 							{ sign = { namespace = { "diagnostic*" } } },
@@ -222,20 +222,28 @@ local plugins = {
 							{ text = { builtin.lnumfunc, "  " }, click = "v:lua.ScLa" },
 							{ text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
 						},
-					})
+					}
 				end,
 			},
 		},
 		config = function()
-			require("ufo").setup({
+			require("ufo").setup {
 				provider_selector = function()
 					return { "treesitter", "indent" }
 				end,
-			})
+			}
 		end,
 	},
 
 	--------------------------------------------------------------
+	{
+		"echasnovski/mini.snippets",
+		dependencies = "rafamadriz/friendly-snippets",
+		event = "InsertEnter",
+		opts = function()
+			return require "drxvim.plugins.cmp.snippets"
+		end,
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -244,25 +252,20 @@ local plugins = {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
-			"saadparwaiz1/cmp_luasnip",
+			"abeldekat/cmp-mini-snippets",
 			"onsails/lspkind.nvim",
-			{
-				"L3MON4D3/LuaSnip",
-				dependencies = "rafamadriz/friendly-snippets",
-				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-			},
 			{
 				"windwp/nvim-autopairs",
 				event = "InsertEnter",
 				opts = function()
-					require("nvim-autopairs").setup({ fast_wrap = {}, disable_filetype = { "TelescopePrompt", "vim" } })
-					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+					require("nvim-autopairs").setup { fast_wrap = {}, disable_filetype = { "TelescopePrompt", "vim" } }
+					local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 				end,
 			},
 		},
 		opts = function()
-			return require("drxvim.plugins.cmp.cmp")
+			return require "drxvim.plugins.cmp.cmp"
 		end,
 	},
 	{
@@ -273,9 +276,9 @@ local plugins = {
 			{
 				"nvimdev/lspsaga.nvim",
 				config = function()
-					require("lspsaga").setup({
+					require("lspsaga").setup {
 						symbol_in_winbar = { show_file = false },
-					})
+					}
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 				end,
 			},
@@ -284,7 +287,7 @@ local plugins = {
 				cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
 				lazy = true,
 				opts = function()
-					return require("drxvim.plugins.lsp.mason")
+					return require "drxvim.plugins.lsp.mason"
 				end,
 				config = function(_, opts)
 					---@diagnostic disable-next-line
@@ -305,7 +308,7 @@ local plugins = {
 			},
 		},
 		config = function()
-			require("drxvim.plugins.lsp.lspconfig")
+			require "drxvim.plugins.lsp.lspconfig"
 		end,
 	},
 	{
@@ -314,7 +317,7 @@ local plugins = {
 		lazy = true,
 		cmd = "ConformInfo",
 		opts = function()
-			return require("drxvim.plugins.lsp.conform")
+			return require "drxvim.plugins.lsp.conform"
 		end,
 		config = function(_, opts)
 			---@diagnostic disable-next-line
@@ -372,9 +375,9 @@ local plugins = {
 		event = "TermOpen",
 		version = "1.*",
 		config = function()
-			require("term-edit").setup({
+			require("term-edit").setup {
 				prompt_end = "%$ ",
-			})
+			}
 		end,
 	},
 	--  {
@@ -397,11 +400,13 @@ local plugins = {
 			"zbirenbaum/copilot.lua",
 			cmd = "Copilot",
 			config = function()
-				require("copilot").setup({
+				require("copilot").setup {
 					suggestion = { enabled = false },
 					panel = { enabled = false },
-					logger = {},
-				})
+					logger = {
+						enabled = false,
+					},
+				}
 			end,
 		},
 	},
