@@ -5,6 +5,7 @@ lua << EOF
 -------------
 
 
+
 if vim.g.GuiLoaded then
 	local font_name = "JetBrains Mono NF"
 	local font_size = 10
@@ -78,6 +79,7 @@ if vim.g.neovide then
 
 	vim.keymap.set("n", "<F11>", toggle_fullscreen, { silent = true })
 	vim.keymap.set("n", "<F10>", toggle_transparency, { silent = true })
+
 end
 
 
