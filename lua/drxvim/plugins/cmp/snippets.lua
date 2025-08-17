@@ -13,4 +13,6 @@ M.mappings = {
 	stop = "<C-c>",
 }
 
+M.silent = true
+
 return M
