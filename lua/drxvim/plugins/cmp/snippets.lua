@@ -7,10 +7,10 @@ M.snippets = {
 }
 
 M.mappings = {
-	expand = "<C-u>",
-	jump_next = "<C-n>",
-	jump_prev = "<C-N>",
-	stop = "<C-c>",
+	expand = "<C-m>",
+	jump_next = "<Tab>",
+	jump_prev = "<S-Tab>",
+	stop = "<Esc>",
 }
 
 M.silent = true

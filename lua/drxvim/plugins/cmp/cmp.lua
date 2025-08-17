@@ -17,6 +17,14 @@ local has_words_before = function()
 end
 
 local configs = {
+	snippet = {
+		expand = function(args)
+			local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
+			insert { body = args.body } -- Insert at cursor
+			cmp.resubscribe { "TextChangedI", "TextChangedP" }
+			require("cmp.config").set_onetime { sources = {} }
+		end,
+	},
 	mapping = cmp.mapping.preset.insert {
 		["<C-b>"] = cmp.mapping.scroll_docs(-1),
 		["<C-f>"] = cmp.mapping.scroll_docs(1),
@@ -30,7 +38,6 @@ local configs = {
 			if cmp.visible() and has_words_before() then
 				cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
 			elseif check_backspace() then
-				-- cmp.complete()
 				fallback()
 			else
 				fallback()
@@ -66,7 +73,7 @@ local configs = {
 		{ name = "copilot", max_item_count = 2 },
 		{ name = "codeium", max_item_count = 2 },
 		{ name = "nvim_lsp" },
-		{ name = "mini_snippets" },
+		{ name = "mini_snippets", max_item_count = 2 },
 		{ name = "nvim_lua" },
 		{ name = "supermaven" },
 		{ name = "buffer" },
