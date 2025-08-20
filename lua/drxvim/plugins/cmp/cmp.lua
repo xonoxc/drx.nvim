@@ -75,6 +75,7 @@ local configs = {
 		{ name = "nvim_lsp" },
 		{ name = "mini_snippets", max_item_count = 2 },
 		{ name = "nvim_lua" },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "supermaven" },
 		{ name = "buffer" },
 		{ name = "path" },

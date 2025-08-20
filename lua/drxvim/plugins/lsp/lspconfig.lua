@@ -6,14 +6,10 @@ local util = require "lspconfig/util"
 
 M.inlay_hints = false
 
-M.on_attach = function(_, bufnr)
+M.on_attach = function(_)
 	if M.inlay_hints then
 		vim.lsp.inlay_hint.enable(true)
 	end
-	require("lsp_signature").on_attach({
-		bind = true,
-		handler_opts = { border = "rounded" },
-	}, bufnr)
 end
 
 M.on_init = function(client, _)
@@ -96,74 +92,32 @@ lspconfig.gopls.setup {
 	},
 }
 
--- this function ignores all the errors that contain (Debug failure for typescript)--
-local function filter_ts_diagnostics(err, result, ctx, config)
-	if result and result.diagnostics then
-		result.diagnostics = vim.tbl_filter(function(diagnostic)
-			return not string.match(diagnostic.message, "Debug Failure")
-		end, result.diagnostics)
-	end
-	vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-end
-
-lspconfig["ts_ls"].setup {
+lspconfig.vtsls.setup {
 	on_init = M.on_init,
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
-	cmd = { "typescript-language-server", "--stdio" },
-	handlers = {
-		["textDocument/publishDiagnostics"] = filter_ts_diagnostics,
-		["window/showMessage"] = function(_, result, ctx, config)
-			-- suppress Debug Failure spam
-			if result.message:match "Debug Failure" or result.message:match "TypeScript Server Error" then
-				return
-			end
-			-- fallback to default handler
-			vim.lsp.handlers["window/showMessage"](_, result, ctx, config)
-		end,
-
-		["window/logMessage"] = function(_, result, ctx, config)
-			if result.message:match "Debug Failure" or result.message:match "TypeScript Server Error" then
-				return
-			end
-			return vim.lsp.handlers["window/logMessage"](_, result, ctx, config)
-		end,
-	},
-	single_file_support = false,
-	settings = {
-		typescript = {
-			complete_function_calls = true,
-			inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayFunctionParameterTypeHints = false,
-				includeInlayVariableTypeHints = false,
-				includeInlayPropertyDeclarationTypeHints = false,
-				includeInlayFunctionLikeReturnTypeHints = false,
-				includeInlayEnumMemberValueHints = false,
-			},
-		},
-		javascript = {
-			inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayFunctionParameterTypeHints = false,
-				includeInlayVariableTypeHints = false,
-				includeInlayPropertyDeclarationTypeHints = false,
-				includeInlayFunctionLikeReturnTypeHints = false,
-				includeInlayEnumMemberValueHints = false,
-			},
-		},
-	},
+	cmd = { "vtsls", "--stdio" },
 	filetypes = {
-		"typescript",
-		"typescriptreact",
-		"typescript.tsx",
 		"javascript",
 		"javascriptreact",
 		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
 	},
-	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
+	root_dir = util.root_pattern(
+		"tsconfig.json",
+		"package-lock.json",
+		"yarn.lock",
+		"pnpm-lock.yaml",
+		"bun.lockb",
+		"bun.lock"
+	),
+	settings = {
+		typescript = {
+			tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+		},
+	},
 }
 
 lspconfig.cssls.setup {

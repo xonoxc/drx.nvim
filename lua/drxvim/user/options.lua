@@ -4,7 +4,7 @@
 --	filetype plugin indent off
 --]])
 
-vim.g.currentTheme = "tomorrow_night"
+vim.g.currentTheme = "tain"
 vim.g.theme_cache = vim.fn.stdpath "data" .. "/colors_data/"
 vim.g.transparency = false
 
