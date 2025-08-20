@@ -113,19 +113,27 @@ lspconfig["ts_ls"].setup {
 	cmd = { "typescript-language-server", "--stdio" },
 	handlers = {
 		["textDocument/publishDiagnostics"] = filter_ts_diagnostics,
+		["window/showMessage"] = function(_, result, ctx, config)
+			-- suppress Debug Failure spam
+			if result.message:match "Debug Failure" or result.message:match "TypeScript Server Error" then
+				return
+			end
+			-- fallback to default handler
+			vim.lsp.handlers["window/showMessage"](_, result, ctx, config)
+		end,
 	},
 	single_file_support = false,
 	settings = {
 		typescript = {
 			complete_function_calls = true,
 			inlayHints = {
-				includeInlayParameterNameHints = "all", -- Show parameter name hints
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false, -- Hide hints if argument name matches param name
-				includeInlayFunctionParameterTypeHints = false, -- Disable parameter type hints (usually verbose)
-				includeInlayVariableTypeHints = false, -- Disable variable type hints
-				includeInlayPropertyDeclarationTypeHints = false, -- Disable property type hints
-				includeInlayFunctionLikeReturnTypeHints = false, -- Disable return type hints
-				includeInlayEnumMemberValueHints = false, -- Disable enum member value hints
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = false,
+				includeInlayVariableTypeHints = false,
+				includeInlayPropertyDeclarationTypeHints = false,
+				includeInlayFunctionLikeReturnTypeHints = false,
+				includeInlayEnumMemberValueHints = false,
 			},
 		},
 		javascript = {
@@ -144,9 +152,9 @@ lspconfig["ts_ls"].setup {
 		"typescript",
 		"typescriptreact",
 		"typescript.tsx",
-		"javascript.jsx",
 		"javascript",
 		"javascriptreact",
+		"javascript.jsx",
 	},
 	root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
 }

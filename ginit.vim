@@ -8,8 +8,8 @@ lua << EOF
 
 if vim.g.GuiLoaded then
 	local font_name = "JetBrains Mono NF"
-	local font_size = 10
-	local not_transparent = false
+	local font_size = 12
+	local not_transparent = true
 
 	local function toggle_transparency()
 		not_transparent = not not_transparent
@@ -44,7 +44,7 @@ end
 -------------
 
 if vim.g.neovide then
-	vim.opt.guifont = "JetBrainsMono Nerd Font:h8.0"
+	vim.opt.guifont = "JetBrainsMono Nerd Font:h11.0:b"
 	vim.opt.linespace = 8
 	vim.g.neovide_refresh_rate = 60
 	vim.g.neovide_cursor_animation_length = 0.2
