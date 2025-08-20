@@ -121,6 +121,13 @@ lspconfig["ts_ls"].setup {
 			-- fallback to default handler
 			vim.lsp.handlers["window/showMessage"](_, result, ctx, config)
 		end,
+
+		["window/logMessage"] = function(_, result, ctx, config)
+			if result.message:match "Debug Failure" or result.message:match "TypeScript Server Error" then
+				return
+			end
+			return vim.lsp.handlers["window/logMessage"](_, result, ctx, config)
+		end,
 	},
 	single_file_support = false,
 	settings = {
