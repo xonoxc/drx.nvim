@@ -300,13 +300,13 @@ local plugins = {
 					end, {})
 				end,
 			},
-			{
+			--[[ {
 				"ray-x/lsp_signature.nvim",
 				opts = { hint_enable = false },
 				config = function(_, opts)
 					require("lsp_signature").setup(opts)
 				end,
-			},
+			}, ]]
 		},
 		config = function()
 			require "drxvim.plugins.lsp.lspconfig"
