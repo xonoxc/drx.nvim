@@ -476,8 +476,8 @@ lspconfig.elixirls.setup {
 
 lspconfig.yamlls.setup {
 	on_init = M.on_init,
-	on_attach = function(client, bufnr)
-		M.on_attach(client, bufnr)
+	on_attach = function(client, _)
+		M.on_attach()
 		client.server_capabilities.documentFormattingProvider = true
 	end,
 	capabilities = M.capabilities,
