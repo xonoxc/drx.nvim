@@ -171,6 +171,8 @@ map("n", "gr", function()
 	require("telescope.builtin").lsp_references()
 end, { noremap = true, silent = true })
 
-vim.keymap.set({ "i", "s" }, "<Esc>", function()
+map({ "i", "s" }, "<Esc>", function()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
 end, { silent = true, noremap = true })
+
+vim.keymap.set("i", "jk", "<Esc>")
