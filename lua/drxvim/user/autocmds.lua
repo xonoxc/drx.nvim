@@ -57,13 +57,13 @@ autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "setting tsconfig.json as a json file",
 })
 
---[[ autocmd("CursorHold", {
+autocmd("CursorHold", {
 	pattern = "*",
 	callback = function()
 		vim.diagnostic.open_float { scope = "cursor", focusable = false }
 	end,
 	desc = "Open Float Window for LSP Diagnostics",
-}) ]]
+})
 
 autocmd("TextYankPost", {
 	group = augroup("yank_highlight", {}),
