@@ -29,7 +29,7 @@ M.capabilities.offsetEncoding = { "utf-16", "utf-8" }
 vim.diagnostic.config {
 	virtual_text = false,
 	virtual_lines = true,
-	underline = true,
+	underline = false,
 	update_in_insert = false,
 	severity_sort = true,
 	float = false,
