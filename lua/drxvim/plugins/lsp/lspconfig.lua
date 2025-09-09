@@ -27,8 +27,8 @@ M.capabilities.offsetEncoding = { "utf-16", "utf-8" }
 
 -- Diagnostic configuration for Neovim LSP diagnostics
 vim.diagnostic.config {
-	virtual_text = false,
-	virtual_lines = true,
+	virtual_text = true,
+	virtual_lines = false,
 	underline = false,
 	update_in_insert = false,
 	severity_sort = true,
