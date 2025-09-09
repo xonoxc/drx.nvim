@@ -40,7 +40,7 @@ vim.diagnostic.config {
 		},
 	},
 	float = {
-		focusable = true,
+		focusable = false,
 		suffix = "",
 		header = { "  Diagnostics", "String" },
 		prefix = function(_, _, _)
