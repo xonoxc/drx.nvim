@@ -27,12 +27,12 @@ M.capabilities.offsetEncoding = { "utf-16", "utf-8" }
 
 -- Diagnostic configuration for Neovim LSP diagnostics
 vim.diagnostic.config {
-	virtual_text = true,
+	virtual_text = false,
 	virtual_lines = false,
-	underline = false,
+	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
-	float = false,
+	float = true,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = " ",
@@ -41,14 +41,14 @@ vim.diagnostic.config {
 			[vim.diagnostic.severity.HINT] = "󰛨 ",
 		},
 	},
-	--[[ float = {
+	float = {
 		focusable = false,
 		suffix = "",
 		header = { "  Diagnostics", "String" },
 		prefix = function(_, _, _)
 			return "  ", "String"
 		end,
-	}, ]]
+	},
 }
 
 -- CONFIGS ---

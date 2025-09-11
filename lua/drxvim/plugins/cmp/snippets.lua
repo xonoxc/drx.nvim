@@ -10,7 +10,7 @@ M.mappings = {
 	expand = "<C-m>",
 	jump_next = "<Tab>",
 	jump_prev = "<S-Tab>",
-	stop = "<Esc>",
+	stop = "<A-l>",
 }
 
 M.silent = true
