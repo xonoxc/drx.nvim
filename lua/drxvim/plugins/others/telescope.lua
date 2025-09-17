@@ -6,6 +6,16 @@ local configs = {
 		find_files = {
 			hidden = true,
 		},
+		lsp_references = {
+			mappings = {
+				i = {
+					["<CR>"] = require("telescope.actions").select_default,
+				},
+				n = {
+					["<CR>"] = require("telescope.actions").select_default,
+				},
+			},
+		},
 	},
 	defaults = {
 		layout_config = {

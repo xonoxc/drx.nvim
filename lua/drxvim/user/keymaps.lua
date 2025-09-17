@@ -167,7 +167,4 @@ map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, 
 map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
 
 -- mapping to find all the refrences of the word under the cursor
-map("n", "gr", function()
-	require("telescope.builtin").lsp_references()
-end, { noremap = true, silent = true })
-vim.keymap.set("i", "jk", "<Esc>")
+map("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })

@@ -58,9 +58,9 @@ autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- here forward it the diagnostic config--
--- local float_diag_win = nil
+local float_diag_win = nil
 
---[[ local function open_float_diagnostics()
+local function open_float_diagnostics()
 	--close previous float window if exists
 	if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
 		vim.api.nvim_win_close(float_diag_win, true)
@@ -72,53 +72,21 @@ autocmd({ "BufRead", "BufNewFile" }, {
 		scope = "cursor",
 		focusable = false,
 	})
-end ]]
+end
 
---[[ autocmd("CursorHold", {
+autocmd("CursorHold", {
 	pattern = "*",
 	callback = open_float_diagnostics,
 	desc = "Open Float Window for LSP Diagnostics",
-}) ]]
+})
 
 -- Close floating diagnostic automatically on cursor move
---[[ autocmd({ "CursorMoved", "CursorMovedI" }, {
+autocmd({ "CursorMoved", "CursorMovedI" }, {
 	pattern = "*",
 	callback = function()
 		if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
 			vim.api.nvim_win_close(float_diag_win, true)
 			float_diag_win = nil
-		end
-	end,
-}) ]]
-
-local og_virt_text
-local og_virt_line
-vim.api.nvim_create_autocmd({ "CursorMoved", "DiagnosticChanged" }, {
-	group = vim.api.nvim_create_augroup("diagnostic_only_virtlines", {}),
-	callback = function()
-		if og_virt_line == nil then
-			og_virt_line = vim.diagnostic.config().virtual_lines
-		end
-
-		-- ignore if virtual_lines.current_line is disabled
-		if not (og_virt_line and og_virt_line.current_line) then
-			if og_virt_text then
-				vim.diagnostic.config { virtual_text = og_virt_text }
-				og_virt_text = nil
-			end
-			return
-		end
-
-		if og_virt_text == nil then
-			og_virt_text = vim.diagnostic.config().virtual_text
-		end
-
-		local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
-
-		if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
-			vim.diagnostic.config { virtual_text = og_virt_text }
-		else
-			vim.diagnostic.config { virtual_text = false }
 		end
 	end,
 })
