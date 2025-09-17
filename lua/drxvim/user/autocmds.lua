@@ -57,13 +57,39 @@ autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "setting tsconfig.json as a json file",
 })
 
---[[ autocmd("CursorHold", {
+-- here forward it the diagnostic config--
+local float_diag_win = nil
+
+local function open_float_diagnostics()
+	--close previous float window if exists
+	if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
+		vim.api.nvim_win_close(float_diag_win, true)
+		float_diag_win = nil
+	end
+
+	-- open new float window
+	float_diag_win = vim.diagnostic.open_float(nil, {
+		scope = "cursor",
+		focusable = false,
+	})
+end
+
+autocmd("CursorHold", {
+	pattern = "*",
+	callback = open_float_diagnostics,
+	desc = "Open Float Window for LSP Diagnostics",
+})
+
+-- Close floating diagnostic automatically on cursor move
+autocmd({ "CursorMoved", "CursorMovedI" }, {
 	pattern = "*",
 	callback = function()
-		vim.diagnostic.open_float { scope = "cursor", focusable = false }
+		if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
+			vim.api.nvim_win_close(float_diag_win, true)
+			float_diag_win = nil
+		end
 	end,
-	desc = "Open Float Window for LSP Diagnostics",
-}) ]]
+})
 
 autocmd("TextYankPost", {
 	group = augroup("yank_highlight", {}),
@@ -159,7 +185,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 -- Config for PYTHON files for python files
-
 vim.opt_local.autoindent = true
 vim.opt_local.smarttab = true
 vim.opt_local.shiftwidth = 4

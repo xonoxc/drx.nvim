@@ -28,6 +28,7 @@ M.capabilities.offsetEncoding = { "utf-16", "utf-8" }
 -- Diagnostic configuration for Neovim LSP diagnostics
 vim.diagnostic.config {
 	virtual_text = false,
+	virtual_lines = false,
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
@@ -40,7 +41,7 @@ vim.diagnostic.config {
 		},
 	},
 	float = {
-		focusable = true,
+		focusable = false,
 		suffix = "",
 		header = { "  Diagnostics", "String" },
 		prefix = function(_, _, _)
@@ -476,8 +477,8 @@ lspconfig.elixirls.setup {
 
 lspconfig.yamlls.setup {
 	on_init = M.on_init,
-	on_attach = function(client, bufnr)
-		M.on_attach(client, bufnr)
+	on_attach = function(client, _)
+		M.on_attach()
 		client.server_capabilities.documentFormattingProvider = true
 	end,
 	capabilities = M.capabilities,

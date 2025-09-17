@@ -167,10 +167,4 @@ map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, 
 map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
 
 -- mapping to find all the refrences of the word under the cursor
-map("n", "gr", function()
-	require("telescope.builtin").lsp_references()
-end, { noremap = true, silent = true })
-
-vim.keymap.set({ "i", "s" }, "<Esc>", function()
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-end, { silent = true, noremap = true })
+map("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })

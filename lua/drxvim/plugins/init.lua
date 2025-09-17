@@ -300,13 +300,13 @@ local plugins = {
 					end, {})
 				end,
 			},
-			{
+			--[[ {
 				"ray-x/lsp_signature.nvim",
 				opts = { hint_enable = false },
 				config = function(_, opts)
 					require("lsp_signature").setup(opts)
 				end,
-			},
+			}, ]]
 		},
 		config = function()
 			require "drxvim.plugins.lsp.lspconfig"
@@ -338,31 +338,31 @@ local plugins = {
 		keys = {
 			{
 				"<leader>ld",
-				"<cmd>Trouble diagnostics toggle<cr>",
+				"<cmd>Trouble diagnostics toggle focus=true<cr>",
 				desc = "Diagnostics (Trouble)",
 			},
 			{
 				"<leader>lD",
-				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				"<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
 				desc = "Buffer Diagnostics (Trouble)",
 			},
 			{
 				"<leader>cs",
-				"<cmd>Trouble symbols toggle focus=false<cr>",
+				"<cmd>Trouble symbols toggle focus=true<cr>",
 				desc = "Symbols (Trouble)",
 			},
 			{
-				"<leader>cl",
-				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				"<leader>ls",
+				"<cmd>Trouble lsp toggle focus=true<cr>",
 				desc = "LSP Definitions / references / ... (Trouble)",
 			},
 			{
-				"<leader>xL",
+				"<leader>ll",
 				"<cmd>Trouble loclist toggle<cr>",
 				desc = "Location List (Trouble)",
 			},
 			{
-				"<leader>xQ",
+				"<leader>lq",
 				"<cmd>Trouble qflist toggle<cr>",
 				desc = "Quickfix List (Trouble)",
 			},
@@ -410,6 +410,36 @@ local plugins = {
 				}
 			end,
 		},
+	},
+
+	-- this is for debugger integration in neovim
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio", -- required by dap-ui
+			"jay-babu/mason-nvim-dap.nvim", -- installs adapters
+			"williamboman/mason.nvim",
+			"theHamsta/nvim-dap-virtual-text", -- inline vars
+			-- Language helpers (optional but comfy)
+			"mfussenegger/nvim-dap-python",
+			"leoluz/nvim-dap-go",
+			"mxsdev/nvim-dap-vscode-js", -- JS/TS adapter bridge
+		},
+		config = function()
+			require("drxvim.plugins.dap").setup()
+		end,
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "BufReadPost",
+		main = "ibl",
+		config = function()
+			require("ibl").setup {
+				indent = { char = "╎" },
+				scope = { enabled = false },
+			}
+		end,
 	},
 }
 
