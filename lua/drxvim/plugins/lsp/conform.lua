@@ -9,6 +9,7 @@ return {
 		javascript = { "prettierd" },
 		css = { "prettierd" },
 		html = { "prettierd" },
+		rust = { "rustfmt", lsp_format = "fallback" },
 		sh = { "shfmt" },
 		cpp = { "clang-format" },
 		java = { "clang-format" },
