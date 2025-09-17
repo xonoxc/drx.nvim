@@ -430,6 +430,17 @@ local plugins = {
 			require("drxvim.plugins.dap").setup()
 		end,
 	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "BufReadPost",
+		main = "ibl",
+		config = function()
+			require("ibl").setup {
+				indent = { char = "╎" },
+				scope = { enabled = false },
+			}
+		end,
+	},
 }
 
 require("lazy").setup(plugins)
