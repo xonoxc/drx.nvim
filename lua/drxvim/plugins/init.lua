@@ -436,7 +436,7 @@ local plugins = {
 		main = "ibl",
 		config = function()
 			require("ibl").setup {
-				indent = { char = "╎" },
+				indent = { tab_char = "╎", char = "╎" },
 				scope = { enabled = false },
 			}
 		end,

@@ -24,6 +24,7 @@ local configs = {
 		"markdown",
 		"regex",
 		"toml",
+		"go",
 		"yaml",
 		"html",
 		"jsdoc",

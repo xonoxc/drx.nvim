@@ -64,7 +64,6 @@ local globals = {
 	speeddating_no_mappings = 1,
 }
 
-vim.opt.listchars = "tab:  "
 vim.opt.fillchars = { eob = " ", foldopen = "", foldsep = " ", foldclose = "" }
 vim.opt.shortmess:append "sI"
 vim.opt.formatoptions:remove("c", "r", "o")
