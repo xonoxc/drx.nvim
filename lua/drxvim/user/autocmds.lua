@@ -49,46 +49,12 @@ autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "Set Filetype c for Header Files",
 })
 
-autocmd({ "BufRead", "BufNewFile" }, {
+autocmd({ "BufRead", "BufNewFile", "BufLeave", "BufHidden", "BufWinLeave" }, {
 	pattern = "tsconfig.json",
 	callback = function()
 		vim.cmd "setfiletype json"
 	end,
 	desc = "setting tsconfig.json as a json file",
-})
-
--- here forward it the diagnostic config--
-local float_diag_win = nil
-
-local function open_float_diagnostics()
-	--close previous float window if exists
-	if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
-		vim.api.nvim_win_close(float_diag_win, true)
-		float_diag_win = nil
-	end
-
-	-- open new float window
-	float_diag_win = vim.diagnostic.open_float(nil, {
-		scope = "cursor",
-		focusable = false,
-	})
-end
-
-autocmd("CursorHold", {
-	pattern = "*",
-	callback = open_float_diagnostics,
-	desc = "Open Float Window for LSP Diagnostics",
-})
-
--- Close floating diagnostic automatically on cursor move
-autocmd({ "CursorMoved", "CursorMovedI" }, {
-	pattern = "*",
-	callback = function()
-		if float_diag_win and vim.api.nvim_win_is_valid(float_diag_win) then
-			vim.api.nvim_win_close(float_diag_win, true)
-			float_diag_win = nil
-		end
-	end,
 })
 
 autocmd("TextYankPost", {
