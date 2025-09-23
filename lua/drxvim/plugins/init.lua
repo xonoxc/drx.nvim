@@ -237,14 +237,6 @@ local plugins = {
 
 	--------------------------------------------------------------
 	{
-		"echasnovski/mini.snippets",
-		dependencies = "rafamadriz/friendly-snippets",
-		event = "InsertEnter",
-		opts = function()
-			return require "drxvim.plugins.cmp.snippets"
-		end,
-	},
-	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
@@ -253,8 +245,17 @@ local plugins = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"abeldekat/cmp-mini-snippets",
+			"saadparwaiz1/cmp_luasnip",
 			"onsails/lspkind.nvim",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = "rafamadriz/friendly-snippets",
+				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+				config = function(_, opts)
+					require("drxvim.plugins.cmp.luasnip").luasnip(opts)
+				end,
+			},
+
 			{
 				"windwp/nvim-autopairs",
 				event = "InsertEnter",
