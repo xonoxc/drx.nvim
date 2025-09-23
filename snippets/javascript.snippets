@@ -1,0 +1,76 @@
+
+# --- JavaScript snippets ---
+
+snippet jfun "js function"
+	function ${1:name}(${2:args}) {
+		${0:// body}
+	}
+
+snippet jafun "js async function"
+	async function ${1:name}(${2:args}) {
+		try {
+			${3:// logic}
+		} catch (error) {
+			console.error(error)
+		}
+		${0}
+	}
+
+snippet jarr "js array map/filter/reduce"
+	const ${1:result} = ${2:array}.${3|map,filter,reduce|}((${4:item}) => {
+		${0:// return something}
+	})
+
+snippet jfor "js for loop"
+	for (let ${1:i} = 0; ${1:i} < ${2:array}.length; ${1:i}++) {
+		${0}
+	}
+
+snippet jforof "js for...of loop"
+	for (const ${1:item} of ${2:array}) {
+		${0}
+	}
+
+snippet jforin "js for...in loop"
+	for (const ${1:key} in ${2:object}) {
+		if (${2:object}.hasOwnProperty(${1:key})) {
+			${0}
+		}
+	}
+
+snippet jlog "js console.log"
+	console.log(${1:msg})
+	${0}
+
+snippet jerr "js console.error"
+	console.error(${1:error})
+	${0}
+
+snippet jtry "js try/catch"
+	try {
+		${1:// code}
+	} catch (error) {
+		console.error(error)
+	}
+	${0}
+
+snippet jprom "js promise then/catch"
+	${1:promise}
+		.then(result => {
+			${2:// success}
+		})
+		.catch(error => {
+			console.error(error)
+		})
+	${0}
+
+snippet jaf "js arrow function"
+	const ${1:name} = (${2:args}) => {
+		${0}
+	}
+
+snippet jobj "js object shorthand"
+	const ${1:obj} = {
+		${2:key}: ${3:value},
+	}
+	${0}
