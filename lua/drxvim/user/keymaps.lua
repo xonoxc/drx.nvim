@@ -168,3 +168,20 @@ map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
 
 -- mapping to find all the refrences of the word under the cursor
 map("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })
+
+map("n", "<leader>bo", function()
+	local url = vim.fn.expand "<cfile>"
+	if url:match "^https?://" then
+		local open_cmd
+		if vim.fn.has "mac" == 1 then
+			open_cmd = "open"
+		elseif vim.fn.has "unix" == 1 then
+			open_cmd = "xdg-open"
+		elseif vim.fn.has "win32" == 1 then
+			open_cmd = "start"
+		end
+		vim.fn.jobstart({ open_cmd, url }, { detach = true })
+	else
+		print "No valid URL under cursor"
+	end
+end)
