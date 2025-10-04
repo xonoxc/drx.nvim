@@ -34,7 +34,7 @@ return {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
 		},
-		["<Tab>"] = cmp.mapping(function(fallback)
+		["<A-,>"] = cmp.mapping(function(fallback)
 			if cmp.visible() and has_words_before() then
 				cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
 			elseif luasnip.jumpable(1) then
