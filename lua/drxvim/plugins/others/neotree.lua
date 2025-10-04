@@ -1,4 +1,4 @@
-local highlights = require("neo-tree.ui.highlights")
+local highlights = require "neo-tree.ui.highlights"
 
 local configs = {
 	close_if_last_window = false,
@@ -67,7 +67,7 @@ local configs = {
 		use_libuv_file_watcher = true,
 		components = {
 			name = function(config, node, state)
-				local cc = require("neo-tree.sources.common.components")
+				local cc = require "neo-tree.sources.common.components"
 				local result = cc.name(config, node, state)
 				if node:get_depth() == 1 then
 					result.text = string.gsub(state.path, "(.*[/\\])(.*)", "%2")

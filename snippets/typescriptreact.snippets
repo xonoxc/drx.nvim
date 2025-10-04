@@ -1,1 +1,19 @@
 extends typescript
+
+
+
+snippet edfc "export default functional component"
+	export default function ${1}(${2}){
+		return (
+			<div>
+			  <p>${0}</p>
+			</div>
+		)
+	}
+
+
+
+snippet eaf "export default functional component"
+	export async function ${1}(${2}): ${3:any} {
+		${0}
+	}
