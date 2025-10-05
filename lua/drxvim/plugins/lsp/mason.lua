@@ -1,9 +1,9 @@
 local configs = {
 	ensure_installed = {
-		"typescript-language-server",
 		"gopls",
 		"vscode-solidity-server",
 		"pyright",
+		"emmet-language-server",
 		"html-lsp",
 		"prisma-language-server",
 		"tailwindcss-language-server",
@@ -21,6 +21,7 @@ local configs = {
 		"dockerfile-language-server",
 		"emmet-language-server",
 		"jdtls",
+		"vtsls",
 	},
 	ui = {
 		icons = {
