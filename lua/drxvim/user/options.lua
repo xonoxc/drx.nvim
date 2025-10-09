@@ -67,6 +67,7 @@ local globals = {
 vim.opt.fillchars = { eob = " ", foldopen = "", foldsep = " ", foldclose = "" }
 vim.opt.shortmess:append "sI"
 vim.opt.formatoptions:remove("c", "r", "o")
+vim.opt.listchars = { space = " ", tab = "  " }
 
 -- COPILOT
 vim.g.copilot_no_tab_map = true

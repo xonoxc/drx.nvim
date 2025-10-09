@@ -432,14 +432,25 @@ local plugins = {
 		end,
 	},
 	{
+
 		"lukas-reineke/indent-blankline.nvim",
 		event = "BufReadPost",
 		main = "ibl",
 		config = function()
 			require("ibl").setup {
-				indent = { tab_char = "╎", char = "╎" },
+				indent = {
+					tab_char = "╎",
+					char = "╎",
+				},
 				scope = { enabled = false },
 			}
+
+			vim.opt.list = true
+			vim.opt.listchars = {
+				space = " ",
+				tab = "╎ ",
+			}
+			vim.opt.conceallevel = 0
 		end,
 	},
 }

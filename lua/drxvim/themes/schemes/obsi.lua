@@ -2,9 +2,9 @@ local M = {}
 
 function M.get_colors()
 	local colors = {
+		-- Base Colors
 		white = "#d3d3d3",
-		darker_black = "#161616",
-		black = "#1e1e1e", --  nvim bg
+		black = "#1e1e1e",
 		black2 = "#252525",
 		one_bg = "#2c2c2c",
 		one_bg2 = "#333333",
@@ -16,7 +16,7 @@ function M.get_colors()
 		red = "#ff6464",
 		baby_pink = "#de878f",
 		pink = "#d57780",
-		line = "#333333", -- for lines like vertsplit
+		line = "#333333",
 		green = "#729cff",
 		vibrant_green = "#76c793",
 		blue = "#eeeeee",
@@ -33,6 +33,7 @@ function M.get_colors()
 		pmenu_bg = "#e77726",
 		folder_bg = "#cd6316",
 
+		-- Additional Colors
 		base00 = "#1e1e1e",
 		base01 = "#2c2c2c",
 		base02 = "#333333",
@@ -49,28 +50,32 @@ function M.get_colors()
 		base0D = "#eeeeee",
 		base0E = "#ffffff",
 		base0F = "#eeeeee",
-	}
 
-	colors.polish_hl = {
-		cmp = {
-			CmpItemAbbrMatch = {
-				fg = colors.base08,
+		-- Additional Highlights
+		polish_hl = {
+			cmp = {
+				CmpItemAbbrMatch = {
+					fg = "#ff8548",
+				},
+				CmpItemAbbrMatchDefault = {
+					bold = true,
+					fg = "#ff8548",
+				},
 			},
-			CmpItemAbbrMatchDefault = {
-				bold = true,
-				fg = colors.base08,
-			},
-		},
 
-		defaults = {
-			SpellBad = {
-				sp = colors.red,
-			},
-			Cursor = {
-				bg = colors.base08,
-			},
-			CursorColumn = {
-				bg = colors.base08,
+			defaults = {
+				Function = {
+					fg = "#848484",
+				},
+				SpellBad = {
+					sp = "#ff6464",
+				},
+				Cursor = {
+					bg = "#ff8548",
+				},
+				CursorColumn = {
+					bg = "#ff8548",
+				},
 			},
 		},
 	}
