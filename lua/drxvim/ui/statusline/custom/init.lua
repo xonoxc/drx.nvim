@@ -142,18 +142,37 @@ local diagnostics = function()
 end
 
 local lsp = function()
-	local msg = "no_active_client"
 	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-	local clients = vim.lsp.get_clients()
+	local clients = vim.lsp.get_clients { bufnr = 0 }
+
 	if not next(clients) then
-		return "%#TeSTTLsp#" .. "󰆧 " .. msg
+		return "%#TeSTTLsp#" .. "󰆧 no_active_client"
 	end
+
+	local active = {}
 	for _, client in ipairs(clients) do
 		if client.config.filetypes and vim.tbl_contains(client.config.filetypes, buf_ft) then
-			return "󰆧 " .. client.name
+			table.insert(active, client.name)
 		end
 	end
-	return "%#TeSTTLsp#" .. "󰆧 " .. msg
+
+	if #active == 0 then
+		return "%#TeSTTLsp#" .. "󰆧 no_active_client"
+	end
+
+	-- Limit to at most 3
+	local shown = {}
+	for i = 1, math.min(2, #active) do
+		table.insert(shown, active[i])
+	end
+
+	-- Add ellipsis if more than 3 clients
+	local display = table.concat(shown, ", ")
+	if #active > 3 then
+		display = display .. ", …"
+	end
+
+	return "%#TeSTTLsp#" .. "󰆧 [" .. display .. "]"
 end
 
 local codeium = function()

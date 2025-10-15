@@ -255,6 +255,18 @@ lspconfig.tailwindcss.setup {
 -- 	filetypes = { "graphql", "typescriptreact", "javascriptreact" },
 -- 	root_dir = util.root_pattern(".git", ".graphqlrc*", ".graphql.config.*", "graphql.config.*"),
 -- })
+--
+
+lspconfig.ruff.setup {
+	on_init = M.on_init,
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "ruff", "server" },
+	filetypes = { "python" },
+	root_dir = util.root_pattern("pyproject.toml", "setup.cfg", "requirements.txt", ".git"),
+	settings = {},
+	single_file_support = true,
+}
 
 lspconfig.pyright.setup {
 	on_init = M.on_init,
@@ -269,10 +281,10 @@ lspconfig.pyright.setup {
 		},
 		python = {
 			analysis = {
-				reportGeneralTypeIssues = false,
+				reportGeneralTypeIssues = true,
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
-				typeCheckingMode = "off",
+				typeCheckingMode = "basic",
 				autoImportCompletions = true,
 				diagnosticMode = "workspace",
 			},
