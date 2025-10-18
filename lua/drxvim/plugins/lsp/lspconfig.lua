@@ -284,7 +284,7 @@ lspconfig.pyright.setup {
 				reportGeneralTypeIssues = true,
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
-				typeCheckingMode = "basic",
+				typeCheckingMode = "off",
 				autoImportCompletions = true,
 				diagnosticMode = "workspace",
 			},

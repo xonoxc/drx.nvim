@@ -47,5 +47,8 @@ vim.g.markdown_fenced_languages = {
 }
 
 vim.env.NODE_NO_WARNINGS = 1
-
+-- In your init.lua
+vim.cmd [[
+  highlight OilFile gui=NONE
+]]
 require "drxvim.plugins"

@@ -15,28 +15,6 @@ local plugins = {
 		end,
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		cmd = "Neotree",
-		keys = { { "<C-e>", "<cmd>Neotree toggle<cr>", desc = "NeoTree" } },
-		branch = "v3.x",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		init = function()
-			vim.g.neo_tree_remove_legacy_commands = 1
-			if vim.fn.argc(-1) == 1 then
-				local stat = vim.loop.fs_stat(vim.fn.argv(0))
-				if stat and stat.type == "directory" then
-					require "neo-tree"
-				end
-			end
-		end,
-		opts = function()
-			return require "drxvim.plugins.others.neotree"
-		end,
-		config = function(_, opts)
-			require("neo-tree").setup(opts)
-		end,
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		run = ":TSUpdate",
@@ -452,6 +430,23 @@ local plugins = {
 			}
 			vim.opt.conceallevel = 0
 		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		keys = {
+			{
+				"<C-e>",
+				function()
+					require("oil").open()
+				end,
+				desc = "Oil: Project Root",
+			},
+		},
+		opts = function()
+			return require "drxvim.plugins.others.oil"
+		end,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		lazy = false,
 	},
 }
 
