@@ -18,4 +18,8 @@ return {
 	NeoTreeGitUnstaged = { fg = colors.baby_pink },
 	NeoTreeGitUntracked = { fg = colors.green },
 	NeoTreeGitStaged = { fg = colors.green },
+
+	-- Oil Nvim  --
+	OilHidden = { italic = false, fg = colors.grey },
+	OilDirHidden = { italic = false, fg = colors.grey },
 }

@@ -431,6 +431,7 @@ local plugins = {
 			vim.opt.conceallevel = 0
 		end,
 	},
+
 	{
 		"stevearc/oil.nvim",
 		keys = {

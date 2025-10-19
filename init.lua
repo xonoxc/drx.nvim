@@ -47,8 +47,8 @@ vim.g.markdown_fenced_languages = {
 }
 
 vim.env.NODE_NO_WARNINGS = 1
--- In your init.lua
-vim.cmd [[
-  highlight OilFile gui=NONE
-]]
+
+vim.api.nvim_set_hl(0, "OilDirHidden", { italic = false })
+vim.api.nvim_set_hl(0, "OilHidden", { italic = false })
+
 require "drxvim.plugins"
