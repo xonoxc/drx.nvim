@@ -185,3 +185,10 @@ map("n", "<leader>bo", function()
 		print "No valid URL under cursor"
 	end
 end)
+
+map("n", "<leader>rr", function()
+	vim.cmd "LspRestart"
+	vim.schedule(function()
+		vim.notify("Lsp Restarted ....", vim.log.levels.INFO)
+	end)
+end, opts)
