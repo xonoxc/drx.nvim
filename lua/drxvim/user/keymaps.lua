@@ -192,3 +192,10 @@ map("n", "<leader>rr", function()
 		vim.notify("Lsp Restarted ....", vim.log.levels.INFO)
 	end)
 end, opts)
+
+map("n", "<leader>tp", function()
+	vim.cmd "TypstPreviewToggle"
+	vim.schedule(function()
+		vim.notify("Doc Preview started....", vim.log.levels.INFO)
+	end)
+end, opts, { desc = "Typst preview" })

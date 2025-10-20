@@ -604,4 +604,13 @@ lspconfig.asm_lsp.setup {
 	filetypes = { "asm", "vasm" },
 }
 
+lspconfig.tinymist.setup {
+	on_init = M.on_init,
+	on_attach = M.on_attach,
+	capabilities = M.capabilities,
+	cmd = { "tinymist" },
+	filetypes = { "typst" },
+	root_dir = util.root_pattern ".git",
+}
+
 return M

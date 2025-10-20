@@ -2,6 +2,7 @@ return {
 	formatters_by_ft = {
 		lua = { "stylua" },
 		php = { "pretty-php" },
+		typst = { "prettypst" },
 		typescript = { "prettierd" },
 		svelte = { "prettierd" },
 		typescriptreact = { "prettierd" },

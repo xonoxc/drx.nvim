@@ -3,6 +3,7 @@ local configs = {
 		"gopls",
 		"vscode-solidity-server",
 		"pyright",
+		"tinymist",
 		"emmet-language-server",
 		"html-lsp",
 		"prisma-language-server",
