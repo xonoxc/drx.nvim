@@ -281,6 +281,12 @@ lspconfig.pyright.setup {
 		},
 		python = {
 			analysis = {
+				inlayHints = {
+					functionReturnTypes = true,
+					variableTypes = true,
+					parameterTypes = true,
+					propertyTypes = true,
+				},
 				reportGeneralTypeIssues = true,
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,

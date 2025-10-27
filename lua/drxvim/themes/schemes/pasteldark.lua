@@ -2,7 +2,6 @@ local M = {}
 
 function M.get_colors()
 	return {
-
 		white = "#b5bcc9",
 		darker_black = "#10171e",
 		black = "#131a21", --  nvim bg

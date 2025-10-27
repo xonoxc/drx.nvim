@@ -2,6 +2,7 @@
 
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
+local notify = vim.notify
 
 map(
 	"n",
@@ -83,6 +84,13 @@ map({ "n", "v" }, "<Leader>fj", "<cmd>Telescope commands<CR>", opts, { desc = "C
 map({ "n", "v" }, "<Leader>fh", "<cmd>Telescope highlights<CR>", opts, { desc = "Highlights" })
 map({ "n", "v" }, "<Leader>ft", "<cmd>TodoTelescope<CR>", opts, { desc = "Todo" })
 
+--- find lsp references
+map({ "n", "v" }, "<Leader>nr", function()
+	require("telescope.builtin").lsp_references()
+end, { desc = "Find LSP references" })
+
+map({ "n" }, "<leader>nd", ":vsplit | lua vim.lsp.buf.definition()<CR>", opts, { desc = "Go to def in vsplit" })
+
 map({ "n", "v" }, "<Leader>fc", "<cmd>lua require('drxvim.themes.switch').setup()<cr>", opts, { desc = "Change Theme" })
 
 -- keymaps for lsp
@@ -99,7 +107,6 @@ map({ "n", "v" }, "<Leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<C
 map({ "n", "v" }, "<Leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, { desc = "Prev Diagnostic" })
 map({ "n", "v" }, "<Leader>lo", "<cmd>Lspsaga outline<CR>", opts, { desc = "Outline" })
 map({ "n", "v" }, "<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, { desc = "Rename" })
-map({ "n", "v" }, "<Leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", opts, { desc = "Document Symbols" })
 map(
 	{ "n", "v" },
 	"<Leader>lS",
@@ -166,9 +173,6 @@ map({ "n", "v" }, "<Leader>/", "<Plug>(comment_toggle_linewise_current)", opts, 
 -- mapping to quit the neovim
 map({ "n", "v" }, "<Leader>q", "<cmd>qa!<CR>", opts, { desc = "Quit" })
 
--- mapping to find all the refrences of the word under the cursor
-map("n", "<leader>gr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })
-
 map("n", "<leader>bo", function()
 	local url = vim.fn.expand "<cfile>"
 	if url:match "^https?://" then
@@ -189,13 +193,49 @@ end)
 map("n", "<leader>rr", function()
 	vim.cmd "LspRestart"
 	vim.schedule(function()
-		vim.notify("Lsp Restarted ....", vim.log.levels.INFO)
+		notify("Lsp Restarted ....", vim.log.levels.INFO)
 	end)
 end, opts)
 
 map("n", "<leader>tp", function()
 	vim.cmd "TypstPreviewToggle"
 	vim.schedule(function()
-		vim.notify("Doc Preview started....", vim.log.levels.INFO)
+		notify("Doc Preview started....", vim.log.levels.INFO)
 	end)
 end, opts, { desc = "Typst preview" })
+
+local function open_remote_reopository()
+	local handle = io.popen "git config --get remote.origin.url"
+	if handle == nil then
+		notify("Not a git repository", vim.log.levels.WARN)
+		return
+	end
+
+	local result = handle:read "*a"
+	handle:close()
+
+	if result == "" then
+		notify("No remote origin found", vim.log.levels.WARN)
+		return
+	end
+	result = result:gsub("%s+$", "")
+
+	local url = result
+
+	-- handling ssh type urls
+	url = url:gsub("^git@([^:]+):", "https://%1/")
+	-- handling .git suffix removal
+	url = url:gsub("%.git$", "")
+
+	-- open in browser
+	local open_cmd = "xdg-open"
+	if vim.fn.has "mac" == 1 then
+		open_cmd = "open"
+	end
+
+	vim.fn.jobstart({ open_cmd, url }, { detach = true })
+
+	vim.notify("Opening remote repo → " .. url, vim.log.levels.INFO)
+end
+
+map({ "n" }, "<leader>gr", open_remote_reopository, { desc = "Open remote repo in browser" })
