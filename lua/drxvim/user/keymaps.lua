@@ -239,3 +239,5 @@ local function open_remote_reopository()
 end
 
 map({ "n" }, "<leader>gr", open_remote_reopository, { desc = "Open remote repo in browser" })
+
+map("n", "<leader>of", "za", { desc = "Toggle fold", silent = true })
