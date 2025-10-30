@@ -455,10 +455,6 @@ local plugins = {
 		version = "1.*",
 		opts = {}, -- lazy.nvim will implicitly calls `setup {}`
 	},
-	{
-		"benomahony/oil-git.nvim",
-		dependencies = { "stevearc/oil.nvim" },
-	},
 }
 
 require("lazy").setup(plugins)
