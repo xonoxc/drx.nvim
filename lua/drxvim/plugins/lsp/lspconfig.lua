@@ -109,6 +109,14 @@ lspconfig.vtsls.setup {
 	settings = {
 		typescript = {
 			tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+			inlayHints = {
+				parameterNames = { enabled = "literals" },
+				parameterTypes = { enabled = true },
+				variableTypes = { enabled = false },
+				propertyDeclarationTypes = { enabled = true },
+				functionLikeReturnTypes = { enabled = false },
+				enumMemberValues = { enabled = true },
+			},
 		},
 	},
 }
