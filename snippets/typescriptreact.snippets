@@ -17,3 +17,29 @@ snippet eaf "export default functional component"
 	export async function ${1}(${2}): ${3:any} {
 		${0}
 	}
+
+
+snippet jsxc "jsx comment"
+	{/* ${0} */}
+
+
+
+snippet rnfds "React named default functional component"
+	import React from 'react';
+	import { Stylesheet } from 'react-native';
+
+	export default function ${1}(${2}) {
+		return (
+			<div>
+				${0}
+			</div>
+		);
+	}
+
+	const styles = Stylesheet.create({
+		container: {
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+	});

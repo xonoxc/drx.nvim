@@ -70,7 +70,7 @@ lspconfig.gopls.setup {
 			analyses = {
 				unusedparams = true,
 			},
-			staticcheck = true,
+			staticcheck = false,
 			buildFlags = { "-tags=integration" },
 			hints = {
 				assignVariableTypes = true,
@@ -117,6 +117,24 @@ lspconfig.vtsls.setup {
 				functionLikeReturnTypes = { enabled = false },
 				enumMemberValues = { enabled = true },
 			},
+			preferences = {
+				importModuleSpecifier = "non-relative",
+				importModuleSpecifierEnding = "minimal",
+			},
+		},
+		javascript = {
+			inlayHints = {
+				parameterNames = { enabled = "literals" },
+				parameterTypes = { enabled = true },
+				variableTypes = { enabled = false },
+				propertyDeclarationTypes = { enabled = true },
+				functionLikeReturnTypes = { enabled = false },
+				enumMemberValues = { enabled = true },
+			},
+			preferences = {
+				importModuleSpecifier = "non-relative",
+				importModuleSpecifierEnding = "minimal",
+			},
 		},
 	},
 }
@@ -157,6 +175,7 @@ lspconfig.clangd.setup {
 	filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp", "inl" },
 	root_dir = lspconfig.util.root_pattern(".git", "compile_commands.json"),
 	init_options = {
+		fallbackFlags = { "--std=c++23" },
 		clangdFileStatus = true,
 		usePlaceholders = true,
 		completeUnimported = true,
