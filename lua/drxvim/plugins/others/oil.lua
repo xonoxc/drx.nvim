@@ -18,6 +18,15 @@ local M = {
 			return name == ".." -- always hide the parent directory entry
 		end,
 	},
+	prompt_save_on_select_new_entry = false,
+	actions = {
+		delete = {
+			confirm = false,
+		},
+	},
+	lsp_file_methods = {
+		enabled = true,
+	},
 	win_options = {
 		signcolumn = "yes:2",
 	},
