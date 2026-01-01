@@ -278,3 +278,91 @@ snippet errwr "Error handling with fmt.Errorf"
 	if ${1}err != nil {
 		return fmt.Errorf("${2} %w", err)
 	}
+
+
+
+snippet gt "Go test function"
+	func Test${1:Name}(t *testing.T) {
+		${0:// test logic}
+	}
+
+
+
+snippet gts "Go subtest"
+	func Test${1:Name}(t *testing.T) {
+		t.Run("${2:case}", func(t *testing.T) {
+			${0:// test logic}
+		})
+	}
+
+
+
+snippet gtt "Go table driven test"
+	func Test${1:Name}(t *testing.T) {
+		tests := []struct {
+			name string
+			input ${2:int}
+			want  ${3:int}
+		}{
+			{ name: "test_case_1", input: ${4:1}, want: ${5:2} },
+		}
+
+		for _, tc := range tests {
+			t.Run(tc.name, func(t *testing.T) {
+				got := ${6:yourFunc}(tc.input)
+				if got != tc.want {
+					t.Errorf("got %v, want %v", got, tc.want)
+				}
+			})
+		}
+	}
+
+
+
+snippet gte "Go test expecting error"
+	func Test${1:Name}(t *testing.T) {
+		_, err := ${2:yourFunc}(${3:input})
+		if err == nil {
+			t.Errorf("expected error, got nil")
+		}
+		${0}
+	}
+
+
+
+snippet gtb "Go benchmark"
+	func Benchmark${1:Name}(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			${2:yourFunc}(${0})
+		}
+	}
+
+
+
+snippet gtex "Go example test"
+	func Example${1:Name}() {
+		fmt.Println(${2:yourFunc}(${3:input}))
+		// Output: ${0:expected_output}
+	}
+
+
+
+snippet gtpb "Go parallel benchmark"
+	func Benchmark${1:Name}(b *testing.B) {
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				${2:yourFunc}(${0})
+			}
+		})
+	}
+
+
+snippet gtbs "Go benchmark with setup and timer reset"
+	func Benchmark${1:Name}(b *testing.B) {
+		${2:// setup code here}
+
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			${3:yourFunc}(${0})
+		}
+	}
