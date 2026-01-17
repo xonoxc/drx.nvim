@@ -70,7 +70,26 @@ return {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			local kind = lspkind.cmp_format {
-				symbol_map = { Copilot = "", Codeium = "", Snippet = "", Keyword = "" },
+				symbol_map = {
+					Copilot = "",
+					Codeium = "",
+					Snippet = "",
+					Keyword = "",
+					Proerty = "",
+					Field = "",
+					File = "",
+					Module = "",
+					Unit = "",
+					Function = "",
+					Value = "",
+					Enum = "",
+					Text = "",
+					Constant = "",
+					Struct = "",
+					Event = "",
+					Operator = "",
+					TypeParameter = "",
+				},
 				preset = "codicons",
 				maxwidth = 40,
 			}(entry, vim_item)
