@@ -241,3 +241,6 @@ end
 map({ "n" }, "<leader>gr", open_remote_reopository, { desc = "Open remote repo in browser" })
 
 map("n", "<leader>of", "za", { desc = "Toggle fold", silent = true })
+
+map("i", "jk", "<Esc>", opts, { desc = "Escape from insert mode" })
+map("i", "kj", "<Esc>", opts, { desc = "Escape from insert mode" })
