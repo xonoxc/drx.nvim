@@ -245,7 +245,7 @@ map("n", "<leader>of", "za", { desc = "Toggle fold", silent = true })
 map("i", "jk", "<Esc>", opts, { desc = "Escape from insert mode" })
 map("i", "kj", "<Esc>", opts, { desc = "Escape from insert mode" })
 
-map("n", "<leader>fb", function()
+map("n", "<leader>fo", function()
 	require("telescope.builtin").buffers {
 		sort_mru = true,
 	}
