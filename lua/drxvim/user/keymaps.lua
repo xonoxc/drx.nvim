@@ -235,7 +235,7 @@ local function open_remote_reopository()
 
 	vim.fn.jobstart({ open_cmd, url }, { detach = true })
 
-	vim.notify("Opening remote repo → " .. url, vim.log.levels.INFO)
+	notify("Opening remote repo → " .. url, vim.log.levels.INFO)
 end
 
 map({ "n" }, "<leader>gr", open_remote_reopository, { desc = "Open remote repo in browser" })
@@ -244,3 +244,9 @@ map("n", "<leader>of", "za", { desc = "Toggle fold", silent = true })
 
 map("i", "jk", "<Esc>", opts, { desc = "Escape from insert mode" })
 map("i", "kj", "<Esc>", opts, { desc = "Escape from insert mode" })
+
+map("n", "<leader>fb", function()
+	require("telescope.builtin").buffers {
+		sort_mru = true,
+	}
+end, { desc = "Switch between opened buffers" })
