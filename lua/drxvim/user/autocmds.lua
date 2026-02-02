@@ -252,3 +252,22 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
 		end
 	end,
 })
+
+autocmd("FileType", {
+	pattern = { "sql", "mysql", "plsql" },
+	callback = function()
+		require("lazy").load { plugins = { "vim-dadbod-completion" } }
+
+		local cmp = require "cmp"
+		cmp.setup.buffer {
+			sources = cmp.config.sources({
+				{ name = "vim-dadbod-completion" },
+			}, {
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+				{ name = "buffer" },
+				{ name = "path" },
+			}),
+		}
+	end,
+})

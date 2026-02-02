@@ -16,6 +16,7 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match "^%s*$" == nil
 end
 
+
 return {
 	snippet = {
 		expand = function(args)
@@ -92,7 +93,7 @@ return {
 				},
 				preset = "codicons",
 				maxwidth = 40,
-			}(entry, vim_item)
+			} (entry, vim_item)
 			local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
 			kind.kind = " " .. string.format(" %s │", strings[1], strings[2]) .. " "
 			return kind

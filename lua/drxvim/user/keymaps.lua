@@ -250,3 +250,6 @@ map("n", "<leader>fo", function()
 		sort_mru = true,
 	}
 end, { desc = "Switch between opened buffers" })
+
+-- dadbod ui toggle_option
+map("n", "<leader>dt", "<cmd>DBUIToggle<CR>", opts, { desc = "Toggle Dadbod UI" })
