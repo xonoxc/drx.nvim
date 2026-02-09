@@ -304,7 +304,7 @@ lspconfig.pyright.setup {
 	settings = {
 		pyright = {
 			disableLanguageServices = false,
-			disableOrgainzeImports = false,
+			disableOrganizeImports = false,
 		},
 		python = {
 			analysis = {
