@@ -28,5 +28,5 @@ return {
 	HopNextKey2 = { fg = colors.blue, bold = true },
 
 	-- Copilot
-	CopilotSuggestion = { fg = colors.light_grey, italic = true },
+	CopilotSuggestion = { fg = colors.light_grey, italic = false },
 }

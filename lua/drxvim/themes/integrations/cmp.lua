@@ -10,7 +10,7 @@ return {
 	CmpItemMenu = { fg = colors.green, bg = colors.darker_black },
 	CmpNormal = { fg = colors.white, bg = colors.darker_black },
 	CmpBorder = { fg = colors.darker_black, bg = colors.darker_black },
-	CmpSelection = { fg = colors.darker_black, bg = colors.blue, bold = true, italic = true },
+	CmpSelection = { fg = colors.darker_black, bg = colors.blue, bold = true, italic = false },
 
 	CmpItemKindConstant = { fg = colors.base09 },
 	CmpItemKindFunction = { fg = colors.base0D },

@@ -59,7 +59,7 @@ function M.get_colors()
 			Conditional = { fg = colors.accent }, -- same as keyword
 			Function = { fg = colors.accent }, -- unify functions/keywords
 			String = { fg = colors.string_color }, -- subtle magenta
-			Comment = { fg = colors.grey_fg, italic = true },
+			Comment = { fg = colors.grey_fg, italic = false },
 			Constant = { fg = colors.light_white },
 		},
 		diff = {

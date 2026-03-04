@@ -19,7 +19,7 @@ return {
 	MsgSeparator = { fg = colors.white, bg = colors.black },
 
 	WildMenu = { fg = colors.base08, bg = colors.base0A },
-	Comment = { fg = colors.grey_fg, italic = true },
+	Comment = { fg = colors.grey_fg, italic = false },
 	Whitespace = { fg = colors.grey_fg },
 
 	Folded = { fg = colors.light_grey, bg = colors.black },

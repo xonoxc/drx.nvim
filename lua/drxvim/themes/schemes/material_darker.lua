@@ -90,7 +90,7 @@ function M.get_colors()
 			["@lsp.type.class"] = { fg = colors.yellow },
 			["@lsp.type.enum"] = { link = "@lsp.type.class" },
 			["@lsp.type.enumMember"] = { link = "@lsp.type.property" },
-			["@lsp.type.interface"] = { fg = colors.green, italic = true },
+			["@lsp.type.interface"] = { fg = colors.green, italic = false },
 			["@lsp.type.method"] = { fg = colors.blue },
 			["@lsp.type.modifier"] = { fg = colors.purple },
 			["@lsp.type.namespace"] = { link = "@lsp.type.class" },
