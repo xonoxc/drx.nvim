@@ -316,12 +316,12 @@ local plugins = {
 		cmd = "Trouble",
 		keys = {
 			{
-				"<leader>ld",
+				"<leader>lD",
 				"<cmd>Trouble diagnostics toggle focus=true<cr>",
 				desc = "Diagnostics (Trouble)",
 			},
 			{
-				"<leader>lD",
+				"<leader>ld",
 				"<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
 				desc = "Buffer Diagnostics (Trouble)",
 			},
