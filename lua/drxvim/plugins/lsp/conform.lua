@@ -4,7 +4,7 @@ return {
 		php = { "pretty-php" },
 		typst = { "prettypst" },
 		typescript = { "prettierd" },
-		svelte = { "prettierd" },
+		svelte = { "prettierd", "biome" },
 		typescriptreact = { "prettierd" },
 		javascriptreact = { "prettierd" },
 		javascript = { "prettierd" },
