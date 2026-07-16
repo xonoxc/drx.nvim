@@ -175,7 +175,9 @@ lspconfig.clangd.setup {
 	filetypes = { "c", "cpp", "objc", "objcpp", "h", "hpp", "inl" },
 	root_dir = lspconfig.util.root_pattern(".git", "compile_commands.json"),
 	init_options = {
-		fallbackFlags = { "--std=c23" },
+		-- Changed from c++2d to c++2c to fix the driver error
+		-- fallbackFlags = { "--std=c23" },
+		fallbackFlags = { "-std=c++2c" },
 		clangdFileStatus = true,
 		usePlaceholders = true,
 		completeUnimported = true,
