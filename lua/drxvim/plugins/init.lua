@@ -370,7 +370,7 @@ local plugins = {
 	-- 	require("codeium").setup({})
 	-- end,
 	--},
-	{
+	--[[ {
 		"zbirenbaum/copilot-cmp",
 		event = "InsertEnter",
 		config = function()
@@ -389,8 +389,7 @@ local plugins = {
 				}
 			end,
 		},
-	},
-
+	} ,]]
 	-- this is for debugger integration in neovim
 	{
 		"mfussenegger/nvim-dap",

@@ -14,7 +14,8 @@ return {
 		html = { "prettierd" },
 		rust = { "rustfmt", lsp_format = "fallback" },
 		sh = { "shfmt" },
-		cpp = { "clang-format" },
+		c = {},
+		cpp = {},
 		java = { "clang-format" },
 		asm = { "asmfmt" },
 		go = {
@@ -48,8 +49,10 @@ return {
 		quiet = false,
 	},
 
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true,
-	},
+	format_on_save = function()
+		return {
+			timeout_ms = 500,
+			lsp_fallback = true,
+		}
+	end,
 }
